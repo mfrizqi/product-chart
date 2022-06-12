@@ -16,39 +16,13 @@
           <!-- Timespan button -->
           <section class="flex">
             <button
+              v-for="(time, index) in timespans"
+              :key="index"
               class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
-              @click="selectTimespan('all')"
-              :class="{ active: activeBtn === 0 }"
+              @click="selectTimespan(time.value)"
+              :class="{ active: activeBtn === index }"
             >
-              All
-            </button>
-            <button
-              class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
-              @click="selectTimespan('1')"
-              :class="{ active: activeBtn === 1 }"
-            >
-              1m
-            </button>
-            <button
-              class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
-              @click="selectTimespan('3')"
-              :class="{ active: activeBtn === 2 }"
-            >
-              3m
-            </button>
-            <button
-              class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
-              @click="selectTimespan('6')"
-              :class="{ active: activeBtn === 3 }"
-            >
-              6m
-            </button>
-            <button
-              class="rounded-md px-3 py-1 drop-shadow-md font-semibold bg-white"
-              @click="selectTimespan('12')"
-              :class="{ active: activeBtn === 4 }"
-            >
-              1y
+              {{ time.name }}
             </button>
           </section>
         </div>
@@ -78,60 +52,10 @@
               </div>
               <div
                 class="circle-gradient flex justify-center items-center text-xl font-bold text-black"
-              >
-              </div>
+              ></div>
             </div>
           </section>
         </div>
-      </div>
-      <div class="grid grid-cols-2 gap-2 hidden">
-        <section class="flex">
-          <button
-            class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
-            @click="selectTimespan('all')"
-            :class="{ active: activeBtn === 0 }"
-          >
-            All
-          </button>
-          <button
-            class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
-            @click="selectTimespan('1')"
-            :class="{ active: activeBtn === 1 }"
-          >
-            1m
-          </button>
-          <button
-            class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
-            @click="selectTimespan('3')"
-            :class="{ active: activeBtn === 2 }"
-          >
-            3m
-          </button>
-          <button
-            class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
-            @click="selectTimespan('6')"
-            :class="{ active: activeBtn === 3 }"
-          >
-            6m
-          </button>
-          <button
-            class="rounded-md px-3 py-1 drop-shadow-md font-semibold bg-white"
-            @click="selectTimespan('12')"
-            :class="{ active: activeBtn === 4 }"
-          >
-            1y
-          </button>
-        </section>
-        <section>
-          <div class="container">
-            <div class="columns-3 p-4 bg-white drop-shadow-md rounded-md">
-              January
-            </div>
-            <div class="columns-3 p-4 bg-white drop-shadow-md rounded-md">
-              Risk Profile
-            </div>
-          </div>
-        </section>
       </div>
     </div>
   </section>
@@ -198,7 +122,13 @@ export default {
     return {
       data: {},
       activeBtn: 0,
-      timespans: ["all", "1", "3", "6", "12"],
+      timespans: [
+        { name: "All", value: "all" },
+        { name: "1m", value: "1" },
+        { name: "3m", value: "3" },
+        { name: "6m", value: "6" },
+        { name: "1y", value: "12" },
+      ],
       chartData: {
         labels: ["Jan", "Feb", "Mar", "Apr", "May"],
         datasets: [
@@ -252,7 +182,7 @@ export default {
     },
     selectTimespan(time) {
       console.log(time);
-      const idx = this.timespans.findIndex((el) => el === time);
+      const idx = this.timespans.findIndex((el) => el.value === time);
       this.activeBtn = idx;
     },
   },
