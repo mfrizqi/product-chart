@@ -199,7 +199,6 @@ export default {
       axios
         .get(url)
         .then((res) => {
-          console.log(res.data);
           this.data = res.data;
           const cValue = this.data.results.map((el) => el.c);
           const dataDates = this.calculateStockDates(this.data.results);
@@ -211,7 +210,6 @@ export default {
         });
     },
     selectTimespan(time) {
-      console.log();
       const idx = this.timespans.findIndex((el) => el.name === time.name);
       this.activeBtn = idx;
       if (time.name === "All" || time.name === "1y") {
@@ -220,8 +218,6 @@ export default {
         this.selectedTime.type = "months";
       }
       this.selectedTime.duration = time.value;
-      console.log("selectedTime");
-      console.log(this.selectedTime);
       this.getData();
     },
     calculateStockDates(timeResults) {
