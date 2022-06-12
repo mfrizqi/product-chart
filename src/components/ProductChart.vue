@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="container">
+    <div class="chart-container">
       <Line
         :chart-options="chartOptions"
         :chart-data="chartData"
@@ -10,6 +10,129 @@
         :css-classes="cssClasses"
         :styles="styles"
       />
+
+      <div class="flex mt-6">
+        <div class="flex-1">
+          <!-- Timespan button -->
+          <section class="flex">
+            <button
+              class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
+              @click="selectTimespan('all')"
+              :class="{ active: activeBtn === 0 }"
+            >
+              All
+            </button>
+            <button
+              class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
+              @click="selectTimespan('1')"
+              :class="{ active: activeBtn === 1 }"
+            >
+              1m
+            </button>
+            <button
+              class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
+              @click="selectTimespan('3')"
+              :class="{ active: activeBtn === 2 }"
+            >
+              3m
+            </button>
+            <button
+              class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
+              @click="selectTimespan('6')"
+              :class="{ active: activeBtn === 3 }"
+            >
+              6m
+            </button>
+            <button
+              class="rounded-md px-3 py-1 drop-shadow-md font-semibold bg-white"
+              @click="selectTimespan('12')"
+              :class="{ active: activeBtn === 4 }"
+            >
+              1y
+            </button>
+          </section>
+        </div>
+        <div class="flex-1">
+          <section class="flex">
+            <div
+              class="flex-1 p-4 bg-white drop-shadow-md rounded-md mr-3 flex justify-between"
+            >
+              <div>
+                <span class="font-bold block mb-1">January</span>
+                <span class="font-bold block text-gray-400 text-sm">2022</span>
+              </div>
+              <div
+                class="circle-date flex justify-center items-center text-xl font-bold text-black"
+              >
+                15
+              </div>
+            </div>
+            <div
+              class="flex-1 p-4 bg-white drop-shadow-md rounded-md mr-3 flex justify-between"
+            >
+              <div>
+                <span class="font-bold block mb-1">Risk Profile</span>
+                <span class="font-bold block text-gray-400 text-sm"
+                  >Rendah</span
+                >
+              </div>
+              <div
+                class="circle-gradient flex justify-center items-center text-xl font-bold text-black"
+              >
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-2 hidden">
+        <section class="flex">
+          <button
+            class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
+            @click="selectTimespan('all')"
+            :class="{ active: activeBtn === 0 }"
+          >
+            All
+          </button>
+          <button
+            class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
+            @click="selectTimespan('1')"
+            :class="{ active: activeBtn === 1 }"
+          >
+            1m
+          </button>
+          <button
+            class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
+            @click="selectTimespan('3')"
+            :class="{ active: activeBtn === 2 }"
+          >
+            3m
+          </button>
+          <button
+            class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
+            @click="selectTimespan('6')"
+            :class="{ active: activeBtn === 3 }"
+          >
+            6m
+          </button>
+          <button
+            class="rounded-md px-3 py-1 drop-shadow-md font-semibold bg-white"
+            @click="selectTimespan('12')"
+            :class="{ active: activeBtn === 4 }"
+          >
+            1y
+          </button>
+        </section>
+        <section>
+          <div class="container">
+            <div class="columns-3 p-4 bg-white drop-shadow-md rounded-md">
+              January
+            </div>
+            <div class="columns-3 p-4 bg-white drop-shadow-md rounded-md">
+              Risk Profile
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   </section>
 </template>
@@ -74,6 +197,8 @@ export default {
   data() {
     return {
       data: {},
+      activeBtn: 0,
+      timespans: ["all", "1", "3", "6", "12"],
       chartData: {
         labels: ["Jan", "Feb", "Mar", "Apr", "May"],
         datasets: [
@@ -125,6 +250,11 @@ export default {
           console.error(error);
         });
     },
+    selectTimespan(time) {
+      console.log(time);
+      const idx = this.timespans.findIndex((el) => el === time);
+      this.activeBtn = idx;
+    },
   },
 };
 </script>
@@ -143,10 +273,39 @@ export default {
   font-size: 20px;
 }
 
-.container {
+.chart-container {
   position: relative;
   margin: auto;
   height: auto;
   width: 70%;
+}
+
+.active {
+  background-color: rgb(239 68 68);
+  color: white;
+}
+
+.circle-date {
+  height: 40px;
+  width: 40px;
+  border: 3px solid rgb(216, 52, 52);
+  border-radius: 40px;
+}
+
+.circle-gradient {
+  height: 40px;
+  width: 40px;
+  border-radius: 64px;
+  background: #11998e; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    245deg,
+    #38ef7d,
+    #11998e
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    245deg,
+    #38ef7d,
+    #11998e
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 </style>
