@@ -19,7 +19,7 @@
               v-for="(time, index) in timespans"
               :key="index"
               class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
-              @click="selectTimespan(time.value)"
+              @click="selectTimespan(time)"
               :class="{ active: activeBtn === index }"
             >
               {{ time.name }}
@@ -32,13 +32,17 @@
               class="flex-1 p-4 bg-white drop-shadow-md rounded-md mr-3 flex justify-between"
             >
               <div>
-                <span class="font-bold block mb-1">January</span>
-                <span class="font-bold block text-gray-400 text-sm">2022</span>
+                <span class="font-bold block mb-1">{{
+                  moment().format("MMMM")
+                }}</span>
+                <span class="font-bold block text-gray-400 text-sm">
+                  {{moment().format('YYYY')}}
+                </span>
               </div>
               <div
                 class="circle-date flex justify-center items-center text-xl font-bold text-black"
               >
-                15
+                {{moment().format('DD')}}
               </div>
             </div>
             <div
@@ -47,7 +51,7 @@
               <div>
                 <span class="font-bold block mb-1">Risk Profile</span>
                 <span class="font-bold block text-gray-400 text-sm"
-                  >Rendah</span
+                  >Low</span
                 >
               </div>
               <div
@@ -64,6 +68,8 @@
 <script>
 import { Line } from "vue-chartjs";
 import axios from "axios";
+import moment from "moment";
+
 import {
   Chart as ChartJS,
   Title,
@@ -120,20 +126,11 @@ export default {
   },
   data() {
     return {
-      data: {},
-      activeBtn: 0,
-      timespans: [
-        { name: "All", value: "all" },
-        { name: "1m", value: "1" },
-        { name: "3m", value: "3" },
-        { name: "6m", value: "6" },
-        { name: "1y", value: "12" },
-      ],
       chartData: {
         labels: ["Jan", "Feb", "Mar", "Apr", "May"],
         datasets: [
           {
-            label: "My First Datasets edited",
+            label: "",
             data: [65, 59, 80, 81, 56, 55, 40],
             fill: false,
             borderColor: "rgb(75, 192, 192)",
@@ -151,6 +148,9 @@ export default {
           },
           y: {
             grid: { display: false, borderColor: "rgb(255,255,255)" },
+            ticks: {
+              display: true, //this will remove only the label
+            },
           },
         },
         maintainAspectRatio: false,
@@ -159,31 +159,83 @@ export default {
           chartAreaBorder: {
             borderWidth: 0,
           },
+          legend: {
+            display: false,
+          },
         },
       },
       apikey: "dXUpzvWgv2nzCgkZUs3OY1aDVIZ7Vwq4",
+      activeBtn: 1,
+      data: {},
+      timespans: [
+        { name: "All", value: 3 },
+        { name: "1m", value: 1 },
+        { name: "3m", value: 3 },
+        { name: "6m", value: 6 },
+        { name: "1y", value: 1 },
+      ],
+      selectedTime: {
+        duration: 1,
+        type: "months",
+      },
     };
   },
   mounted() {
     this.getData();
   },
+  computed: {
+    todayDate() {
+      return `${moment().format("YYYY-MM-DD")}`;
+    },
+    selectedDate() {
+      return `${moment()
+        .subtract(this.selectedTime.duration, this.selectedTime.type)
+        .format("YYYY-MM-DD")}`;
+    },
+  },
   methods: {
     getData() {
-      const url = `https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2021-07-22/2021-07-22?adjusted=true&sort=asc&limit=120&apiKey=${this.apikey}`;
+      const url = `https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/${this.selectedDate}/${this.todayDate}?adjusted=true&sort=asc&limit=5000&apiKey=${this.apikey}`;
       axios
         .get(url)
         .then((res) => {
           console.log(res.data);
           this.data = res.data;
+          const cValue = this.data.results.map((el) => el.c);
+          const dataDates = this.calculateStockDates(this.data.results);
+          this.chartData.datasets[0].data = cValue;
+          this.chartData.labels = dataDates;
         })
         .catch((error) => {
           console.error(error);
         });
     },
     selectTimespan(time) {
-      console.log(time);
-      const idx = this.timespans.findIndex((el) => el.value === time);
+      console.log();
+      const idx = this.timespans.findIndex((el) => el.name === time.name);
       this.activeBtn = idx;
+      if (time.name === "All" || time.name === "1y") {
+        this.selectedTime.type = "years";
+      } else {
+        this.selectedTime.type = "months";
+      }
+      this.selectedTime.duration = time.value;
+      console.log("selectedTime");
+      console.log(this.selectedTime);
+      this.getData();
+    },
+    calculateStockDates(timeResults) {
+      const dates = [];
+      timeResults.forEach((el) => {
+        const date = new Date(el.t);
+        const monthName = date.toLocaleString("en-US", { month: "short" });
+        const dateNumber = date.getDate();
+        dates.push(`${monthName} ${dateNumber}`);
+      });
+      return dates;
+    },
+    moment() {
+      return moment();
     },
   },
 };
