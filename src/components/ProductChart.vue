@@ -11,16 +11,21 @@
         :styles="styles"
       />
 
-      <div class="flex mt-6">
+      <div class="md:flex mt-6">
         <div class="flex-1">
           <!-- Timespan button -->
-          <section class="flex">
+          <section
+            class="flex justify-center md:justify-start md:mb-0 mb-4 flex-wrap md:flex-nowrap"
+          >
             <button
               v-for="(time, index) in timespans"
               :key="index"
               class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
               @click="selectTimespan(time)"
-              :class="{ active: activeBtn === index }"
+              :class="[
+                { active: activeBtn === index },
+                { 'mr-6': index < timespans.length },
+              ]"
             >
               {{ time.name }}
             </button>
@@ -36,23 +41,21 @@
                   moment().format("MMMM")
                 }}</span>
                 <span class="font-bold block text-gray-400 text-sm">
-                  {{moment().format('YYYY')}}
+                  {{ moment().format("YYYY") }}
                 </span>
               </div>
               <div
                 class="circle-date flex justify-center items-center text-xl font-bold text-black"
               >
-                {{moment().format('DD')}}
+                {{ moment().format("DD") }}
               </div>
             </div>
             <div
-              class="flex-1 p-4 bg-white drop-shadow-md rounded-md mr-3 flex justify-between"
+              class="flex-1 p-4 bg-white drop-shadow-md rounded-md flex justify-between"
             >
               <div>
                 <span class="font-bold block mb-1">Risk Profile</span>
-                <span class="font-bold block text-gray-400 text-sm"
-                  >Low</span
-                >
+                <span class="font-bold block text-gray-400 text-sm">Low</span>
               </div>
               <div
                 class="circle-gradient flex justify-center items-center text-xl font-bold text-black"
@@ -125,6 +128,7 @@ export default {
     },
   },
   data() {
+    var self = this;
     return {
       chartData: {
         labels: ["Jan", "Feb", "Mar", "Apr", "May"],
@@ -133,12 +137,33 @@ export default {
             label: "",
             data: [65, 59, 80, 81, 56, 55, 40],
             fill: false,
-            borderColor: "rgb(75, 192, 192)",
+            // borderColor: "rgb(75, 192, 192)",
+            borderColor: (context) => {
+              const chart = context.chart;
+              const { ctx, chartArea } = chart;
+
+              if (!chartArea) {
+                // This case happens on initial chart load
+                return null;
+              }
+              return self.getGradient(ctx, chartArea);
+            },
+            borderWidth: 2,
             tension: 0.1,
           },
         ],
       },
       chartOptions: {
+        maintainAspectRatio: false,
+        responsive: true,
+        elements: {
+          point: {
+            radius: 0,
+            pointHoverRadius: 10,
+            pointHoverBorderWidth: 0,
+            pointHoverBackgroundColor: "rgb(54, 54, 54)",
+          },
+        },
         scales: {
           x: {
             grid: { display: false, borderColor: "rgb(255,255,255)" },
@@ -147,14 +172,14 @@ export default {
             },
           },
           y: {
+            type: "linear",
+            position: "right",
             grid: { display: false, borderColor: "rgb(255,255,255)" },
             ticks: {
               display: true, //this will remove only the label
             },
           },
         },
-        maintainAspectRatio: false,
-        responsive: true,
         plugins: {
           chartAreaBorder: {
             borderWidth: 0,
@@ -162,6 +187,10 @@ export default {
           legend: {
             display: false,
           },
+        },
+        interaction: {
+          intersect: false,
+          mode: "index",
         },
       },
       apikey: "dXUpzvWgv2nzCgkZUs3OY1aDVIZ7Vwq4",
@@ -178,6 +207,9 @@ export default {
         duration: 1,
         type: "months",
       },
+      widthCanvas: 0,
+      heightCanvas: 0,
+      gradientCanvas: null,
     };
   },
   mounted() {
@@ -233,6 +265,30 @@ export default {
     moment() {
       return moment();
     },
+    getGradient(ctx, chartArea) {
+      const chartWidth = chartArea.right - chartArea.left;
+      const chartHeight = chartArea.bottom - chartArea.top;
+      if (
+        this.gradientCanvas === null ||
+        this.widthCanvas !== chartWidth ||
+        this.heightCanvas !== chartHeight
+      ) {
+        // Create the gradient because this is either the first render
+        // or the size of the chart has changed
+        this.widthCanvas = chartWidth;
+        this.heightCanvas = chartHeight;
+        this.gradientCanvas = ctx.createLinearGradient(
+          chartArea.left,
+          chartArea.bottom,
+          chartArea.right,
+          chartArea.top
+        );
+        this.gradientCanvas.addColorStop(0, "#122eff");
+        this.gradientCanvas.addColorStop(1, "#00ff32");
+      }
+
+      return this.gradientCanvas;
+    },
   },
 };
 </script>
@@ -255,7 +311,7 @@ export default {
   position: relative;
   margin: auto;
   height: auto;
-  width: 70%;
+  width: 100%;
 }
 
 .active {
