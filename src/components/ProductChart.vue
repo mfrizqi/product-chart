@@ -20,11 +20,11 @@
             <button
               v-for="(time, index) in timespans"
               :key="index"
-              class="rounded-md mr-6 px-3 py-1 drop-shadow-md font-semibold bg-white"
+              class="rounded-md px-3 py-1 drop-shadow-md font-semibold bg-white"
               @click="selectTimespan(time)"
               :class="[
                 { active: activeBtn === index },
-                { 'mr-6': index < timespans.length },
+                { 'mr-4': index < timespans.length },
               ]"
             >
               {{ time.name }}
@@ -36,13 +36,13 @@
             <div
               class="flex-1 p-4 bg-white drop-shadow-md rounded-md mr-3 flex justify-between"
             >
-              <div>
-                <span class="font-bold block mb-1">{{
+              <div class="flex flex-col justify-between">
+                <div class="font-bold block mb-1">{{
                   moment().format("MMMM")
-                }}</span>
-                <span class="font-bold block text-gray-400 text-sm">
+                }}</div>
+                <div class="font-bold block text-gray-400 text-sm">
                   {{ moment().format("YYYY") }}
-                </span>
+                </div>
               </div>
               <div
                 class="circle-date flex justify-center items-center text-xl font-bold text-black"
