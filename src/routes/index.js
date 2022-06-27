@@ -2,7 +2,8 @@ import { createWebHistory, createRouter } from "vue-router";
 
 import Home from "../components/pages/Home.vue";
 import Calculator from "../components/pages/Calculator.vue";
-import ReksadanaCampuran from "../components/pages/reksadana-campuran/reksadanaCampuran"
+import ReksadanaCampuran from "../components/pages/reksadana-campuran/reksadanaCampuran";
+import ReksadanaDetail from "../components/pages/reksadana-campuran/reksadanaDetail";
 
 const routes = [
   {
@@ -18,7 +19,12 @@ const routes = [
   {
     path: "/reksadana-campuran",
     name: "reksadanaCampuran",
-    component: ReksadanaCampuran
+    component: ReksadanaCampuran,
+  },
+  {
+    path: "/reksadana-campuran/:name",
+    name: "reksadanaDetail",
+    component: ReksadanaDetail,
   },
 ];
 

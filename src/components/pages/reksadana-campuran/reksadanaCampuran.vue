@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto mt-16">
+  <div class="container mx-auto mt-16 mb-16">
     <div class="p-4 drop-shadow-md bg-white rounded-md">
       <h1 class="font-bold text-4xl mb-6">Produk</h1>
       <ProductAccordion v-for="(cat, i) in categories" :key="i">
@@ -14,6 +14,7 @@
               class="p-6 flex border-b border-b-slate-600 cursor-pointer"
               v-for="(product, j) in cat.products"
               :key="j"
+              @click="selectMutualFunds(product)"
             >
               <div class="text-xl font-medium">{{ j + 1 }}</div>
               <div class="red-bar mx-4"></div>
@@ -95,6 +96,14 @@ export default {
       ],
     };
   },
+  methods: {
+    selectMutualFunds(product){
+      console.log(product);
+      const current = this.$route.path;
+      const url = product.name.toLowerCase().split(" ").join("")
+      this.$router.push({ path: `${current}/${url}`, params: product });
+    }
+  }
 };
 </script>
 

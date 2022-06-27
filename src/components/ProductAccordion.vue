@@ -4,7 +4,6 @@
       @click="toggleAccordion()"
       class="flex items-center space-x-3"
       :aria-expanded="isOpen"
-      :aria-controls="`collapse${_uid}`"
     >
       <slot class="text-lg" name="title" />
       <svg
@@ -28,7 +27,7 @@
       </svg>
     </button>
 
-    <div v-show="isOpen" :id="`collapse${_uid}`" class="bg-white rounded-b-md ">
+    <div v-show="isOpen" class="bg-white rounded-b-md ">
       <slot name="content" />
     </div>
   </div>
