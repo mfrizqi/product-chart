@@ -1,10 +1,10 @@
 <template>
   <div class="container mx-auto mt-16 mb-16">
-    <div class="p-4 drop-shadow-md bg-white rounded-md">
+    <div class="mx-auto p-4 drop-shadow-md bg-white rounded-md">
       <h1 class="font-bold text-4xl mb-6">Produk</h1>
       <ProductAccordion v-for="(cat, i) in categories" :key="i">
         <template v-slot:title>
-          <div class="font-medium text-3xl text-white p-4">
+          <div class="font-medium text-2xl text-white p-4 text-left">
             {{ cat.title }}
           </div>
         </template>
@@ -19,9 +19,6 @@
               <div class="text-xl font-medium">{{ j + 1 }}</div>
               <div class="red-bar mx-4"></div>
               <div class="text-xl font-medium">{{ product.name }}</div>
-              <!-- <button class="p-4 mr-4 mb-2 bg-red-600 text-white font-medium" v-for="(product, j) in cat.products" :key="j">
-                {{ product.name }}
-              </button> -->
             </div>
           </div>
         </template>
@@ -97,13 +94,17 @@ export default {
     };
   },
   methods: {
-    selectMutualFunds(product){
-      console.log(product);
-      const current = this.$route.path;
-      const url = product.name.toLowerCase().split(" ").join("")
-      this.$router.push({ path: `${current}/${url}`, params: product });
-    }
-  }
+    selectMutualFunds(product) {
+      const url = product.name.toLowerCase().split(" ").join("");
+      this.$router.push({
+        name: 'reksadanaDetail',
+        params:{
+          name: url,
+          title: product.name
+        },
+      });
+    },
+  },
 };
 </script>
 

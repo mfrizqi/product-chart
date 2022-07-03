@@ -25,6 +25,10 @@ const routes = [
     path: "/reksadana-campuran/:name",
     name: "reksadanaDetail",
     component: ReksadanaDetail,
+    props:{
+      default: true,
+      product: {}
+    }
   },
 ];
 
