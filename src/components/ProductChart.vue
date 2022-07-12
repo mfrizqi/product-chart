@@ -24,14 +24,14 @@
               @click="selectTimespan(time)"
               :class="[
                 { active: activeBtn === index },
-                { 'mr-4': index < timespans.length },
+                { 'mr-4': index < timespans.length-1 },
               ]"
             >
               {{ time.name }}
             </button>
           </section>
         </div>
-        <div class="flex-1">
+        <div class="flex-1 md:ml-4">
           <section class="flex">
             <div
               class="flex-1 p-4 bg-white drop-shadow-md rounded-md mr-3 flex justify-between"

@@ -4,6 +4,7 @@ import Home from "../components/pages/Home.vue";
 import Calculator from "../components/pages/Calculator.vue";
 import ReksadanaCampuran from "../components/pages/reksadana-campuran/reksadanaCampuran";
 import ReksadanaDetail from "../components/pages/reksadana-campuran/reksadanaDetail";
+import InvestmentPlan from "../components/pages/InvestmentPlan";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
       product: {}
     }
   },
+  {
+    path: "/investment-plan",
+    name: "investmentPlan",
+    component: InvestmentPlan
+  }
 ];
 
 const router = createRouter({
