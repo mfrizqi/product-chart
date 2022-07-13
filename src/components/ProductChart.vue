@@ -11,7 +11,7 @@
         :styles="styles"
       />
 
-      <div class="md:flex mt-6">
+      <div class="md:flex mt-6" v-if="withStatus">
         <div class="flex-1">
           <!-- Timespan button -->
           <section
@@ -126,6 +126,10 @@ export default {
       type: Object,
       default: () => {},
     },
+    withStatus: {
+      type: Boolean,
+      default: true
+    }
   },
   data() {
     var self = this;

@@ -40,7 +40,7 @@
           Simulasikan
         </button>
       </div>
-      <ProductChartVue class="lg:grow"/>
+      <ProductChartVue class="lg:grow" :withStatus="false"/>
     </div>
   </div>
 </template>
