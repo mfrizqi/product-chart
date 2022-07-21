@@ -8,10 +8,9 @@
         Sinarmas bisa membantu kamu mencapai impian melalui investasi
       </div>
     </div>
-    <div class="container lg:flex">
+    <div class="lg:flex">
       <div
-        style="height: 350px"
-        class="bg-slate-100 rounded-md lg:mr-6 md:mt-0 mt-4 p-5 mb-4 lg:w-max md:w-full"
+        class="bg-slate-100 rounded-md lg:mr-6 md:mt-0 mt-4 p-5 mb-4 lg:w-max md:w-full self-start"
       >
         <div class="text-2xl font-bold mb-2">
           Yuk coba simulasikan investasi kamu!
@@ -19,13 +18,14 @@
         <div class="flex flex-col mb-3">
           <label for="first_invest">Investasi Awal</label>
           <input
+            v-model="investAmount"
             name="first_invest"
-            type="text"
+            type="number"
             class="rounded-md p-2"
             placeholder="Rp1.000.000"
           />
         </div>
-        <div class="flex flex-col mb-6">
+        <!-- <div class="flex flex-col mb-6">
           <label for="monthly_invest">Investasi Bulanan</label>
           <input
             name="monthly_invest"
@@ -33,32 +33,33 @@
             class="rounded-md p-2"
             placeholder="Rp1.000.000"
           />
-        </div>
+        </div> -->
         <button
           class="w-full p-4 rounded button-gradient font-semibold text-white"
         >
           Simulasikan
         </button>
       </div>
-      <ProductChartVue class="lg:grow" :withStatus="false"/>
+      <ProductCalc class="lg:grow shrink" />
     </div>
   </div>
 </template>
 
 <script>
-import ProductChartVue from "@/components/ProductChart.vue";
+import ProductCalc from "@/components/ProductCalc.vue";
 
 export default {
   name: "InvestmentPlan",
   components: {
-    ProductChartVue,
+    ProductCalc,
   },
   mounted() {},
   data() {
     return {
       product: {},
+      investAmount: 0,
     };
-  },
+  }
 };
 </script>
 
