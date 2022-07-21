@@ -16,31 +16,27 @@
           Yuk coba simulasikan investasi kamu!
         </div>
         <div class="flex flex-col mb-3">
-          <label for="first_invest">Investasi Awal</label>
-          <input
-            v-model="investAmount"
-            name="first_invest"
-            type="number"
-            class="rounded-md p-2"
-            placeholder="Rp1.000.000"
-          />
+          <label for="first_invest" class="mb-2">Investasi Awal</label>
+          <div class="flex items-center">
+            <div class="mr-2">Rp.</div>
+            <input
+              v-model="investValue"
+              name="first_invest"
+              type="number"
+              class="rounded-md p-2 grow shrink"
+              placeholder="1.000.000"
+              @keypress="numberOnly($event)"
+            />
+          </div>
         </div>
-        <!-- <div class="flex flex-col mb-6">
-          <label for="monthly_invest">Investasi Bulanan</label>
-          <input
-            name="monthly_invest"
-            type="text"
-            class="rounded-md p-2"
-            placeholder="Rp1.000.000"
-          />
-        </div> -->
         <button
           class="w-full p-4 rounded button-gradient font-semibold text-white"
+          @click="submitCalculate()"
         >
           Simulasikan
         </button>
       </div>
-      <ProductCalc class="lg:grow shrink" />
+      <ProductCalc class="lg:grow shrink" :calc-invest="arrInvest" />
     </div>
   </div>
 </template>
@@ -57,9 +53,28 @@ export default {
   data() {
     return {
       product: {},
-      investAmount: 0,
+      investAmount: null,
+      arrInvest: [],
+      investValue: null,
     };
-  }
+  },
+  methods: {
+    numberOnly(evt) {
+      if (
+        (evt.which != 8 && evt.which != 0 && evt.which < 48) ||
+        evt.which > 57
+      ) {
+        evt.preventDefault();
+      }
+    },
+    submitCalculate() {
+      this.arrInvest = [];
+      for (let i = 0; i < 25; i++) {
+        var inv = this.investValue * Math.pow(1 + 5 / 100 / 12, 12 * i);
+        this.arrInvest.push(inv);
+      }
+    },
+  },
 };
 </script>
 

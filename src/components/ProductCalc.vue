@@ -28,6 +28,7 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
+  Filler,
 } from "chart.js";
 
 ChartJS.register(
@@ -37,7 +38,8 @@ ChartJS.register(
   LineElement,
   CategoryScale,
   LinearScale,
-  PointElement
+  PointElement,
+  Filler
 );
 
 export default {
@@ -74,8 +76,12 @@ export default {
     },
     investAmount: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
+    calcInvest: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     // var self = this;
@@ -87,7 +93,7 @@ export default {
             label: "",
             data: [1, 2, 3, 4, 5],
             fill: true,
-            backgroundColor: "rgb(16, 178, 78)",
+            backgroundColor: "rgba(16, 178, 78, 0.5)",
             borderColor: "rgb(16, 178, 78)",
             borderWidth: 2,
             tension: 0.4,
@@ -103,6 +109,7 @@ export default {
             pointHoverRadius: 10,
             pointHoverBorderWidth: 1,
             pointHoverBackgroundColor: "rgb(16, 178, 78)",
+            pointBackgroundColor: "rgb(16, 178, 78)",
           },
         },
         scales: {
@@ -127,9 +134,6 @@ export default {
           },
           legend: {
             display: false,
-          },
-          filler: {
-            propagate: true,
           },
         },
         interaction: {
@@ -157,7 +161,6 @@ export default {
     };
   },
   mounted() {
-    // this.getData();
     this.initChart();
   },
   computed: {
@@ -168,6 +171,14 @@ export default {
       return `${moment()
         .subtract(this.selectedTime.duration, this.selectedTime.type)
         .format("YYYY-MM-DD")}`;
+    },
+  },
+  watch: {
+    calcInvest(newValue, oldValue) {
+      console.log("calcInvest");
+      if (newValue.length > 0) {
+        this.chartData.datasets[0].data = newValue
+      }
     },
   },
   methods: {
