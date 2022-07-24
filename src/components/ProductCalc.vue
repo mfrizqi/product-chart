@@ -134,7 +134,7 @@ export default {
         responsive: true,
         elements: {
           point: {
-            radius: 3,
+            radius: 2,
             pointHoverRadius: 10,
             pointHoverBorderWidth: 1,
           },
@@ -148,10 +148,10 @@ export default {
           },
           y: {
             type: "linear",
-            position: "left",
+            position: "right",
             grid: { display: false, borderColor: "rgb(255,255,255)" },
             ticks: {
-              display: true, //this will remove only the label
+              display: false, //this will remove only the label
             },
           },
         },
@@ -244,9 +244,6 @@ export default {
       let monthly = 11;
       for (let i = 1; i < 25; i++) {
         // Calculation values
-        if(i > 1){
-          monthly = 12
-        }
         invest = invest +  (baseAdd * Math.pow(1 + 13 / 100 / 12, 12 * i)) * monthly;
         deposito = deposito + (baseAdd * Math.pow(1 + 8 / 100 / 12, 12 * i)) * monthly;
         saving = saving + (baseAdd * Math.pow(1 + 0 / 100 / 12, 12 * i)) * monthly;
@@ -270,8 +267,6 @@ export default {
           this.data = res.data;
           const cValue = this.data.results.map((el) => el.c);
           const dataDates = this.calculateStockDates(this.data.results);
-          console.table(cValue);
-          console.table(dataDates);
           this.chartData.datasets[0].data = cValue;
           this.chartData.labels = dataDates;
         })

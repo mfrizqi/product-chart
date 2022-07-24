@@ -1,24 +1,24 @@
 <template>
-  <div class="md:m-6 m-1">
+  <div class="lg:m-6 m-4">
     <div class="mb-4">
       <h1 class="mt-10 mb-1 text-4xl font-bold text-center">
         Perencanaan Reksadana
       </h1>
-      <div class="text-sm text-center text-slate-500 px-5">
+      <div class="text-sm text-center text-slate-500 px-5 mb-6">
         Sinarmas bisa membantu kamu mencapai impian melalui investasi
       </div>
     </div>
-    <div class="lg:flex">
+    <div class="lg:relative">
       <div
-        class="bg-slate-100 rounded-md lg:mr-6 md:mt-0 mt-4 p-5 mb-4 lg:w-max md:w-full self-start"
+        class="bg-slate-100 rounded-md lg:mr-6 md:mt-0 mt-4 p-5 mb-4 lg:w-80 md:w-full self-start lg:absolute z-10"
       >
         <div class="text-2xl font-bold mb-2">
           Yuk coba simulasikan investasi kamu!
         </div>
         <div class="flex flex-col mb-3">
-          <label for="first_invest" class="mb-2">Investasi Awal</label>
+          <label for="first_invest" class="mb-2 font-medium">Investasi Awal</label>
           <div class="flex items-center">
-            <div class="mr-2">Rp.</div>
+            <div class="mr-1 font-semibold">Rp.</div>
             <input
               v-model="investValue"
               name="first_invest"
@@ -30,9 +30,9 @@
           </div>
         </div>
         <div class="flex flex-col mb-3">
-          <label for="monthly_invest" class="mb-2">Investasi Bulanan</label>
+          <label for="monthly_invest" class="mb-2 font-medium">Investasi Bulanan</label>
           <div class="flex items-center">
-            <div class="mr-2">Rp.</div>
+            <div class="mr-1 font-semibold">Rp.</div>
             <input
               v-model="monthlyValue"
               name="monthly_invest"
@@ -44,7 +44,7 @@
           </div>
         </div>
         <button
-          class="w-full p-4 rounded button-gradient font-semibold text-white"
+          class="w-full p-4 rounded button-gradient font-semibold text-white mt-4"
           :disabled="investValue === 0 && monthlyValue === 0"
           @click="submitCalculate()"
         >
@@ -52,7 +52,7 @@
         </button>
       </div>
       <ProductCalc
-        class="lg:grow shrink"
+        class="lg:grow shrink lg:pt-16 md:pt-0"
         :calc-invest="arrInvest"
         :calc-deposito="arrDeposito"
         :calc-saving="arrSaving"
@@ -105,12 +105,9 @@ export default {
       this.arrDeposito.push(depo);
       this.arrSaving.push(saving);
 
-      let monthly = 11;
+      let monthly = 12;
 
       for (let i = 1; i < 25; i++) {
-        if(i > 1){
-          monthly = 12
-        }
         inv = inv + this.monthlyValue * Math.pow(1 + 13 / 100 / 12, 12 * i) * monthly;
         depo =
           depo + this.monthlyValue * Math.pow(1 + 8 / 100 / 12, 12 * i) * monthly;
