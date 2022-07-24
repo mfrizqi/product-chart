@@ -100,15 +100,23 @@ export default {
       inv = this.investValue;
       depo = this.investValue;
       saving = this.investValue;
+
       this.arrInvest.push(inv);
       this.arrDeposito.push(depo);
       this.arrSaving.push(saving);
+
+      let monthly = 11;
+
       for (let i = 1; i < 25; i++) {
-        inv = inv + this.monthlyValue * Math.pow(1 + 10 / 100 / 12, 12 * i) * 24;
+        if(i > 1){
+          monthly = 12
+        }
+        inv = inv + this.monthlyValue * Math.pow(1 + 13 / 100 / 12, 12 * i) * monthly;
         depo =
-          depo + this.monthlyValue * Math.pow(1 + 5 / 100 / 12, 12 * i) * 24;
+          depo + this.monthlyValue * Math.pow(1 + 8 / 100 / 12, 12 * i) * monthly;
         saving =
-          saving + this.monthlyValue * Math.pow(1 + 0 / 100 / 12, 12 * i) * 24;
+          saving + this.monthlyValue * Math.pow(1 + 0 / 100 / 12, 12 * i) * monthly;
+          
         this.arrInvest.push(inv);
         this.arrDeposito.push(depo);
         this.arrSaving.push(saving);

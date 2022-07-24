@@ -228,11 +228,11 @@ export default {
         this.chartData.labels.push(`T ${i + 1}`);
       }
 
-      let invest = 1000;
-      let deposito = 1000;
-      let saving = 1000;
+      let invest = 1000000;
+      let deposito = 1000000;
+      let saving = 1000000;
 
-      let baseAdd = 1000;
+      let baseAdd = 1000000;
 
       let arrInvest = [];
       let arrDeposito = [];
@@ -241,11 +241,15 @@ export default {
       arrDeposito.push(deposito);
       arrSaving.push(saving);
 
+      let monthly = 11;
       for (let i = 1; i < 25; i++) {
         // Calculation values
-        invest = invest +  (baseAdd * Math.pow(1 + 10 / 100 / 12, 12 * i)) * 11;
-        deposito = deposito + (baseAdd * Math.pow(1 + 5 / 100 / 12, 12 * i)) * 11;
-        saving = saving + (baseAdd * Math.pow(1 + 0 / 100 / 12, 12 * i)) * 11;
+        if(i > 1){
+          monthly = 12
+        }
+        invest = invest +  (baseAdd * Math.pow(1 + 13 / 100 / 12, 12 * i)) * monthly;
+        deposito = deposito + (baseAdd * Math.pow(1 + 8 / 100 / 12, 12 * i)) * monthly;
+        saving = saving + (baseAdd * Math.pow(1 + 0 / 100 / 12, 12 * i)) * monthly;
 
         //Add Values to array
         arrInvest.push(invest);
