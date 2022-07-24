@@ -29,14 +29,34 @@
             />
           </div>
         </div>
+        <div class="flex flex-col mb-3">
+          <label for="monthly_invest" class="mb-2">Investasi Bulanan</label>
+          <div class="flex items-center">
+            <div class="mr-2">Rp.</div>
+            <input
+              v-model="monthlyValue"
+              name="monthly_invest"
+              type="number"
+              class="rounded-md p-2 grow shrink"
+              placeholder="1.000.000"
+              @keypress="numberOnly($event)"
+            />
+          </div>
+        </div>
         <button
           class="w-full p-4 rounded button-gradient font-semibold text-white"
+          :disabled="investValue === 0 && monthlyValue === 0"
           @click="submitCalculate()"
         >
           Simulasikan
         </button>
       </div>
-      <ProductCalc class="lg:grow shrink" :calc-invest="arrInvest" />
+      <ProductCalc
+        class="lg:grow shrink"
+        :calc-invest="arrInvest"
+        :calc-deposito="arrDeposito"
+        :calc-saving="arrSaving"
+      />
     </div>
   </div>
 </template>
@@ -55,7 +75,10 @@ export default {
       product: {},
       investAmount: null,
       arrInvest: [],
+      arrSaving: [],
+      arrDeposito: [],
       investValue: null,
+      monthlyValue: null,
     };
   },
   methods: {
@@ -69,9 +92,26 @@ export default {
     },
     submitCalculate() {
       this.arrInvest = [];
-      for (let i = 0; i < 25; i++) {
-        var inv = this.investValue * Math.pow(1 + 5 / 100 / 12, 12 * i);
+      this.arrDeposito = [];
+      this.arrSaving = [];
+      let inv = 0;
+      let depo = 0;
+      let saving = 0;
+      inv = this.investValue;
+      depo = this.investValue;
+      saving = this.investValue;
+      this.arrInvest.push(inv);
+      this.arrDeposito.push(depo);
+      this.arrSaving.push(saving);
+      for (let i = 1; i < 25; i++) {
+        inv = inv + this.monthlyValue * Math.pow(1 + 10 / 100 / 12, 12 * i) * 24;
+        depo =
+          depo + this.monthlyValue * Math.pow(1 + 5 / 100 / 12, 12 * i) * 24;
+        saving =
+          saving + this.monthlyValue * Math.pow(1 + 0 / 100 / 12, 12 * i) * 24;
         this.arrInvest.push(inv);
+        this.arrDeposito.push(depo);
+        this.arrSaving.push(saving);
       }
     },
   },

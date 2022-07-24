@@ -82,6 +82,14 @@ export default {
       type: Array,
       default: () => [],
     },
+    calcDeposito: {
+      type: Array,
+      default: () => [],
+    },
+    calcSaving: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     // var self = this;
@@ -93,8 +101,29 @@ export default {
             label: "",
             data: [1, 2, 3, 4, 5],
             fill: true,
-            backgroundColor: "rgba(16, 178, 78, 0.5)",
+            backgroundColor: "transparent",
             borderColor: "rgb(16, 178, 78)",
+            pointBackgroundColor: "rgb(16, 178, 78)",
+            borderWidth: 2,
+            tension: 0.4,
+          },
+          {
+            label: "",
+            data: [1, 2, 3, 4, 5],
+            fill: true,
+            backgroundColor: "transparent",
+            borderColor: "rgb(91,91,91)",
+            pointBackgroundColor: "rgb(91,91,91)",
+            borderWidth: 2,
+            tension: 0.4,
+          },
+          {
+            label: "",
+            data: [1, 2, 3, 4, 5],
+            fill: true,
+            backgroundColor: "transparent",
+            borderColor: "rgb(230,145,56)",
+            pointBackgroundColor: "rgb(230,145,56)",
             borderWidth: 2,
             tension: 0.4,
           },
@@ -108,13 +137,11 @@ export default {
             radius: 3,
             pointHoverRadius: 10,
             pointHoverBorderWidth: 1,
-            pointHoverBackgroundColor: "rgb(16, 178, 78)",
-            pointBackgroundColor: "rgb(16, 178, 78)",
           },
         },
         scales: {
           x: {
-            grid: { display: true, borderColor: "rgb(255,255,255)" },
+            grid: { display: false, borderColor: "rgb(255,255,255)" },
             ticks: {
               display: true, //this will remove only the label
             },
@@ -122,7 +149,7 @@ export default {
           y: {
             type: "linear",
             position: "left",
-            grid: { display: true, borderColor: "rgb(255,255,255)" },
+            grid: { display: false, borderColor: "rgb(255,255,255)" },
             ticks: {
               display: true, //this will remove only the label
             },
@@ -177,25 +204,59 @@ export default {
     calcInvest(newValue, oldValue) {
       console.log("calcInvest");
       if (newValue.length > 0) {
-        this.chartData.datasets[0].data = newValue
+        this.chartData.datasets[0].data = newValue;
+      }
+    },
+    calcDeposito(newValue, oldValue) {
+      console.log("calcDeposito");
+      if (newValue.length > 0) {
+        this.chartData.datasets[1].data = newValue;
+      }
+    },
+    calcSaving(newValue, oldValue) {
+      console.log("calcSaving");
+      if (newValue.length > 0) {
+        this.chartData.datasets[2].data = newValue;
       }
     },
   },
   methods: {
     initChart() {
       this.chartData.labels = [];
-      this.chartData.datasets.data = [];
+      this.chartData.datasets[0].data = [];
       for (let i = 0; i < 25; i++) {
         this.chartData.labels.push(`T ${i + 1}`);
       }
 
-      let percentage = 0;
-      let arrPercent = [];
-      for (let i = 0; i < 25; i++) {
-        percentage = percentage + i * (5 / 100);
-        arrPercent.push(percentage);
+      let invest = 1000;
+      let deposito = 1000;
+      let saving = 1000;
+
+      let baseAdd = 1000;
+
+      let arrInvest = [];
+      let arrDeposito = [];
+      let arrSaving = [];
+      arrInvest.push(invest);
+      arrDeposito.push(deposito);
+      arrSaving.push(saving);
+
+      for (let i = 1; i < 25; i++) {
+        // Calculation values
+        invest = invest +  (baseAdd * Math.pow(1 + 10 / 100 / 12, 12 * i)) * 11;
+        deposito = deposito + (baseAdd * Math.pow(1 + 5 / 100 / 12, 12 * i)) * 11;
+        saving = saving + (baseAdd * Math.pow(1 + 0 / 100 / 12, 12 * i)) * 11;
+
+        //Add Values to array
+        arrInvest.push(invest);
+        arrDeposito.push(deposito);
+        arrSaving.push(saving);
       }
-      this.chartData.datasets[0].data = arrPercent;
+
+      // Set array to chart
+      this.chartData.datasets[0].data = arrInvest;
+      this.chartData.datasets[1].data = arrDeposito;
+      this.chartData.datasets[2].data = arrSaving;
     },
     getData() {
       const url = `https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/${this.selectedDate}/${this.todayDate}?adjusted=true&sort=asc&limit=5000&apiKey=${this.apikey}`;
