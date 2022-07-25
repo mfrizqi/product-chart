@@ -48,7 +48,7 @@
           :disabled="investValue === 0 && monthlyValue === 0"
           @click="submitCalculate()"
         >
-          Simulasikan
+          <span class="tracking-wider">Simulasikan</span>
         </button>
       </div>
       <ProductCalc

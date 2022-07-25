@@ -98,30 +98,30 @@ export default {
         labels: ["5 Tahun", "10 Tahun", "15 Tahun", "20 Tahun", "25 Tahun"],
         datasets: [
           {
-            label: "",
+            label: "Investasi di Sinarmas",
             data: [1, 2, 3, 4, 5],
-            fill: true,
-            backgroundColor: "transparent",
+            fill: false,
+            backgroundColor: "rgb(16, 178, 78)",
             borderColor: "rgb(16, 178, 78)",
             pointBackgroundColor: "rgb(16, 178, 78)",
             borderWidth: 2,
             tension: 0.4,
           },
           {
-            label: "",
+            label: "Deposito",
             data: [1, 2, 3, 4, 5],
-            fill: true,
-            backgroundColor: "transparent",
+            fill: false,
+            backgroundColor: "rgb(91,91,91)",
             borderColor: "rgb(91,91,91)",
             pointBackgroundColor: "rgb(91,91,91)",
             borderWidth: 2,
             tension: 0.4,
           },
           {
-            label: "",
+            label: "Tabungan biasa",
             data: [1, 2, 3, 4, 5],
-            fill: true,
-            backgroundColor: "transparent",
+            fill: false,
+            backgroundColor: "rgb(230,145,56)",
             borderColor: "rgb(230,145,56)",
             pointBackgroundColor: "rgb(230,145,56)",
             borderWidth: 2,
@@ -160,7 +160,13 @@ export default {
             borderWidth: 0,
           },
           legend: {
-            display: false,
+            display: true,
+            position: 'bottom',
+            labels:{
+              font: {
+                family: "'Inter', 'Helvetica', 'Arial', 'sans-serif'"
+              }
+            }
           },
         },
         interaction: {
