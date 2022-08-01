@@ -103,8 +103,8 @@ export default {
             fill: false,
             backgroundColor: "rgb(16, 178, 78)",
             borderColor: "rgb(16, 178, 78)",
-            pointBackgroundColor: "rgb(16, 178, 78)",
-            borderWidth: 2,
+            // pointBackgroundColor: "rgb(16, 178, 78)",
+            borderWidth: 4,
             tension: 0.4,
           },
           {
@@ -113,8 +113,8 @@ export default {
             fill: false,
             backgroundColor: "rgb(91,91,91)",
             borderColor: "rgb(91,91,91)",
-            pointBackgroundColor: "rgb(91,91,91)",
-            borderWidth: 2,
+            // pointBackgroundColor: "rgb(91,91,91)",
+            borderWidth: 4,
             tension: 0.4,
           },
           {
@@ -123,8 +123,8 @@ export default {
             fill: false,
             backgroundColor: "rgb(230,145,56)",
             borderColor: "rgb(230,145,56)",
-            pointBackgroundColor: "rgb(230,145,56)",
-            borderWidth: 2,
+            // pointBackgroundColor: "rgb(230,145,56)",
+            borderWidth: 4,
             tension: 0.4,
           },
         ],
@@ -134,9 +134,10 @@ export default {
         responsive: true,
         elements: {
           point: {
-            radius: 2,
-            pointHoverRadius: 10,
-            pointHoverBorderWidth: 1,
+            radius: 0,
+            pointHoverRadius: 6,
+            pointHoverBorderWidth: 0,
+            pointHoverBackgroundColor: "rgb(54, 54, 54)",
           },
         },
         scales: {
@@ -161,12 +162,14 @@ export default {
           },
           legend: {
             display: true,
-            position: 'bottom',
-            labels:{
+            position: "bottom",
+            labels: {
+              usePointStyle: true,
+              boxWidth: 8,
               font: {
-                family: "'Inter', 'Helvetica', 'Arial', 'sans-serif'"
-              }
-            }
+                family: "'Inter', 'Helvetica', 'Arial', 'sans-serif'",
+              },
+            },
           },
         },
         interaction: {
@@ -250,9 +253,12 @@ export default {
       let monthly = 11;
       for (let i = 1; i < 25; i++) {
         // Calculation values
-        invest = invest +  (baseAdd * Math.pow(1 + 13 / 100 / 12, 12 * i)) * monthly;
-        deposito = deposito + (baseAdd * Math.pow(1 + 8 / 100 / 12, 12 * i)) * monthly;
-        saving = saving + (baseAdd * Math.pow(1 + 0 / 100 / 12, 12 * i)) * monthly;
+        invest =
+          invest + baseAdd * Math.pow(1 + 13 / 100 / 12, 12 * i) * monthly;
+        deposito =
+          deposito + baseAdd * Math.pow(1 + 8 / 100 / 12, 12 * i) * monthly;
+        saving =
+          saving + baseAdd * Math.pow(1 + 0 / 100 / 12, 12 * i) * monthly;
 
         //Add Values to array
         arrInvest.push(invest);

@@ -152,7 +152,7 @@ export default {
               }
               return self.getGradient(ctx, chartArea);
             },
-            borderWidth: 2,
+            borderWidth: 4,
             tension: 0.1,
           },
         ],
