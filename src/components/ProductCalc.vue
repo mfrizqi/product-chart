@@ -92,7 +92,7 @@ export default {
     },
   },
   data() {
-    // var self = this;
+    var self = this;
     return {
       chartData: {
         labels: ["5 Tahun", "10 Tahun", "15 Tahun", "20 Tahun", "25 Tahun"],
@@ -101,9 +101,29 @@ export default {
             label: "Investasi di Sinarmas",
             data: [1, 2, 3, 4, 5],
             fill: false,
-            backgroundColor: "rgb(16, 178, 78)",
-            borderColor: "rgb(16, 178, 78)",
-            // pointBackgroundColor: "rgb(16, 178, 78)",
+            // backgroundColor: "rgb(16, 178, 78)",
+            // borderColor: "rgb(16, 178, 78)",
+            pointBackgroundColor: "transparent",
+            //  borderColor: (context) => {
+            //   const chart = context.chart;
+            //   const { ctx, chartArea } = chart;
+
+            //   if (!chartArea) {
+            //     // This case happens on initial chart load
+            //     return null;
+            //   }
+            //   return self.getGradient(ctx, chartArea, "#1CBBB4", "#8EF378");
+            // },
+            borderColor: (ctx) => {
+              const canvas = ctx.chart.ctx;
+              const gradient = canvas.createLinearGradient(1000, 0, 0, 100);
+
+              gradient.addColorStop(0, "#8EF378");
+              gradient.addColorStop(0.5, "#55d796");
+              gradient.addColorStop(1, "#1CBBB4");
+
+              return gradient;
+            },
             borderWidth: 4,
             tension: 0.4,
           },
@@ -111,9 +131,19 @@ export default {
             label: "Deposito",
             data: [1, 2, 3, 4, 5],
             fill: false,
-            backgroundColor: "rgb(91,91,91)",
-            borderColor: "rgb(91,91,91)",
-            // pointBackgroundColor: "rgb(91,91,91)",
+            // backgroundColor: "rgb(91,91,91)",
+            // borderColor: "rgb(91,91,91)",
+            pointBackgroundColor: "transparent",
+            borderColor: (ctx) => {
+              const canvas = ctx.chart.ctx;
+              const gradient = canvas.createLinearGradient(1000, 0, 0, 100);
+
+              gradient.addColorStop(0, "#2AEEFF");
+              gradient.addColorStop(0.5, "#45aaf3");
+              gradient.addColorStop(1, "#5580EB");
+
+              return gradient;
+            },
             borderWidth: 4,
             tension: 0.4,
           },
@@ -121,9 +151,17 @@ export default {
             label: "Tabungan biasa",
             data: [1, 2, 3, 4, 5],
             fill: false,
-            backgroundColor: "rgb(230,145,56)",
-            borderColor: "rgb(230,145,56)",
-            // pointBackgroundColor: "rgb(230,145,56)",
+            pointBackgroundColor: "transparent",
+            borderColor: (ctx) => {
+              const canvas = ctx.chart.ctx;
+              const gradient = canvas.createLinearGradient(1000, 0, 0, 100);
+
+              gradient.addColorStop(0, "#F3A983");
+              gradient.addColorStop(0.5, "#eb826d");
+              gradient.addColorStop(1, "#E77163");
+
+              return gradient;
+            },
             borderWidth: 4,
             tension: 0.4,
           },
@@ -309,6 +347,30 @@ export default {
     },
     moment() {
       return moment();
+    },
+    getGradient(ctx, chartArea, colorOne, colorTwo) {
+      const chartWidth = chartArea.right - chartArea.left;
+      const chartHeight = chartArea.bottom - chartArea.top;
+      if (
+        this.gradientCanvas === null ||
+        this.widthCanvas !== chartWidth ||
+        this.heightCanvas !== chartHeight
+      ) {
+        // Create the gradient because this is either the first render
+        // or the size of the chart has changed
+        this.widthCanvas = chartWidth;
+        this.heightCanvas = chartHeight;
+        this.gradientCanvas = ctx.createLinearGradient(
+          chartArea.left,
+          chartArea.bottom,
+          chartArea.right,
+          chartArea.top
+        );
+        this.gradientCanvas.addColorStop(0, colorOne);
+        this.gradientCanvas.addColorStop(1, colorTwo);
+      }
+
+      return this.gradientCanvas;
     },
   },
 };
