@@ -1,13 +1,5 @@
 <template>
   <div class="lg:m-6 m-4">
-    <div class="mb-4">
-      <h1 class="mt-10 mb-1 text-4xl font-bold text-center">
-        Perencanaan Reksadana
-      </h1>
-      <div class="text-sm text-center text-slate-500 px-5 mb-6">
-        Sinarmas bisa membantu kamu mencapai impian melalui investasi
-      </div>
-    </div>
     <div class="lg:relative">
       <div
         class="bg-slate-100 rounded-md lg:mr-6 md:mt-0 mt-4 p-5 mb-4 lg:w-80 md:w-full self-start lg:absolute z-10"

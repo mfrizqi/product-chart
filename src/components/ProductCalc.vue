@@ -6,7 +6,7 @@
         :chart-data="chartData"
         :chart-id="chartId"
         :dataset-id-key="datasetIdKey"
-        :plugins="plugins"
+        :plugins="chartPlugins"
         :css-classes="cssClasses"
         :styles="styles"
       />
@@ -54,14 +54,14 @@ export default {
       type: String,
       default: "label",
     },
-    width: {
-      type: Number,
-      default: 100,
-    },
-    height: {
-      type: Number,
-      default: 100,
-    },
+    // width: {
+    //   type: Number,
+    //   default: 100,
+    // },
+    // height: {
+    //   type: Number,
+    //   default: 100,
+    // },
     cssClasses: {
       default: "",
       type: String,
@@ -204,6 +204,7 @@ export default {
             labels: {
               usePointStyle: true,
               boxWidth: 8,
+              padding: 32,
               font: {
                 family: "'Inter', 'Helvetica', 'Arial', 'sans-serif'",
               },
@@ -215,6 +216,7 @@ export default {
           mode: "index",
         },
       },
+      chartPlugins: [],
       apikey: "dXUpzvWgv2nzCgkZUs3OY1aDVIZ7Vwq4",
       activeBtn: 1,
       data: {},
