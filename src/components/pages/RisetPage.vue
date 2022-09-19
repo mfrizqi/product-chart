@@ -47,23 +47,23 @@ export default {
       ],
       dailies: [
         {
-          title: "Daily 1",
+          title: "Daily Research 1",
           tanggal: "Sep 13 2022  9:31AM",
         },
         {
-          title: "Daily 2",
+          title: "Daily Research 2",
           tanggal: "Sep 13 2022  9:31AM",
         },
         {
-          title: "Daily 3",
+          title: "Daily Research 3",
           tanggal: "Sep 13 2022  9:31AM",
         },
         {
-          title: "Daily 4",
+          title: "Daily Research 4",
           tanggal: "Sep 13 2022  9:31AM",
         },
         {
-          title: "Daily 5",
+          title: "Daily Research 5",
           tanggal: "Sep 13 2022  9:31AM",
         },
       ],
