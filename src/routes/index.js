@@ -5,6 +5,7 @@ import Calculator from "../components/pages/Calculator.vue";
 import ReksadanaCampuran from "../components/pages/reksadana-campuran/reksadanaCampuran";
 import ReksadanaDetail from "../components/pages/reksadana-campuran/reksadanaDetail";
 import InvestmentPlan from "../components/pages/InvestmentPlan";
+import risetPage from "../components/pages/RisetPage"
 
 const routes = [
   {
@@ -35,6 +36,11 @@ const routes = [
     path: "/investment-plan",
     name: "investmentPlan",
     component: InvestmentPlan
+  },
+  {
+    path: "/riset",
+    name: "risetPage",
+    component: risetPage
   }
 ];
 
