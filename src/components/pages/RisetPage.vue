@@ -2,14 +2,53 @@
   <section class="py-16">
     <div class="flex justify-center mb-12">
       <template v-for="(option, index) in options" :key="index">
-        <div class="option-item font-bold" @click="changeType(option.type)">
+        <div class="option-item font-bold" @click="changeType(option.type)" :class="{'active': option.isActive}">
           {{ option.name }}
         </div>
         <div v-if="index < options.length - 1" class="mx-3 font-bold">|</div>
       </template>
     </div>
 
-    <div class="px-16 mx-16">
+    <div class="px-16 mx-16" v-if="isLoading">
+      <div
+        class="animate-pulse px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
+      >
+        <div class="bg-slate-700 h-12 w-12 mr-6"></div>
+        <div class="flex-1 space-y-4 py-1">
+          <div class="h-4 bg-slate-700"></div>
+          <div class="grid grid-cols-3">
+            <div class="h-3 bg-slate-700 col"></div>
+          </div>
+        </div>
+        <div class="bg-slate-700 h-12 w-12 mx-6"></div>
+      </div>
+      <div
+        class="animate-pulse px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
+      >
+        <div class="bg-slate-700 h-12 w-12 mr-6"></div>
+        <div class="flex-1 space-y-4 py-1">
+          <div class="h-4 bg-slate-700"></div>
+          <div class="grid grid-cols-3">
+            <div class="h-3 bg-slate-700 col"></div>
+          </div>
+        </div>
+        <div class="bg-slate-700 h-12 w-12 mx-6"></div>
+      </div>
+      <div
+        class="animate-pulse px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
+      >
+        <div class="bg-slate-700 h-12 w-12 mr-6"></div>
+        <div class="flex-1 space-y-4 py-1">
+          <div class="h-4 bg-slate-700"></div>
+          <div class="grid grid-cols-3">
+            <div class="h-3 bg-slate-700 col"></div>
+          </div>
+        </div>
+        <div class="bg-slate-700 h-12 w-12 mx-6"></div>
+      </div>
+    </div>
+
+    <div v-if="!isLoading" class="px-16 mx-16">
       <div
         class="px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
         v-for="(article, index) in articles"
@@ -39,10 +78,10 @@ export default {
   data() {
     return {
       options: [
-        { name: "ALL", type: "all" },
-        { name: "DAILY RESEARCH", type: "dailies" },
-        { name: "INSIGHT", type: "insights" },
-        { name: "COMPANY FOCUS", type: "focuses" },
+        { name: "ALL", type: "all" , isActive: true},
+        { name: "DAILY RESEARCH", type: "dailies" , isActive:false},
+        { name: "INSIGHT", type: "insights" , isActive:false},
+        { name: "COMPANY FOCUS", type: "focuses" , isActive:false},
       ],
       dailies: [
         {
@@ -112,17 +151,15 @@ export default {
       ],
       articles: [],
       all: [],
+      isLoading: true,
     };
   },
   async mounted() {
     await this.initGetResearch();
-
-    this.all = this.dailies.concat(this.insights).concat(this.focuses);
-    this.articles = this.all;
-
   },
   methods: {
     changeType(type) {
+      if(this.isLoading) return
       switch (type) {
         case "all":
           this.articles = this.all;
@@ -139,40 +176,73 @@ export default {
         default:
           break;
       }
+
+      this.options.map(el => {
+        if(type === el.type){
+          el.isActive = true
+        } else {
+          el.isActive = false
+        }
+      })
     },
-    async initGetResearch(){
+    async initGetResearch() {
+      await axios
+        .get(
+          `https://report.sinarmassekuritas.co.id/API/SimasResearch/companyFocus.php`
+        )
+        .then((response) => {
+          console.log("focuses");
+          this.focuses = response.data.results;
+          console.log(this.focuses);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
 
-      await axios.get(`https://report.sinarmassekuritas.co.id/API/SimasResearch/companyFocus.php`)
-          .then(response => {
-            console.log('focuses');
-            console.log(response.data.results);
-            this.focuses = response.data.results;
-          })
-          .catch(error => {
-            console.error(error);
-      })
+      await axios
+        .get(
+          `https://report.sinarmassekuritas.co.id/API/SimasResearch/researchInsight.php`
+        )
+        .then((response) => {
+          console.log("insight");
+          console.log(response.data.results);
+          this.insights = response.data.results;
+          console.log(this.insights);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
 
-       await axios.get(`https://report.sinarmassekuritas.co.id/API/SimasResearch/researchInsight.php`)
-          .then(response => {
-            console.log('insight');
-            console.log(response.data.results);
-            this.insights = response.data.results;
-          })
-          .catch(error => {
-            console.error(error);
-      })
-
-      await axios.get(`https://report.sinarmassekuritas.co.id/API/SimasResearch/dailyResearch.php`)
-          .then(response => {
-            console.log('dailyResearch');
-            console.log(response.data.results);
-            this.dailies = response.data.results;
-          })
-          .catch(error => {
-            console.error(error);
-      })
-
-    }
+      await axios
+        .get(
+          `https://report.sinarmassekuritas.co.id/API/SimasResearch/dailyResearch.php`
+        )
+        .then((response) => {
+          console.log("dailyResearch");
+          const data = response.data;
+          this.dailies = [
+            {
+              Title: "Daily Research",
+              Tanggal: data.date_dr,
+              Upload: data.link_dr,
+            },
+            {
+              Title: "Daily Top Pick",
+              Tanggal: data.date_tp,
+              Upload: data.link_tp,
+            },
+          ];
+          console.log(this.dailies);
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          this.all = this.dailies.concat(this.insights).concat(this.focuses);
+          this.articles = this.all;
+          this.isLoading = false;
+        });
+    },
   },
 };
 </script>
@@ -187,6 +257,9 @@ export default {
   &:hover {
     color: #4979d1;
     cursor: pointer;
+  }
+  &.active{
+    color: #4979d1 !important;
   }
 }
 
