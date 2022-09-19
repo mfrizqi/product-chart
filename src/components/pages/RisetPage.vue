@@ -18,9 +18,9 @@
         <div class="flex items-center">
           <div class="ml-4 mr-12 text-4xl font-black">{{ index + 1 }}</div>
           <div>
-            <div class="text-2xl font-bold">{{ article.title }}</div>
+            <div class="text-2xl font-bold">{{ article.Title }}</div>
             <div class="text-xl font-bold text-gray-500">
-              {{ article.tanggal }}
+              {{ article.Tanggal }}
             </div>
           </div>
         </div>
@@ -114,8 +114,8 @@ export default {
       all: [],
     };
   },
-  mounted() {
-    this.initGetResearch();
+  async mounted() {
+    await this.initGetResearch();
 
     this.all = this.dailies.concat(this.insights).concat(this.focuses);
     this.articles = this.all;
@@ -140,9 +140,9 @@ export default {
           break;
       }
     },
-    initGetResearch(){
+    async initGetResearch(){
 
-      axios.get(`https://report.sinarmassekuritas.co.id/API/SimasResearch/companyFocus.php`)
+      await axios.get(`https://report.sinarmassekuritas.co.id/API/SimasResearch/companyFocus.php`)
           .then(response => {
             console.log('focuses');
             console.log(response.data.results);
@@ -152,7 +152,7 @@ export default {
             console.error(error);
       })
 
-      axios.get(`https://report.sinarmassekuritas.co.id/API/SimasResearch/researchInsight.php`)
+       await axios.get(`https://report.sinarmassekuritas.co.id/API/SimasResearch/researchInsight.php`)
           .then(response => {
             console.log('insight');
             console.log(response.data.results);
@@ -162,7 +162,7 @@ export default {
             console.error(error);
       })
 
-      axios.get(`https://report.sinarmassekuritas.co.id/API/SimasResearch/dailyResearch.php`)
+      await axios.get(`https://report.sinarmassekuritas.co.id/API/SimasResearch/dailyResearch.php`)
           .then(response => {
             console.log('dailyResearch');
             console.log(response.data.results);
