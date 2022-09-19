@@ -58,6 +58,14 @@ export default {
           title: "Daily 3",
           tanggal: "Sep 13 2022  9:31AM",
         },
+        {
+          title: "Daily 4",
+          tanggal: "Sep 13 2022  9:31AM",
+        },
+        {
+          title: "Daily 5",
+          tanggal: "Sep 13 2022  9:31AM",
+        },
       ],
       insights: [
         {
@@ -72,6 +80,14 @@ export default {
           title: "Insight 3",
           tanggal: "Oct 19 2022  9:31AM",
         },
+        {
+          title: "Insight 4",
+          tanggal: "Oct 19 2022  9:31AM",
+        },
+        {
+          title: "Insight 5",
+          tanggal: "Oct 19 2022  9:31AM",
+        },
       ],
       focuses: [
         {
@@ -84,6 +100,14 @@ export default {
         },
         {
           title: "Company Focus 3",
+          tanggal: "Nov 26 2022  9:31AM",
+        },
+        {
+          title: "Company Focus 4",
+          tanggal: "Nov 26 2022  9:31AM",
+        },
+        {
+          title: "Company Focus 5",
           tanggal: "Nov 26 2022  9:31AM",
         },
       ],
