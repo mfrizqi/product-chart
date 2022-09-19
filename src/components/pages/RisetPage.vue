@@ -28,7 +28,6 @@
           <img src="@/assets/arrow.png" alt="" width="45" height="auto" />
         </div>
       </div>
-      <!-- <div class="bg-white drop-shadow-xl px-6 py-6 mb-5">1</div> -->
     </div>
   </section>
 </template>
@@ -116,8 +115,11 @@ export default {
     };
   },
   mounted() {
+    this.initGetResearch();
+
     this.all = this.dailies.concat(this.insights).concat(this.focuses);
     this.articles = this.all;
+
   },
   methods: {
     changeType(type) {
@@ -138,6 +140,39 @@ export default {
           break;
       }
     },
+    initGetResearch(){
+
+      axios.get(`https://report.sinarmassekuritas.co.id/API/SimasResearch/companyFocus.php`)
+          .then(response => {
+            console.log('focuses');
+            console.log(response.data.results);
+            this.focuses = response.data.results;
+          })
+          .catch(error => {
+            console.error(error);
+      })
+
+      axios.get(`https://report.sinarmassekuritas.co.id/API/SimasResearch/researchInsight.php`)
+          .then(response => {
+            console.log('insight');
+            console.log(response.data.results);
+            this.insights = response.data.results;
+          })
+          .catch(error => {
+            console.error(error);
+      })
+
+      axios.get(`https://report.sinarmassekuritas.co.id/API/SimasResearch/dailyResearch.php`)
+          .then(response => {
+            console.log('dailyResearch');
+            console.log(response.data.results);
+            this.dailies = response.data.results;
+          })
+          .catch(error => {
+            console.error(error);
+      })
+
+    }
   },
 };
 </script>
