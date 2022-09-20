@@ -1,72 +1,86 @@
 <template>
   <section class="py-16">
-    <div class="flex justify-center mb-12">
+    <div class="flex justify-center mb-12 items-center">
       <template v-for="(option, index) in options" :key="index">
-        <div class="option-item font-bold" @click="changeType(option.type)" :class="{'active': option.isActive}">
+        <div
+          class="option-item font-bold text-center lg:text-left"
+          @click="changeType(option.type)"
+          :class="{ active: option.isActive }"
+        >
           {{ option.name }}
         </div>
         <div v-if="index < options.length - 1" class="mx-3 font-bold">|</div>
       </template>
     </div>
 
-    <div class="px-16 mx-16" v-if="isLoading">
-      <div
-        class="animate-pulse px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
-      >
-        <div class="bg-slate-700 h-12 w-12 mr-6"></div>
-        <div class="flex-1 space-y-4 py-1">
-          <div class="h-4 bg-slate-700"></div>
-          <div class="grid grid-cols-3">
-            <div class="h-3 bg-slate-700 col"></div>
-          </div>
-        </div>
-        <div class="bg-slate-700 h-12 w-12 mx-6"></div>
-      </div>
-      <div
-        class="animate-pulse px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
-      >
-        <div class="bg-slate-700 h-12 w-12 mr-6"></div>
-        <div class="flex-1 space-y-4 py-1">
-          <div class="h-4 bg-slate-700"></div>
-          <div class="grid grid-cols-3">
-            <div class="h-3 bg-slate-700 col"></div>
-          </div>
-        </div>
-        <div class="bg-slate-700 h-12 w-12 mx-6"></div>
-      </div>
-      <div
-        class="animate-pulse px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
-      >
-        <div class="bg-slate-700 h-12 w-12 mr-6"></div>
-        <div class="flex-1 space-y-4 py-1">
-          <div class="h-4 bg-slate-700"></div>
-          <div class="grid grid-cols-3">
-            <div class="h-3 bg-slate-700 col"></div>
-          </div>
-        </div>
-        <div class="bg-slate-700 h-12 w-12 mx-6"></div>
-      </div>
-    </div>
+    <!-- <div class="px-2 mx-2 lg:px-16 lg:mx-16" ></div> -->
 
-    <div v-if="!isLoading" class="px-16 mx-16">
-      <div
-        class="px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
-        v-for="(article, index) in articles"
-        :key="index"
-      >
-        <div class="flex items-center">
-          <div class="ml-4 mr-12 text-4xl font-black">{{ index + 1 }}</div>
-          <div>
-            <div class="text-2xl font-bold">{{ article.Title }}</div>
-            <div class="text-xl font-bold text-gray-500">
-              {{ article.Tanggal }}
+    <div class="px-2 mx-2 lg:px-16 lg:mx-16">
+      <section v-if="isLoading" class="skeleton">
+        <div
+          class="animate-pulse px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
+        >
+          <div class="bg-slate-700 h-12 w-12 mr-6"></div>
+          <div class="flex-1 space-y-4 py-1">
+            <div class="h-4 bg-slate-700"></div>
+            <div class="grid grid-cols-3">
+              <div class="h-3 bg-slate-700 col"></div>
             </div>
           </div>
+          <div class="bg-slate-700 h-12 w-12 mx-6"></div>
         </div>
-        <div class="flex items-center">
-          <img src="@/assets/arrow.png" alt="" width="45" height="auto" />
+        <div
+          class="animate-pulse px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
+        >
+          <div class="bg-slate-700 h-12 w-12 mr-6"></div>
+          <div class="flex-1 space-y-4 py-1">
+            <div class="h-4 bg-slate-700"></div>
+            <div class="grid grid-cols-3">
+              <div class="h-3 bg-slate-700 col"></div>
+            </div>
+          </div>
+          <div class="bg-slate-700 h-12 w-12 mx-6"></div>
         </div>
-      </div>
+        <div
+          class="animate-pulse px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
+        >
+          <div class="bg-slate-700 h-12 w-12 mr-6"></div>
+          <div class="flex-1 space-y-4 py-1">
+            <div class="h-4 bg-slate-700"></div>
+            <div class="grid grid-cols-3">
+              <div class="h-3 bg-slate-700 col"></div>
+            </div>
+          </div>
+          <div class="bg-slate-700 h-12 w-12 mx-6"></div>
+        </div>
+      </section>
+      <section v-if="!isLoading">
+        <div
+          class="px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
+          v-for="(article, index) in articles"
+          :key="index"
+          @click="openInNewTab(article.Upload)"
+        >
+          <div class="flex items-center">
+            <div class="ml-4 mr-12 text-4xl font-black">{{ index + 1 }}</div>
+            <div>
+              <div class="text-2xl font-bold">{{ article.Title }}</div>
+              <div class="text-xl font-bold text-gray-500">
+                {{ article.Tanggal }}
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <img
+              src="@/assets/arrow.png"
+              alt=""
+              width="45"
+              height="auto"
+              style="min-width: 45px; min-height: 45px"
+            />
+          </div>
+        </div>
+      </section>
     </div>
   </section>
 </template>
@@ -78,10 +92,10 @@ export default {
   data() {
     return {
       options: [
-        { name: "ALL", type: "all" , isActive: true},
-        { name: "DAILY RESEARCH", type: "dailies" , isActive:false},
-        { name: "INSIGHT", type: "insights" , isActive:false},
-        { name: "COMPANY FOCUS", type: "focuses" , isActive:false},
+        { name: "ALL", type: "all", isActive: true },
+        { name: "DAILY RESEARCH", type: "dailies", isActive: false },
+        { name: "INSIGHT", type: "insights", isActive: false },
+        { name: "COMPANY FOCUS", type: "focuses", isActive: false },
       ],
       dailies: [
         {
@@ -155,11 +169,11 @@ export default {
     };
   },
   async mounted() {
-    await this.initGetResearch();
+    await this.initGetData();
   },
   methods: {
     changeType(type) {
-      if(this.isLoading) return
+      if (this.isLoading) return;
       switch (type) {
         case "all":
           this.articles = this.all;
@@ -177,15 +191,15 @@ export default {
           break;
       }
 
-      this.options.map(el => {
-        if(type === el.type){
-          el.isActive = true
+      this.options.map((el) => {
+        if (type === el.type) {
+          el.isActive = true;
         } else {
-          el.isActive = false
+          el.isActive = false;
         }
-      })
+      });
     },
-    async initGetResearch() {
+    async initGetData() {
       await axios
         .get(
           `https://report.sinarmassekuritas.co.id/API/SimasResearch/companyFocus.php`
@@ -243,6 +257,9 @@ export default {
           this.isLoading = false;
         });
     },
+    openInNewTab(url) {
+      window.open(url, "_blank").focus();
+    },
   },
 };
 </script>
@@ -258,7 +275,7 @@ export default {
     color: #4979d1;
     cursor: pointer;
   }
-  &.active{
+  &.active {
     color: #4979d1 !important;
   }
 }
