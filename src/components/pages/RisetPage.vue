@@ -20,38 +20,38 @@
         <div
           class="animate-pulse px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
         >
-          <div class="bg-slate-700 h-12 w-12 mr-6"></div>
+          <div class="bg-slate-700 h-12 w-12 mr-6 rounded-lg"></div>
           <div class="flex-1 space-y-4 py-1">
-            <div class="h-4 bg-slate-700"></div>
+            <div class="h-4 bg-slate-700 rounded"></div>
             <div class="grid grid-cols-3">
-              <div class="h-3 bg-slate-700 col"></div>
+              <div class="h-3 bg-slate-700 col rounded"></div>
             </div>
           </div>
-          <div class="bg-slate-700 h-12 w-12 mx-6"></div>
+          <div class="bg-slate-700 h-12 w-12 mx-6 rounded-lg"></div>
         </div>
         <div
           class="animate-pulse px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
         >
-          <div class="bg-slate-700 h-12 w-12 mr-6"></div>
+          <div class="bg-slate-700 h-12 w-12 mr-6 rounded-lg"></div>
           <div class="flex-1 space-y-4 py-1">
-            <div class="h-4 bg-slate-700"></div>
+            <div class="h-4 bg-slate-700 rounded"></div>
             <div class="grid grid-cols-3">
-              <div class="h-3 bg-slate-700 col"></div>
+              <div class="h-3 bg-slate-700 col rounded"></div>
             </div>
           </div>
-          <div class="bg-slate-700 h-12 w-12 mx-6"></div>
+          <div class="bg-slate-700 h-12 w-12 mx-6 rounded-lg"></div>
         </div>
         <div
           class="animate-pulse px-6 py-6 mb-5 flex justify-between rounded-xl bg-white drop-shadow-xl article-item"
         >
-          <div class="bg-slate-700 h-12 w-12 mr-6"></div>
+          <div class="bg-slate-700 h-12 w-12 mr-6 rounded-lg"></div>
           <div class="flex-1 space-y-4 py-1">
-            <div class="h-4 bg-slate-700"></div>
+            <div class="h-4 bg-slate-700 rounded"></div>
             <div class="grid grid-cols-3">
-              <div class="h-3 bg-slate-700 col"></div>
+              <div class="h-3 bg-slate-700 col rounded"></div>
             </div>
           </div>
-          <div class="bg-slate-700 h-12 w-12 mx-6"></div>
+          <div class="bg-slate-700 h-12 w-12 mx-6 rounded-lg"></div>
         </div>
       </section>
       <section v-if="!isLoading">
@@ -62,7 +62,7 @@
           @click="openInNewTab(article.Upload)"
         >
           <div class="flex items-center">
-            <div class="ml-4 mr-12 text-4xl font-black">{{ index + 1 }}</div>
+            <div class="ml-4 mr-12 text-4xl font-black w-4">{{ index + 1 }}</div>
             <div>
               <div class="text-2xl font-bold">{{ article.Title }}</div>
               <div class="text-xl font-bold text-gray-500">

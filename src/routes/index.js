@@ -6,6 +6,7 @@ import ReksadanaCampuran from "../components/pages/reksadana-campuran/reksadanaC
 import ReksadanaDetail from "../components/pages/reksadana-campuran/reksadanaDetail";
 import InvestmentPlan from "../components/pages/InvestmentPlan";
 import risetPage from "../components/pages/RisetPage"
+import corporateFinance from "../components/pages/CorporateFinance"
 
 const routes = [
   {
@@ -41,6 +42,11 @@ const routes = [
     path: "/riset",
     name: "risetPage",
     component: risetPage
+  },
+  {
+    path: "/corporate-finance",
+    name: "corporateFinance",
+    component: corporateFinance
   }
 ];
 
