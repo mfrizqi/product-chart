@@ -1,6 +1,6 @@
 <template>
   <section class="py-16">
-    <div class="flex justify-center mb-12 items-center">
+    <div class="flex flex-wrap justify-center mb-12 items-center">
       <template v-for="(option, index) in options" :key="index">
         <div
           class="option-item font-bold text-center lg:text-left"
