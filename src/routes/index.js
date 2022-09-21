@@ -7,6 +7,7 @@ import ReksadanaDetail from "../components/pages/reksadana-campuran/reksadanaDet
 import InvestmentPlan from "../components/pages/InvestmentPlan";
 import risetPage from "../components/pages/RisetPage"
 import corporateFinance from "../components/pages/CorporateFinance"
+import QNAPage from "../components/pages/QNAPage"
 
 const routes = [
   {
@@ -47,6 +48,11 @@ const routes = [
     path: "/corporate-finance",
     name: "corporateFinance",
     component: corporateFinance
+  },
+  {
+    path: "/tanya-jawab",
+    name: "QNAPage",
+    component: QNAPage
   }
 ];
 
