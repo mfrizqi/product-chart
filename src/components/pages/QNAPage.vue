@@ -113,7 +113,9 @@
               class="border rounded-b-lg qna-content"
               :class="{ 'p-4 mb-4 active': index === selected }"
             >
-              {{ quest.content }}
+              <div v-html="quest.content">
+                  
+              </div>
             </div>
           </template>
         </div>
@@ -131,7 +133,7 @@ export default {
     return {
       questions: {
         investasi: [
-          { title: "Investasi 1", content: "Investasi 1" },
+          { title: "Investasi 1", content: '<h1 class="font-bold">Investasi 1</h1>' },
           { title: "Investasi 2", content: "Investasi 2" },
           { title: "Investasi 3", content: "Investasi 3" },
           { title: "Investasi 4", content: "Investasi 4" },
@@ -308,6 +310,13 @@ export default {
       } else {
         wrapMenu.classList.add("open");
       }
+    },
+    ConvertStringToHTML(str) {
+      let parser = new DOMParser();
+      let doc = parser.parseFromString(str, "text/html");
+      console.log(doc);
+      console.log(doc.body);
+      return doc.body;
     },
   },
 };
