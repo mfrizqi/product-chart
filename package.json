@@ -17,6 +17,7 @@
     "vue-axios": "^3.4.1",
     "vue-chartjs": "^4.1.1",
     "vue-feather": "^2.0.0",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^4.0.13"
   },
   "devDependencies": {
