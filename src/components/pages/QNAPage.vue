@@ -58,10 +58,10 @@
               <div class="text-xl font-normal">{{ quest.title }}</div>
             </div>
             <div
-              class="border rounded-b-lg qna-content"
+              class="border rounded-b-lg qna-content text-sm"
               :class="{ 'p-4 mb-4 active': index === selected }"
             >
-              {{ quest.content }}
+              <div v-html="quest.content"></div>
             </div>
           </template>
         </div>
@@ -113,9 +113,7 @@
               class="border rounded-b-lg qna-content"
               :class="{ 'p-4 mb-4 active': index === selected }"
             >
-              <div v-html="quest.content">
-                  
-              </div>
+              <div v-html="quest.content"></div>
             </div>
           </template>
         </div>
@@ -127,23 +125,15 @@
 <script>
 import Vue from "vue";
 
+import {QNA_INVESTASI, QNA_WITHDRAW} from './QNACollection.js';
+
 export default {
   name: "QNAPage",
   data() {
     return {
       questions: {
-        investasi: [
-          { title: "Investasi 1", content: '<h1 class="font-bold">Investasi 1</h1>' },
-          { title: "Investasi 2", content: "Investasi 2" },
-          { title: "Investasi 3", content: "Investasi 3" },
-          { title: "Investasi 4", content: "Investasi 4" },
-        ],
-        withdraw: [
-          { title: "Withdraw 1", content: "Withdraw 1" },
-          { title: "Withdraw 2", content: "Withdraw 2" },
-          { title: "Withdraw 3", content: "Withdraw 3" },
-          { title: "Withdraw 4", content: "Withdraw 4" },
-        ],
+        investasi: QNA_INVESTASI,
+        withdraw: QNA_WITHDRAW,
         starpoin: [
           { title: "Starpoin 1", content: "Starpoin 1" },
           { title: "Starpoin 2", content: "Starpoin 2" },
