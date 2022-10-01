@@ -291,6 +291,8 @@ export default {
       toInput.map((el) => {
         this.questionsList.push(el);
       });
+
+      window.scrollTo(0, 0);
     },
     toggleMenu() {
       let menus = document.getElementsByClassName("wrap-menu-items");

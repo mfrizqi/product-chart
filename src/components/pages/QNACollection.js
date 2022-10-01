@@ -96,11 +96,14 @@ export const QNA_WITHDRAW = [
         <li class="mb-4">Melalui Simas Equity Desktop:
           <div class="my-4">(Cara Withdrawal ini, hanya akan berlaku sampai 31 Desember 2021. Selanjutnya seluruh proses penarikan hanya dapat melalui: Simas Equity & SimInvest).</div>
           <div>
-            <div>2.1 Login ke Simas Equity</div>
-            <div>2.2 Masuk ke menu Account</div>
-            <div>2.3 Pilih menu Cash Withdrawal</div>
-            <div>2.4 Masukkan nominal penarikan di bagian Withdrawal Detail</div>
-            <div>2.5 Klik Submit Withdrawal</div>
+            <div class="mb-2">3.1 Formulir withdrawal dapat diperoleh melalui :
+              <div class="pl-6">                
+                  <div class="mb-1">3.1.1. Download “Formulir Permohonan Penarikan Dana” di website <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.sinarmassekuritas.co.id/formulir">https://www.sinarmassekuritas.co.id/formulir</a></div>
+                  <div>3.1.2. Hubungi admin Cabang atau Representative Sales yang bersangkutan untuk mendapatkan formulir penarikan dan</div>
+                  </div>
+            </div>
+            <div class="mb-1">3.2 Mengisi formulir dengan lengkap</div>
+            <div>3.3 Kirim formulir penarikan dana, melalui fax ke nomor: (021) 31990045 atau email: <a class="break-all cursor-pointer text-rose-500" target="_blank" href="mailto:cs@sinarmassekuritas.co.id">cs@sinarmassekuritas.co.id</a></div>
           </div>
         </li>
       </ol>
