@@ -49,11 +49,20 @@
               @click="selectQuestion(index)"
             >
               <div class="mr-4 mt-2">
-                <vue-feather
-                  type="plus"
-                  size="26"
-                  stroke-width="3"
-                ></vue-feather>
+                <div v-if="index !== selected">
+                  <vue-feather
+                    type="plus"
+                    size="26"
+                    stroke-width="3"
+                  ></vue-feather>
+                </div>
+                <div v-if="index == selected">
+                  <vue-feather
+                    type="minus"
+                    size="26"
+                    stroke-width="3"
+                  ></vue-feather>
+                </div>
               </div>
               <div class="text-xl font-normal">{{ quest.title }}</div>
             </div>
@@ -69,26 +78,28 @@
     </div>
 
     <!-- Desktop Version -->
-    <div class="px-16 hidden lg:block" style="height: 75vh">
-      <div class="flex h-full">
-        <div class="mr-4">
-          <div
-            v-for="(menu, i) in menus"
-            :key="i"
-            class="mb-6 text-sm border-b-2 pb-2 cursor-pointer menu-item"
-            :class="[
-              {
-                'active font-bold border-b-2 border-sky-600':
-                  i === menuSelected,
-              },
-            ]"
-            @click="selectMenu(i)"
-          >
-            {{ menu.title }}
+    <div class="px-24 mx-24 hidden lg:block">
+      <div class="flex h-auto">
+        <div class="mr-4 pr-8 max-w-xs relative">
+          <div class="border-r-2 border-slate-200 pr-8 sticky top-32">
+            <div
+              v-for="(menu, i) in menus"
+              :key="i"
+              class="mb-6 text-sm border-b-2 pb-2 cursor-pointer menu-item"
+              :class="[
+                {
+                  'active font-bold border-b-2 border-sky-600':
+                    i === menuSelected,
+                },
+              ]"
+              @click="selectMenu(i)"
+            >
+              {{ menu.title }}
+            </div>
           </div>
         </div>
-        <div class="h-full w-px mx-8 bg-slate-200"></div>
-        <div class="w-2/4 qna-list">
+        <!-- <div class="h-full w-px mx-8 bg-slate-200"></div> -->
+        <div class="w-4/6 qna-list">
           <template v-for="(quest, index) in questionsList" :key="index">
             <div
               class="w-full px-4 py-3 flex items-center cursor-pointer qna-item"
@@ -101,11 +112,20 @@
               @click="selectQuestion(index)"
             >
               <div class="mr-4 mt-2">
-                <vue-feather
-                  type="plus"
-                  size="26"
-                  stroke-width="3"
-                ></vue-feather>
+                <div v-if="index !== selected">
+                  <vue-feather
+                    type="plus"
+                    size="26"
+                    stroke-width="3"
+                  ></vue-feather>
+                </div>
+                <div v-if="index == selected">
+                  <vue-feather
+                    type="minus"
+                    size="26"
+                    stroke-width="3"
+                  ></vue-feather>
+                </div>
               </div>
               <div class="text-xl font-normal">{{ quest.title }}</div>
             </div>
@@ -125,7 +145,7 @@
 <script>
 import Vue from "vue";
 
-import {QNA_INVESTASI, QNA_WITHDRAW} from './QNACollection.js';
+import { QNA_EQUITY, QNA_INVESTASI, QNA_IPO, QNA_PASAR, QNA_STARPOIN, QNA_UMUM, QNA_WITHDRAW } from "./QNACollection.js";
 
 export default {
   name: "QNAPage",
@@ -134,36 +154,11 @@ export default {
       questions: {
         investasi: QNA_INVESTASI,
         withdraw: QNA_WITHDRAW,
-        starpoin: [
-          { title: "Starpoin 1", content: "Starpoin 1" },
-          { title: "Starpoin 2", content: "Starpoin 2" },
-          { title: "Starpoin 3", content: "Starpoin 3" },
-          { title: "Starpoin 4", content: "Starpoin 4" },
-        ],
-        eipo: [
-          { title: "E-IPO 1", content: "E-IPO 1" },
-          { title: "E-IPO 2", content: "E-IPO 2" },
-          { title: "E-IPO 3", content: "E-IPO 3" },
-          { title: "E-IPO 4", content: "E-IPO 4" },
-        ],
-        equity: [
-          { title: "Equity 1", content: "Equity 1" },
-          { title: "Equity 2", content: "Equity 2" },
-          { title: "Equity 3", content: "Equity 3" },
-          { title: "Equity 4", content: "Equity 4" },
-        ],
-        pasar: [
-          { title: "Pasar 1", content: "Pasar 1" },
-          { title: "Pasar 2", content: "Pasar 2" },
-          { title: "Pasar 3", content: "Pasar 3" },
-          { title: "Pasar 4", content: "Pasar 4" },
-        ],
-        umum: [
-          { title: "Umum 1", content: "Umum 1" },
-          { title: "Umum 2", content: "Umum 2" },
-          { title: "Umum 3", content: "Umum 3" },
-          { title: "Umum 4", content: "Umum 4" },
-        ],
+        starpoin: QNA_STARPOIN,
+        eipo: QNA_IPO,
+        equity: QNA_EQUITY,
+        pasar: QNA_PASAR,
+        umum: QNA_UMUM
       },
       questionsList: [],
       menus: [
@@ -315,6 +310,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+*{
+  font-family: Poppins, sans-serif;
+}
+
 .qna-list {
   & .qna-item {
     background-color: white;
@@ -330,9 +330,11 @@ export default {
   & .qna-content {
     height: 0;
     visibility: hidden;
+    display: none;
     &.active {
       visibility: visible;
       height: auto;
+      display: block;
     }
   }
 }
