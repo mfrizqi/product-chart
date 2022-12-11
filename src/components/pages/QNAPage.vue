@@ -88,7 +88,7 @@
               class="mb-6 text-sm border-b-2 pb-2 cursor-pointer menu-item"
               :class="[
                 {
-                  'active font-bold border-b-2 border-sky-600':
+                  'active font-bold border-b-2':
                     i === menuSelected,
                 },
               ]"
@@ -178,10 +178,10 @@ export default {
           title: "Pendaftaran Sistem E-IPO",
           key: "eipo",
         },
-        {
-          title: "Migrasi Simas New Simas Equity",
-          key: "equity",
-        },
+        // {
+        //   title: "Migrasi Simas New Simas Equity",
+        //   key: "equity",
+        // },
         {
           title: "Mengenal Pasar Modal",
           key: "pasar",
@@ -192,7 +192,7 @@ export default {
         },
       ],
       selected: null,
-      menuSelected: 0,
+      menuSelected: 4,
       menu: {
         mobile: {
           selected: 0,
@@ -207,7 +207,7 @@ export default {
   //   }
   // },
   mounted() {
-    const data = this.questions[this.menus[0].key];
+    const data = this.questions[this.menus[4].key];
     data.map((el) => {
       this.questionsList.push(el);
     });
@@ -318,10 +318,10 @@ export default {
 .qna-list {
   & .qna-item {
     background-color: white;
-    border: solid 1px #4979d1;
-    color: #4979d1;
+    border: solid 1px #0190f5;
+    color: #0190f5;
     &.active {
-      background-color: #4979d1;
+      background-color: #0190f5;
       border: none;
       color: white;
     }
@@ -342,7 +342,8 @@ export default {
 .menu-item {
   color: #2c3e50;
   &.active {
-    color: #4979d1;
+    color: #0190f5;
+    border-color: #0190f5 !important;
   }
 }
 
@@ -388,5 +389,9 @@ export default {
     background: #fff;
     -webkit-border-radius: 1ex;
   }
+}
+
+.active-menu{
+  color: #0190f5 !important
 }
 </style>

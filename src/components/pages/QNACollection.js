@@ -1,11 +1,12 @@
 export const QNA_INVESTASI = [
   {
-    title: "KESEMPATAN MODAL INVESTASI 100RB",
+    title: "Kesempatan Modal Investasi 100RB",
     content: `<ol class="list-decimal px-4"> 
       <li class="mb-3">
-        Program ini sedang diberlakukan untuk seluruh nasabah baru PT Sinarmas
-        Sekuritas, yang masuk melalui Program Referral sejak tanggal 22 Maret 2022
-        hingga 31 Mei 2022. (Untuk informasi lengkapnya ada di <a class="cursor-pointer text-rose-500" target="_blank" href="https://sinarmassekuritas.zendesk.com/hc/id-id/articles/4411547933209-Syarat-Dan-Ketentuan-Program-Referral">klik disini</a>)
+        Program masih berlangsung dan berlaku untuk seluruh
+        nasabah baru PT Sinarmas Sekuritas yang masuk melalui
+        Program Referral sejak tanggal 22 Maret 2022 hingga 31 Mei 2022.
+        (Untuk informasi lengkapnya ada di <a class="cursor-pointer text-rose-500" target="_blank" href="https://sinarmassekuritas.zendesk.com/hc/id-id/articles/4411547933209-Syarat-Dan-Ketentuan-Program-Referral">klik disini</a>)
       </li>
       <li class="mb-3">
         Bonus Modal Investasi sejumlah Rp100.000,- (seratus ribu rupiah) diberikan
@@ -14,19 +15,17 @@ export const QNA_INVESTASI = [
         orang dengan pembelian saham pertama kali tertinggi pada hari itu.
       </li>
       <li class="mb-3">
-        Bonus Modal Investasi akan ditransfer ke Rekening Dana Nasabah (RDN) milik
-        Terajak pada PT Bank Sinarmas Tbk (“Bank Sinarmas”) dalam 2 (dua) hari kerja
-        setelah terkonfirmasi otomatis oleh sistem.
+        Bonus Modal Investasi akan ditransfer ke Rekening Dana Nasabah (RDN)
+        PT Bank Sinarmas Tbk (“Bank Sinarmas”) dalam 2 (dua) hari kerja setelah terkonfirmasi otomatis oleh sistem.
       </li>
       <li class="mb-3">
-        Semua reward berupa Bonus Modal Investasi (saldo RDN) yang diberikan akan
-        mengikuti ketentuan yang ditetapkan oleh Bank Sinarmas.
+        Semua reward berupa Bonus Modal Investasi (saldo RDN) yang
+        diberikan akan mengikuti ketentuan yang ditetapkan oleh Bank Sinarmas.
       </li>
       <li class="mb-3">
-        SMS berhak mengubah Syarat dan Ketentuan ini dari waktu ke waktu. Nasabah
-        Baru setuju dan bertanggung jawab untuk secara berkala meninjau informasi
-        Syarat dan Ketentuan ini secara teratur untuk mengetahui perubahan terbaru
-        pada Syarat dan Ketentuan yang berlaku.
+        Sinarmas Sekuritas berhak mengubah Syarat dan Ketentuan (S&K) dari waktu ke waktu,
+        dan nasabah baru Sinarmas Sekuritas dianggap setuju. Selanjutnya nasabah diimbau secara
+        berkala meninjau informasi (S&K) secara teratur untuk mengetahui perubahan terbaru pada (S&K) yang berlaku.
       </li>
     </ol>
   `,
@@ -35,15 +34,15 @@ export const QNA_INVESTASI = [
 
 export const QNA_WITHDRAW = [
   {
-    title: "SYARAT & KETENTUAN WITHDRAWAL RDN DI SINARMAS SEKURITAS",
+    title:
+      "Syarat & Ketentuan Withdrawal Rekening Dana Nasabah (RDN) Di Sinarmas Sekuritas",
     content: `
       <ul class="list-disc px-4"> 
         <li class="mb-3">
-          Dana yang dapat ditarik/withdrawal adalah dana yang tersedia di RDN (good fund) setelah dikurangi dengan 
-          kewajiban/interest (jika ada) dan posisi Open Buy serta Net Buy 
-        </li>
-        <li class="mb-3">
-          Withdrawal yang dilakukan sebelum jam 14.00 WIB, akan diproses dalam 1 x 24 jam pada hari kerja bursa (di luar hari libur/akhir pekan) 
+          Dana yang dapat ditarik/withdrawal adalah dana yang tersedia di
+          Rekening Dana Nasabah (RDN) (good fund) setelah dikurangi dengan kewajiban/interest (jika ada)
+          dan posisi Open Buy serta Net Buy Withdrawal yang dilakukan sebelum jam 14.00 WIB, akan diproses
+          dalam 1 x 24 jam pada hari kerja bursa (di luar hari libur/akhir pekan). 
         </li>
         <li class="mb-3">
           Withdrawal yang dilakukan setelah jam 14.00 WIB, akan diproses dalam 2 x 24 jam pada hari kerja bursa (di luar hari libur/akhir pekan)
@@ -55,23 +54,22 @@ export const QNA_WITHDRAW = [
           Saldo minimum di RDN setelah penarikan sebesar Rp 100.000.
         </li>
         <li class="mb-3">
-          Dana Top-up tidak dapat ditarik pada hari yang sama, saat top-up dilakukan
+          Dana top-up tidak dapat ditarik pada hari yang sama, saat top-up dilakukan
         </li>
         <li class="mb-3">
           Dana hasil penjualan belum dapat ditarik pada hari yang sama, saat penjualan dilakukan.
         </li>
         <li class="mb-3">
-        Hari kerja bursa adalah hari operasional kerja Bursa Efek Indonesia (BEI) pada Senin - Jumat, di luar hari libur nasional dan pada akhir 
-        pekan). Selengkapnya di : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.idx.co.id/berita/jadwal-libur-bursa/">https://www.idx.co.id/berita/jadwal-libur-bursa/</a>
+          Hari kerja bursa adalah hari operasional kerja Bursa Efek Indonesia (BEI) pada Senin - Jumat, di luar hari libur nasional dan pada akhir pekan). Selengkapnya di : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.idx.co.id/berita/jadwal-libur-bursa/">https://www.idx.co.id/berita/jadwal-libur-bursa/</a>
         </li>
       </ul>
   `,
   },
   {
-    title: "CARA WITHDRAWAL RDN DI SINARMAS SEKURITAS",
+    title: "Cara Withdrawal RDN Di Sinarmas Sekuritas",
     content: `
     <div>
-      <div class="mb-3">3 cara withdrawal RDN:</div>
+      <div class="mb-3">Kamu bisa melakukan penarikan dana atau withdrawal Rekening Dana Nasabah (RDN) dengan tiga cara. Berikut tahapan withdrawal: </div>
       <ol class="list-decimal px-4 ml-1">
         <li class="mb-4">Melalui Aplikasi SimInvest:
           <div class="mt-1">
@@ -82,16 +80,28 @@ export const QNA_WITHDRAW = [
             <div class="mb-1">1.5 Klik Withdrawal</div>
           </div>
         </li>
-        <li class="mb-4">Melalui Simas Equity Desktop:
+        <li class="mb-4">Melalui SimInvest Desktop:
           <div class="mt-1">
-            <div class="mb-1">2.1 Login ke Simas Equity</div>
+            <div class="mb-1">2.1 Login ke SimInvest Desktop</div>
             <div class="mb-1">2.2 Masuk ke menu Account</div>
-            <div class="mb-1">2.3 Pilih menu Cash Withdrawal</div>
-            <div class="mb-1">2.4 Masukkan nominal penarikan di bagian Withdrawal Detail</div>
-            <div class="mb-1">2.5 Klik Submit Withdrawal</div>
+            <div class="mb-1">2.3 Pilih menu cash withdrawal</div>
+            <div class="mb-1">2.4 Masukkan nominal penarikan di bagian withdrawal detail</div>
+            <div class="mb-1">2.5 Klik submit withdrawal</div>
           </div>
         </li>
-        <li class="mb-4">Melalui Simas Equity Desktop:
+        <li class="mb-4">Mengisi form dan kirim formnya:
+          <div class="mt-1">
+            <div class="mb-1">
+              3.1 Download “Formulir Permohonan Penarikan Dana” di website
+              <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.sinarmassekuritas.co.id/formulir">https://www.sinarmassekuritas.co.id/formulir</a>
+            </div>
+            <div class="mb-1">3.2 Isi formulir dengan lengkap dan pastikan telah sesuai data yang ada</div>
+            <div class="mb-1">3.3 Hubungi admin cabang atau representative sales yang bersangkutan untuk mendapatkan formulir penarikan</div>
+            <div class="mb-1">3.4 Masukkan nominal penarikan di bagian withdrawal detail</div>
+            <div class="mb-1">3.5 Kirim formulir penarikan dana, melalui fax ke nomor: (021) 31990045 atau email: <a class="break-all cursor-pointer text-rose-500" target="_blank" href="mailto:cs@sinarmassekuritas.co.id">cs@sinarmassekuritas.co.id</a></div>
+          </div>
+        </li>
+        <li class="mb-4 hidden">Melalui Simas Equity Desktop:
           <div class="my-4">(Cara Withdrawal ini, hanya akan berlaku sampai 31 Desember 2021. Selanjutnya seluruh proses penarikan hanya dapat melalui: Simas Equity & SimInvest).</div>
           <div>
             <div class="mb-2">3.1 Formulir withdrawal dapat diperoleh melalui :
@@ -109,90 +119,100 @@ export const QNA_WITHDRAW = [
   `,
   },
   {
-    title: "DETAIL STATUS WITHDRAWAL",
+    title: "Cek Status Withdrawal",
     content: `
-    <ul class="list-disc px-4">
-        <li class="mb-2">Status berhasil adalah dana berhasil diterima nasabah dengan nominal dan batas waktu yang sesuai pada syarat & ketentuan.</li>
-        <li>
-          <div class="mb-2">Status gagal atau bermasalah terjadi bila:</div>
-          <div class="px-4">
-            <div class="mb-2">i. Apabila dana belum diterima nasabah lebih dari batas waktu yang terlampir pada syarat dan ketentuan. Berikut syarat dan ketentuan yang harus dipenuhi nasabah:</div>
-            <div class="mb-1">ii. Syarat dan ketentuan sebagai berikut :</div>
-            <div class="px-4 mb-2">
-              <ul>
-                <li class="mb-1">a. Cek lebih dulu status withdrawal di aplikasi SimInvest atau email yang terdaftar</li>
-                <li class="mb-1">b. Pastikan saldo yang hendak ditarik telah memenuhi kriteria yang telah ditentukan (Cek syarat & ketentuan withdrawal RDN Sinarmas Sekuritas).</li>
-                <li>
-                  c. Untuk Informasi lebih lanjut, silahkan hubungi Customer Support kami di :
-                  <div class="mt-1">
-                    <ul class="px-6">
-                      <li class="mb-1">WhatsApp : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://api.whatsapp.com/send/?phone=628875050700&text&app_absent=0">+628875050700</a></li>
-                      <li class="mb-1">Instagram: 
-                      <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.instagram.com/sim_invest/">@sim_invest</a> atau 
-                      <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.instagram.com/sim_invest/">@sinarmas_sekuritas</a></li>
-                      <li class="mb-1">Email : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="mailto:cs@sinarmassekuritas.co.id">cs@sinarmassekuritas.co.id</a></li>
-                      <li class="mb-1">Hotline : +62 21 5050 7000 atau +62 21 392 5550</li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="mb-2">iii. Penarikan dana gagal atau belum dapat diproses :
-              <ol class="list-decimal px-10">
-                <li class="mb-1">Pastikan saldo yang ditarik telah memenuhi kriteria yang sudah ada (Cek syarat dan ketentuan withdrawal RDN Sinarmas Sekuritas).</li>
-                <li class="mb-1">Pastikan no rekening, nama pemilik rekening & bank tujuan sudah sesuai.</li>
-                <li class="mb-1">Tidak ada transaksi yang outstanding (Sudah menyelesaikan seluruh kewajiban pembayaran pembelian saham).</li>
-                <li>Untuk Informasi lebih lanjut, silahkan hubungi Customer Support kami di :
-                  <div class="mt-1">
-                    <ul>
-                      <li class="mb-1">WhatsApp : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://api.whatsapp.com/send/?phone=628875050700&text&app_absent=0">+628875050700</a></li>
-                      <li class="mb-1">Instagram: 
-                      <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.instagram.com/sim_invest/">@sim_invest</a> atau 
-                      <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.instagram.com/sim_invest/">@sinarmas_sekuritas</a></li>
-                      <li class="mb-1">Email : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="mailto:cs@sinarmassekuritas.co.id">cs@sinarmassekuritas.co.id</a></li>
-                      <li class="mb-1">Hotline : +62 21 5050 7000 atau +62 21 392 5550</li>
-                    </ul>
-                  </div>
-                </li>
-              </ol>
-            </div>
-            <div class="mb-2">iv. Nominal penarikan dana yang diterima tidak sesuai dengan yang diajukan :
-              <ol class="list-decimal px-10">
-                <li class="mb-1">Pastikan saldo yang ditarik telah memenuhi kriteria yang sudah ada (Cek syarat dan ketentuan withdrawal RDN Sinarmas Sekuritas).</li>
-                <li class="mb-1">Masih ada transaksi yang outstanding / kewajiban yang belum dibayarkan.</li>
-                <li>Untuk Informasi lebih lanjut, silahkan hubungi Customer Support kami di :
-                  <div class="mt-1">
-                    <ul>
-                      <li class="mb-1">WhatsApp : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://api.whatsapp.com/send/?phone=628875050700&text&app_absent=0">+628875050700</a></li>
-                      <li class="mb-1">Instagram: 
-                      <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.instagram.com/sim_invest/">@sim_invest</a> atau 
-                      <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.instagram.com/sim_invest/">@sinarmas_sekuritas</a></li>
-                      <li class="mb-1">Email : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="mailto:cs@sinarmassekuritas.co.id">cs@sinarmassekuritas.co.id</a></li>
-                      <li class="mb-1">Hotline : +62 21 5050 7000 atau +62 21 392 5550</li>
-                    </ul>
-                  </div>
-                </li>
-              </ol>
-            </div>
-          </div>
+    <div class="mb-3">Status withdrawal berhasil adalah dana berhasil diterima nasabah dengan nominal dan batas waktu yang sesuai pada Syarat & Ketentuan (S&K) berlaku.  Namun jika terjadi kendala saat withdrawal, berikut solusinya:</div>
+
+    <div class="mb-6 pt-4">
+      <div class="mb-3">
+        I. Status withdrawal gagal atau bermasalah 
+        <br/>
+        <div class="px-3">
+          Dana belum kamu lebih dari batas waktu yang sesuai dengan S&K berlaku. Maka, kamu bisa melakukan hal berikut:
+        </div>
+      </div>
+      <ol class="list-decimal px-6">
+        <li class="mb-2">Cek lebih dulu status withdrawal di aplikasi SimInvest dan email kamu yang terdaftar</li>
+        <li class="mb-2">Pastikan saldo yang hendak kamu tarik telah memenuhi kriteria yang telah ditentukan (Cek kembali S&K withdrawal Rekening Dana Nasabah Sinarmas Sekuritas)</li>
+        <li class="mb-2">
+          Jika masih terkendala, kamu bisa menghubungi Customer Support kami di :
+          <ul class="px-6">
+            <li class="mb-1">WhatsApp : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://api.whatsapp.com/send/?phone=628875050700&text&app_absent=0">+628875050700</a></li>
+            <li class="mb-1">Instagram: 
+            <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.instagram.com/sim_invest/">@sim_invest</a> atau 
+            <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.instagram.com/sim_invest/">@sinarmas_sekuritas</a></li>
+            <li class="mb-1">Email : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="mailto:cs@sinarmassekuritas.co.id">cs@sinarmassekuritas.co.id</a></li>
+            <li class="mb-1">Hotline : +62 21 5050 7000 atau +62 21 392 5550</li>
+          </ul>
         </li>
-      </ul>
+      </ol>
+    </div>
+
+    <div class="mb-6 pt-4">
+      <div class="mb-3">
+        II. Penarikan dana gagal atau belum dapat diproses  
+        <br/>
+        <div class="px-4">Kamu bisa melakukan hal berikut: </div>
+      </div>
+      <ol class="list-decimal px-6">
+        <li class="mb-2">Pastikan saldo yang hendak kamu tarik telah memenuhi kriteria yang telah ditentukan (Cek kembali S&K withdrawal Rekening Dana Nasabah Sinarmas Sekuritas)</li>
+        <li class="mb-2">Pastikan nomor rekening, nama pemilik rekening & bank tujuan sudah sesuai</li>
+        <li class="mb-2">Tidak ada transaksi yang outstanding (Kamu sudah menyelesaikan seluruh kewajiban pembayaran pembelian saham)</li>
+        <li class="mb-2">
+          Jika masih terkendala, kamu bisa menghubungi Customer Support kami di :
+          <ul class="px-6">
+            <li class="mb-1">WhatsApp : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://api.whatsapp.com/send/?phone=628875050700&text&app_absent=0">+628875050700</a></li>
+            <li class="mb-1">Instagram: 
+            <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.instagram.com/sim_invest/">@sim_invest</a> atau 
+            <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.instagram.com/sim_invest/">@sinarmas_sekuritas</a></li>
+            <li class="mb-1">Email : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="mailto:cs@sinarmassekuritas.co.id">cs@sinarmassekuritas.co.id</a></li>
+            <li class="mb-1">Hotline : +62 21 5050 7000 atau +62 21 392 5550</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+
+    <div class="mb-6 pt-4">
+      <div class="mb-3">
+        III. Nominal penarikan dana yang diterima tidak sesuai dengan yang diajukan  
+        <br/>
+        <div class="px-5">
+          Jika kamu mengalami situasi tersebut, berikut hal yang bisa kamu lakukan:
+        </div>
+      </div>
+      <ol class="list-decimal px-6">
+        <li class="mb-2">Pastikan saldo yang hendak kamu tarik telah memenuhi kriteria yang telah ditentukan (Cek kembali S&K withdrawal Rekening Dana Nasabah Sinarmas Sekuritas)</li>
+        <li class="mb-2">Pastikan apakah masih ada transaksi yang outstanding / kewajiban yang belum dibayarkan.</li>
+        <li class="mb-2">Tidak ada transaksi yang outstanding (Kamu sudah menyelesaikan seluruh kewajiban pembayaran pembelian saham)</li>
+        <li class="mb-2">
+          Jika masih terkendala, kamu bisa menghubungi Customer Support kami di :
+          <ul class="px-6">
+            <li class="mb-1">WhatsApp : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://api.whatsapp.com/send/?phone=628875050700&text&app_absent=0">+628875050700</a></li>
+            <li class="mb-1">Instagram: 
+            <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.instagram.com/sim_invest/">@sim_invest</a> atau 
+            <a class="break-all cursor-pointer text-rose-500" target="_blank" href="https://www.instagram.com/sim_invest/">@sinarmas_sekuritas</a></li>
+            <li class="mb-1">Email : <a class="break-all cursor-pointer text-rose-500" target="_blank" href="mailto:cs@sinarmassekuritas.co.id">cs@sinarmassekuritas.co.id</a></li>
+            <li class="mb-1">Hotline : +62 21 5050 7000 atau +62 21 392 5550</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
     `,
   },
   {
-    title: "DANA SAYA BELUM MASUK, BAGAIMANA MENGECEKNYA?",
+    title: "Dana Saya Belum Masuk, Bagaimana Mengeceknya?",
     content: `
     <ul class="list-disc px-4">
       <li class="mb-2">
-        Cek status withdrawal dari laman History di SimInvest
+        <div class="mb-2">Cara Cek Dana Kamu, Jika Belum Masuk </div>
+        <div>Kamu bisa cek status withdrawal dari laman History di SimInvest, caranya sebagai berikut: </div>
         <ol class="list-decimal px-5">
           <li>Login ke SimInvest</li>
           <li>Masuk ke Home Page</li>
-          <li>Klik Saldo RDN yang terlampir di bawah Profil Nama</li>
-          <li>Pilih menu Riwayat untuk mengecek status Withdrawal</li>
+          <li>Klik saldo Rekening Dana Nasabah (RDN) di bawah Profil Nama</li>
+          <li>Pilih menu Riwayat untuk mengecek status withdrawal</li>
         </ol>
       </li>
-      <li class="mb-2">Mengecek Syarat & Ketentuan terkait Withdrawal</li>
       <li>
         Jika dana masih belum diterima lebih dari 2 x 24 jam pada hari kerja bursa, setelah pengajuan withdrawal dilakukan silahkan hubungi Customer Support SimInvest & Sinarmas Sekuritas di:
         <div class="mt-1">
@@ -239,16 +259,16 @@ export const QNA_WITHDRAW = [
     `,
   },
   {
-    title: "ISTILAH-ISTILAH DALAM WITHDRAWAL",
+    title: "Istilah Dalam Withdrawal",
     content: `
     <ul class="px-4">
-      <li class="mb-2">a. Kriteria dana disebut Good Fund sebagai berikut:
+      <li class="mb-2">a. Kriteria dana disebut Good Fund:
         <ul class="px-5">
           <li>
-            i. Dana yang sedang tidak digunakan atau terlibat dalam transaksi apapun.
+            i. Dana yang sedang tidak digunakan atau terlibat dalam transaksi apapun
           </li>
           <li>
-            ii. Jika dana berasal dari hasil penjualan saham reguler, maka dana harus sudah tersedia minimal 2 x 24 jam (Hari kerja bursa) setelah penjualan dilakukan.
+            ii. Jika dana berasal dari hasil penjualan saham reguler, maka dana harus sudah tersedia minimal 2 x 24 jam (hari kerja bursa) setelah penjualan dilakukan
           </li>
         </ul>
       </li>
@@ -276,74 +296,72 @@ export const QNA_WITHDRAW = [
 
 export const QNA_STARPOIN = [
   {
-    title: "APA ITU STARPOIN?",
-    content: `StarPoin adalah Loyalty Poin Program milik Sinarmas Group yang dapat diakses dan digunakan melalui aplikasi StarPoin yang tersedia di App Store & Play Store`,
+    title: "Apa Itu StarPoin?",
+    content: `StarPoin adalah loyalty poin program milik Sinarmas Group. StarPoin dapat diakses dan digunakan melalui aplikasi StarPoin yang tersedia di App Store & Play Store`,
   },
   {
-    title: "APA KEGUNAAN DARI STARPOIN?",
+    title: "Apa Kegunaan Dari Starpoin?",
     content: `StarPoin dapat digunakan sebagai alat tukar untuk mendapatkan berbagai macam promo, rewards, dan juga RDN untuk berinvestasi di aplikasi SimInvest dan aplikasi StarPoin.`,
   },
   {
-    title: "APA SAJA HADIAH/REWARDS YANG BISA DITUKARKAN DENGAN STARPOIN?",
-    content: `<div>StarPoin dapat digunakan sebagai alat tukar untuk mendapatkan berbagai macam promo, rewards, dan juga RDN untuk berinvestasi di aplikasi SimInvest dan aplikasi StarPoin.</div>
+    title:
+      "Apa Saja Promo, Hadiah dan Rewards Yang Bisa Ditukarkan Dengan StarPoin?",
+    content: `<div>StarPoin dapat digunakan sebagai alat tukar untuk mendapatkan berbagai macam promo, rewards, dan juga RDN untuk berinvestasi di aplikasi SimInvest dan aplikasi StarPoin. Cek detail promo dan rewards di aplikasi StarPoin</div>
     <a class="inline-block my-6 bg-red-600 text-white hover:text-slate-500 hover:bg-white hover:border hover:border-slate-500 px-4 py-3 transition-colors ease-in-out" href="https://starpoin.id/all-merchant/">KETAHUI LEBIH LANJUT</a>`,
   },
   {
-    title: "BAGAIMANA CARA MENDAPATKAN STARPOIN DI SINARMAS SEKURITAS?",
+    title: "Cara Dapat StarPoin",
     content: `
     <ol class="list-decimal px-4">
-      <li class="mb-2">
-        Nasabah Existing Sinarmas Sekuritas sebelum tanggal 28 Juli 2021, hanya
-        perlu register dan Login di aplikasi SimInvest untuk mendapatkan rewards
-        aktivasi StarPoin @20,000. (Poin akan di proses di minggu berikutnya)
+      <li class="mb-4">
+        <div class="mb-2">Nasabah existing Sinarmas Sekuritas</div>
+        <div>
+        Jika kamu sudah menjadi nasabah Sinarmas Sekuritas sebelum tanggal 28 Juli 2021, kamu hanya perlu register dan Login di aplikasi SimInvest untuk mendapatkan rewards aktivasi StarPoin @20.000. Poin yang kamu dapatkan akan di proses di minggu berikutnya. 
+        </div>
       </li>
       <li>
-        StarPoin dapat diperoleh oleh seluruh nasabah individu atau perorangan
-        dengan melakukan transaksi saham di Aplikasi SimInvest, dimana kamu akan
-        mendapatkan 10 StarPoin setiap transaksi (Beli & Jual) senilai Rp 100.000,-
-        (StarPoin yang didapatkan adalah 0,01% value setiap transaksi jual & beli)
-        Berlaku setiap kelipatan Rp 100.000,-
+        <div class="mb-2">Bertransaksi di SimInvest</div>
+        <div>
+        Jika kamu bertransaksi dengan membeli atau menjual saham di aplikasi SimInvest, maka kamu akan mendapatkan StarPoin 0,01% dari setiap nilai transaksi. Contoh: Kamu bertransaksi saham dengan nilai Rp 100.000, maka akan mendapatkan 10 StarPoin. 
+        </div>
       </li>
     </ol>
     `,
   },
   {
-    title: "APA SYARAT DAN KETENTUAN UNTUK MENERIMA STARPOIN DI SIMINVEST?",
-    content: `
-    <ul class="list-disc px-4">
-      <li class="mb-2">
-        Menggunakan dan Bertransaksi saham di PT Sinarmas Sekuritas dengan menggunakan aplikasi SimInvest
-      </li>
-      <li class="mb-2">
-        Melengkapi seluruh data Nasabah (KTP, Email, No.HP)
-      </li>
-      <li class="mb-2">
-        Nasabah Individu (Bukan dari organisasi apapun)
-      </li>
-    </ul>
-    `,
-  },
-  {
-    title: "BAGAIMANA CARA MENUKARKAN STARPOIN?",
+    title: "Syarat dan Ketentuan (S&K) Dapat StarPoin di SimInvest",
     content: `
     <ol class="list-decimal px-4">
-      <li class="mb-2">Buka aplikasi StarPoin</li>
-      <li class="mb-2">Login</li>
-      <li class="mb-2">Buka menu produk</li>
-      <li class="mb-2">Pilih redeem e-voucher</li>
-      <li class="mb-2">Pilih e-voucher yang diinginkan pada katalog</li>
-      <li class="mb-2">Masukkan jumlah e-voucher yang diinginkan.</li>
-      <li class="mb-2">Tekan tombol Redeem Sekarang./li>
-      <li>Jika penukaran poin SimasPoin berhasil maka e-voucher akan berada di menu my e-voucher</li>
+      <li class="mb-2">
+      Bertransaksi pembelian atau penjualan saham dengan menggunakan aplikasi SimInvest
+      </li>
+      <li class="mb-2">
+      Nasabah individu bukan dari berasal dari organisasi atau institusi
+      </li>
     </ol>
     `,
   },
   {
-    title: "KAPAN PERIODE INI BERLANGSUNG?",
+    title: "Cara Menukar StarPoin Jadi Rewards",
+    content: `
+    <ol class="list-decimal px-4">
+      <li class="mb-2">Kalau kamu sudah download StarPoin dan sukses registrasi, kamu hanya perlu buka aplikasi StarPoin</li>
+      <li class="mb-2">Selanjutnya login StarPoin</li>
+      <li class="mb-2">Buka menu produk</li>
+      <li class="mb-2">Pilih redeem e-voucher</li>
+      <li class="mb-2">Lalu pilih e-voucher yang diinginkan pada katalog</li>
+      <li class="mb-2">Selanjutnya masukkan jumlah e-voucher yang diinginkan</li>
+      <li class="mb-2">Tekan tombol Redeem Sekarang./li>
+      <li>Jika penukaran StarPoin berhasil, kamu bisa mengecek e-voucher yang digunakan di menu my e-voucher</li>
+    </ol>
+    `,
+  },
+  {
+    title: "Sampai Kapan Periode Berlangsung? ",
     content: `
     <ul class="list-disc px-4">
-      <li class="mb-2">Program ini dimulai dari tanggal 28 Juli 2021 sampai 31 Desember 2022.</li>
-      <li>Ketentuan / periode untuk mendapatkan StarPoin ini dapat berubah sewaktu-waktu tanpa adanya pemberitahuan sebelumnya.</li>
+      <li class="mb-2">Rewards StarPoin dimulai dari tanggal 28 Juli 2021 sampai 31 Desember 2022</li>
+      <li>S&K berlaku untuk program StarPoin ini dapat berubah sewaktu-waktu tanpa adanya pemberitahuan sebelumnya</li>
     </ul>
     `,
   },
@@ -507,7 +525,7 @@ export const QNA_EQUITY = [
 
 export const QNA_PASAR = [
   {
-    title: "MENGENAL PASAR MODAL",
+    title: "Mengenal Pasar Modal",
     content: `
     <p class="mb-4">
       Undang-Undang Pasar Modal No. 8 tahun 1995 tentang Pasar Modal mendefinisikan
@@ -542,72 +560,66 @@ export const QNA_PASAR = [
     `,
   },
   {
-    title: "MANFAAT PASAR MODAL",
+    title: "Manfaat Pasar Modal Bagi Emiten",
     content: `
-    <div class="mb-2">Bagi Emiten</div>
-    <ol class="list-decimal px-4 mb-6">
-      <li class="mb-2">Jumlah dana yang dapat dihimpun berjumlah besar.</li>
-      <li class="mb-2">Dana tersebut dapat diterima sekaligus pada saat pasar perdana selesai.</li>
-      <li class="mb-2">Tidak ada convenant sehingga manajemen dapat lebih bebas dalam pengelolaan dana/perusahaan.</li>
-      <li class="mb-2">Solvabilitas perusahaan tinggi sehingga memperbaiki citra perusahaan.</li>
-      <li>Ketergantungan emiten terhadap bank menjadi lebih kecil.</li>
-    </ol>
-
-    <div class="mb-2">Bagi Emiten</div>
     <ol class="list-decimal px-4">
-      <li class="mb-2"> Nilai investasi perkembang mengikuti pertumbuhan ekonomi. Peningkatan tersebut tercermin pada meningkatnya harga saham yang mencapai kapital gain.
-      </li>
-      <li class="mb-2">Memperoleh dividen bagi mereka yang memiliki/memegang saham dan bunga yang mengambang bagi pemenang obligasi.</li>
-      <li class="mb-2">Dapat sekaligus melakukan investasi dalam beberapa instrumen yang mengurangi risiko.</li>
+    <li class="mb-2">Jumlah dana yang dapat dihimpun berjumlah besar</li>
+    <li class="mb-2">Dana tersebut dapat diterima sekaligus pada saat pasar perdana selesai</li>
+    <li class="mb-2">Tidak ada convenant sehingga manajemen dapat lebih bebas dalam pengelolaan dana/perusahaan</li>
+    <li class="mb-2">Solvabilitas perusahaan tinggi sehingga memperbaiki citra perusahaan</li>
+    <li class="mb-2">Ketergantungan emiten terhadap bank menjadi lebih kecil </li>
+    <li class="mb-2">Nilai investasi berkembang mengikuti pertumbuhan ekonomi. Peningkatan tersebut tercermin pada meningkatnya harga saham yang mencapai kapital gain</li>
+    <li class="mb-2">Memperoleh dividen bagi mereka yang memiliki/memegang saham dan bunga yang mengambang bagi pemenang obligasi</li>
+    <li>Dapat sekaligus melakukan investasi dalam beberapa instrumen yang mengurangi risiko</li>
     </ol>
     `,
   },
   {
-    title: "MENGENAL APA ITU NAB (NILAI AKTIVA BERSIH)",
-    content: `NAB (Nilai Aktiva Bersih) merupakan salah satu tolok ukur dalam memantau hasil dari suatu Reksadana.NAB per saham/unit penyertaan adalah harga wajar dari portofolio suatu Reksadana setelah dikurangi biaya operasional kemudian dibagi jumlah saham/unit penyertaan yang telah beredar (dimiliki investor) pada saat tersebut.`,
+    title: "Memahami Nilai Aktiva Bersih (NAB)",
+    content: `NAB merupakan salah satu tolok ukur dalam memantau hasil dari suatu Reksadana. NAB per saham/unit penyertaan adalah harga wajar dari portofolio suatu Reksadana setelah dikurangi biaya operasional. Kemudian dibagi jumlah saham/unit penyertaan yang telah beredar (dimiliki investor) pada saat tersebut.`,
   },
   {
-    title: "MENGENAL SAHAM",
+    title: "Mengenal dan Memahami Saham ",
     content: `
       <div>
-        <p class="pt-6 pb-4">Saham (stock) merupakan salah satu instrumen pasar keuangan yang paling popular. Saham dapat didefinisikan tanda penyertaan atau kepemilikan seseorang atau badan dalam suatu perusahaan atau perseroan terbatas. Wujud saham adalah selembar kertas yang menerangkan bahwa pemilik kertas tersebut adalah pemilik perusahaan yang menerbitkan surat berharga tersebut. Porsi kepemilikan ditentukan oleh seberapa besar penyertaan yang ditanamkan di perusahaan tersebut.</p>
+      <p class="mb-2">Saham adalah salah satu instrumen pasar keuangan yang populer. Saham dapat didefinisikan tanda penyertaan atau kepemilikan seseorang atau badan dalam suatu perusahaan atau perseroan terbatas. </p>
 
-        <p class="py-4">Menerbitkan saham merupakan salah satu pilihan perusahaan ketika memutuskan untuk pendanaan perusahaan. Pada sisi yang lain, saham merupakan instrument investasi yang banyak dipilih para investor karena saham mampu memberikan tingkat keuntungan yang menarik.</p>
+      <p class="mb-2">Wujud kepmilikan saham adalah selembar kertas yang menerangkan bahwa pemilik kertas tersebut adalah pemilik perusahaan yang menerbitkan surat berharga tersebut. Porsi kepemilikan saham ditentukan seberapa besar penyertaan yang ditanamkan di perusahaan tersebut.</p>
 
-        <div class="py-4">Beberapa sudut pandang untuk membedakan saham :</div>
-
-        <div class="font-bold mb-2">Saham Biasa (Common Stock)</div>
-        <ol class="list-decimal px-8 mb-6">
-          <li>Hak atas dividen dan harta kekayaan setelah likuidasi dan setelah hak atas saham preferen dipenuhi.</li>
-          <li>Besar dividen atas hasil RUPS.</li>
-          <li>Hak memesan efek terlebih dahulu.</li>
-        </ol>
-
-        <div class="font-bold mb-2">Saham Preferen (Preferred Stock)</div>
-        <ol class="list-decimal px-8">
-          <li>Saham yang memiliki karakteristik gabungan antara obligasi dan saham biasa, karena bisa menghasilkan pendapatan tetap (seperti bunga obligasi), tetapi juga bisa tidak mendatangkan hasil, seperti yang dikehendaki investor.</li>
-          <li>Hak pembayaran dividen didahulukan</li>
-          <li>Jumlah dividen tetap.</li>
-        </ol>
+      <p class="mb-2">Menerbitkan saham merupakan salah satu pilihan perusahaan ketika memutuskan untuk pendanaan perusahaan. Pada sisi yang lain, saham merupakan instrument investasi yang banyak dipilih para investor karena saham mampu memberikan tingkat keuntungan yang menarik.</p>
     </div>
   `,
   },
   {
-    title: "KEUNTUNGAN MEMILIKI SAHAM",
+    title: "Keuntungan Memiliki Saham",
     content: `
     <div>
-      Keuntungan yang diperoleh investor dengan membeli atau memiliki saham :
+      Berinvestasi saham dapat memberikan passive income. Nasabah bisa mendapatkan keuntungan sebagai berikut: 
       <div class="mt-6 mb-4">1. Dividen</div>
       <p class="mb-4 px-4">
-        Dividen merupakan pembagian keuntungan yang diberikan perusahaan dan berasal
-        dari keuntungan yang dihasilkan perusahaan. Dividen diberikan setelah
-        mendapat persetujuan dari pemegang saham dalam RUPS. Jika seorang pemodal
-        ingin mendapatkan dividen, maka pemodal tersebut harus memegang saham
-        tersebut dalam kurun waktu yang relatif lama yaitu hingga kepemilikan saham
-        tersebut berada dalam periode dimana diakui sebagai pemegang saham yang
-        berhak mendapatkan dividen.
+        Adalah pembagian keuntungan yang diberikan perusahaan kepada investor. Keuntungan yang dihasilkan perusahaan disisihkan kepada investor dan diberikan setelah mendapat persetujuan dari pemegang saham dalam RUPS. 
       </p>
-      <p class="mb-6 px-4">
+      <div class="mb-2">
+        Syarat mendapatkan dividen: 
+      </div>
+      <ul class="list-disc mb-2 px-4">
+        <li class="mb-2">
+        Memiliki saham dalam periode tertentu dan diakui sebagai pemegang saham yang berhak mendapatkan dividen
+        </li>
+      </ul>
+
+      <div class="mb-2">
+        Dua bentuk dividen yang diterima investor: 
+      </div>
+      <ul class="list-disc mb-4 px-4">
+        <li class="mb-2">
+         Dividen tunai  : Pemegang saham mendapat dividen berupa uang tunai dalam jumlah rupiah tertentu untuk setiap saham yang dimiliki. 
+        </li>
+        <li class="mb-4">
+        Dividen saham:  Pemegang saham mendapat dividen sejumlah saham sehingga jumlah saham yang dimiliki seorang pemodal akan bertambah dari pembagian dividen saham tersebut.
+        </li>
+      </ul>
+      <p class="mb-6 px-4 hidden">
         Dividen yang dibagikan perusahaan dapat berupa dividen tunai - artinya
         kepada setiap pemegang saham diberikan dividen berupa uang tunai dalam
         jumlah rupiah tertentu untuk setiap saham - atau dapat pula berupa dividen
@@ -616,15 +628,16 @@ export const QNA_PASAR = [
         dengan adanya pembagian dividen saham tersebut.
       </p>
 
-      <div class="mb-4">2. Capital Gain</div>
+      <div class="mb-4 pt-4">2. Capital Gain</div>
       <p class="mb-4 px-4">
-          Capital Gain merupakan selisih antara harga beli dan harga jual. Capital gain terbentuk dengan adanya aktivitas perdagangan saham di pasar sekunder. Misalnya Investor membeli saham ABC dengan harga per saham Rp 1.000 kemudian menjualnya dengan harga Rp 1.500 per saham yang berarti pemodal tersebut mendapatkan capital gain sebesar Rp 500 untuk setiap saham yang dijualnya.
+        Adalah selisih antara harga beli dan harga jual. Capital gain terbentuk karena aktivitas perdagangan saham di pasar sekunder. <br/>
+        Sebagai contoh: Investor membeli saham ABC dengan harga per saham Rp 1.000 kemudian menjualnya dengan harga Rp 1.500 per saham yang berarti pemodal tersebut mendapatkan capital gain sebesar Rp 500 untuk setiap saham yang dijualnya.
       </p>
     </div>
     `,
   },
   {
-    title: "RISIKO MEMILIKI SAHAM",
+    title: "Risiko Memiliki Saham",
     content: `
     <div>
       Risiko yang terdapat dari membeli atau memiliki saham :
@@ -632,95 +645,66 @@ export const QNA_PASAR = [
       <div class="mt-4 mb-2">1. Capital Loss</div>
       <div class="px-4">
         <p class="mb-4">
-          Merupakan kebalikan dari Capital Gain, yaitu suatu kondisi dimana investor
-          menjual saham lebih rendah dari harga beli. Misalnya saham PT. ABCD yang
-          di beli dengan harga Rp 2.500,- per saham, kemudian harga saham tersebut
-          terus mengalami penurunan hingga mencapai Rp 2.100,- per saham.
+          Merupakan kebalikan dari Capital Gain, yaitu suatu kondisi dimana investor menjual saham lebih rendah dari harga beli. Misalnya saham PT. ABCD yang di beli dengan harga Rp 2.500,- per saham, kemudian harga saham tersebut terus mengalami penurunan hingga mencapai Rp 2.100,- per saham.
         </p>
 
         <p>
-          Karena takut harga saham tersebut akan terus turun, investor menjual pada
-          harga Rp 2.100,- tersebut sehingga mengalami kerugian sebesar Rp 400,- per
-          saham.
+          Karena takut harga saham tersebut akan terus turun, investor menjual pada harga Rp 2.100,- tersebut sehingga mengalami kerugian sebesar Rp 400,- per saham.
         </p>
       </div>
 
       <div class="mt-6 mb-2">2. Risiko Likuidasi</div>
       <p class="px-4">
-        Perusahaan yang sahamnya dimiliki, dinyatakan bangkrut oleh Pengadilan, atau
-        perusahaan tersebut dibubarkan. Dalam hal ini hak klaim dari pemegang saham
-        mendapat prioritas terakhir setelah seluruh kewajiban perusahaan dapat
-        dilunasi (dari hasil penjualan kekayaan perusahaan). Jika masih terdapat
-        sisa dari hasil penjualan kekayaan perusahaan tersebut, maka sisa tersebut
-        dibagi secara proporsional kepada seluruh pemegang saham. Namun jika tidak
-        terdapat sisa kekayaan perusahaan, maka pemegang saham tidak akan memperoleh
-        hasil dari likuidasi tersebut. Kondisi ini merupakan risiko yang terberat
-        dari pemegang saham. Untuk itu seorang pemegang saham dituntut untuk secara
-        terus menerus mengikuti perkembangan perusahaan.
+        Perusahaan yang sahamnya dimiliki, dinyatakan bangkrut oleh Pengadilan, atau perusahaan tersebut dibubarkan. Dalam hal ini hak klaim dari pemegang saham mendapat prioritas terakhir setelah seluruh kewajiban perusahaan dapat dilunasi (dari hasil penjualan kekayaan perusahaan). Jika masih terdapat sisa dari hasil penjualan kekayaan perusahaan tersebut, maka sisa tersebut dibagi secara proporsional kepada seluruh pemegang saham. Namun jika tidak terdapat sisa kekayaan perusahaan, maka pemegang saham tidak akan memperoleh hasil dari likuidasi tersebut. Kondisi ini merupakan risiko yang terberat dari pemegang saham. Untuk itu seorang pemegang saham dituntut untuk secara terus menerus mengikuti perkembangan perusahaan.
       </p>
     </div>
     `,
   },
   {
-    title: "MENGENAL ISTILAH-ISTILAH DALAM PASAR MODAL",
+    title: "Mengenal Istilah Dalam Pasar Modal",
 
     content: `
     <div class="mb-6">
       <div class="font-bold mb-2">Pasar Modal (Capital Market)</div>
-      Adalah kegiatan yang mempertemukan pihak yang membutuhkan dana jangka panjang
-      dan pihak yang membutuhkan sarana investasi terpercaya dan prospektif.
+      Adalah kegiatan yang mempertemukan pihak yang membutuhkan dana jangka panjang dan pihak yang membutuhkan sarana investasi terpercaya dan prospektif.
     </div>
     
     <div class="mb-6">
       <div class="font-bold mb-2">Bursa Efek (Stock Exchange)</div>
-      Adalah kegiatan yang mempertemukan pihak yang membutuhkan dana jangka panjang
-      dan pihak yang membutuhkan sarana investasi terpercaya dan prospektif.
+      Adalah kegiatan yang mempertemukan pihak yang membutuhkan dana jangka panjang dan pihak yang membutuhkan sarana investasi terpercaya dan prospektif.
     </div>
     
     <div class="mb-6">
       <div class="font-bold mb-2">Efek (Sekurities)</div>
-      Yaitu merupakan surat berharga seperti surat pengakuan hutang, surat berharga
-      komersial, saham, obligasi, tanda bukti hutang, unit penyertaan kontrak
-      investasi kolektif, kontrak berjangka atas efek dan setiap derivatif dari
-      efek.
+      Yaitu merupakan surat berharga seperti surat pengakuan hutang, surat berharga komersial, saham, obligasi, tanda bukti hutang, unit penyertaan kontrak investasi kolektif, kontrak berjangka atas efek dan setiap derivatif dari efek.
     </div>
     
     <div class="mb-6">
       <div class="font-bold mb-2">Capital Gain vs Capital Loss</div>
-      Capital Gain yaitu selisih harga pembelian saham dengan harga penjualan,
-      apabila harga penjualan di atas harga pembelian. Capital Loss yaitu kebalikan
-      dari capital gain, apabila harga penjualan saham lebih rendah dari harga
-      pembelian.
+      Capital Gain yaitu selisih harga pembelian saham dengan harga penjualan, apabila harga penjualan di atas harga pembelian. Capital Loss yaitu kebalikan dari capital gain, apabila harga penjualan saham lebih rendah dari harga pembelian.
     </div>
     
     <div class="mb-6">
       <div class="font-bold mb-2">Emiten</div>
-      Yaitu perusahaan yang menawarkan efeknya kepada masyarakat melalui penawaran
-      umum.
+        Yaitu perusahaan yang menawarkan efeknya kepada masyarakat melalui penawaran umum.
     </div>
     
     <div class="mb-6">
       <div class="font-bold mb-2">HMETD (Hak Memesan Efek Terlebih Dahulu)</div>
-      Adalah hak yang melekat pada saham yang memungkinkan para pemegang saham yang
-      ada untuk membeli efek baru, termasuk saham.
+      Adalah hak yang melekat pada saham yang memungkinkan para pemegang saham yang ada untuk membeli efek baru, termasuk saham.
     </div>
     
     <div class="mb-6">
       <div class="font-bold mb-2">Waran</div>
-      Adalah efek yang diterbitkan oleh suatu perusahaan yang memberi hak kepada
-      pemegang efek untuk memesan saham dari perusahaan tersebut pada harga tertentu
-      untuk jangka waktu 6 (enam) bulan atau lebih sejak diterbitkannya waran
-      tersebut.
+      Adalah efek yang diterbitkan oleh suatu perusahaan yang memberi hak kepada pemegang efek untuk memesan saham dari perusahaan tersebut pada harga tertentu untuk jangka waktu 6 (enam) bulan atau lebih sejak diterbitkannya waran tersebut.
     </div>
     
     <div class="mb-6">
       <div class="font-bold mb-2">Delisting</div>
-      Adalah emiten yang efeknya telah dicatatkan di Bursa dan sekarang dikeluarkan
-      dari pencatatan akibat dari gagalnya pemenuhan persyaratan Bursa.
+      Adalah emiten yang efeknya telah dicatatkan di Bursa dan sekarang dikeluarkan dari pencatatan akibat dari gagalnya pemenuhan persyaratan Bursa.
       <div class="mt-4 mb-2">Delisting ada 2 jenis:</div>
       <div class="mb-2">
-        1. Voluntary Delisting : Delisting yang dilakukan atas permintaan Emiten
-        yang bersangkutan.
+        1. Voluntary Delisting : Delisting yang dilakukan atas permintaan Emiten yang bersangkutan.
       </div>
       <div class="mb-2">
         2. Forced Delisting : Delisting yang dilakukan secara paksa oleh Bursa.
@@ -729,55 +713,38 @@ export const QNA_PASAR = [
     
     <div class="mb-6">
       <div class="font-bold mb-2">Harga Teoritis</div>
-      Adalah sejumlah nilai yang dihitung berdasarkan ratio pembagian dividen saham,
-      saham bonus, penerbitan HMETD, waran, Stock Split, Reverse Stock, penggabungan
-      usaha, peleburan usaha perusahaan tercatat, dan Corporate Action lainnya yang
-      ditetapkan oleh perusahaan tercatat.
+      Adalah sejumlah nilai yang dihitung berdasarkan ratio pembagian dividen saham, saham bonus, penerbitan HMETD, waran, Stock Split, Reverse Stock, penggabungan usaha, peleburan usaha perusahaan tercatat, dan Corporate Action lainnya yang ditetapkan oleh perusahaan tercatat.
     </div>
     
     <div class="mb-6">
       <div class="font-bold mb-2">Kontrak Investasi Kolektif</div>
-      Adalah kontrak antara Manajer Investasi dan Bank Kustodian yang mengikat
-      pemegang Unit Penyertaan dimana Manajer Investasi diberi wewenang untuk
-      pengelola portofolio investasi kolektif dan Bank Kustodian diberi wewenang
-      untuk melaksanakan Penitipan Kolektif.
+      Adalah kontrak antara Manajer Investasi dan Bank Kustodian yang mengikat pemegang Unit Penyertaan dimana Manajer Investasi diberi wewenang untuk pengelola portofolio investasi kolektif dan Bank Kustodian diberi wewenang untuk melaksanakan Penitipan Kolektif.
     </div>
     
     <div class="mb-6">
       <div class="font-bold mb-2">Dividen</div>
-      Merupakan pembagian keuntungan perusahaan kepada pemegang saham secara
-      pro-rata dan dibayarkan dalam bentuk uang (dividen cash) dan atau saham
-      (dividen stock), yang besarnya akan ditetapkan berdasarkan Rapat Umum Pemegang
-      Saham (RUPS).
+      Merupakan pembagian keuntungan perusahaan kepada pemegang saham secara pro-rata dan dibayarkan dalam bentuk uang (dividen cash) dan atau saham (dividen stock), yang besarnya akan ditetapkan berdasarkan Rapat Umum Pemegang Saham (RUPS).
       <div class="my-4">
-        Cum Dividen : Tanggal perdagangan terakhir yang masih mendapatkan kesempatan
-        dividen.
+        Cum Dividen : Tanggal perdagangan terakhir yang masih mendapatkan kesempatan dividen.
       </div>
       <div class="my-4">
-        Ex Dividen : Tanggal perdagangan yang tidak mendapatkan kesempatan
-        memperoleh dividen.
+        Ex Dividen : Tanggal perdagangan yang tidak mendapatkan kesempatan memperoleh dividen.
       </div>
     </div>
     
     <div class="mb-6">
       <div class="font-bold mb-2">Divestasi</div>
-      Adalah pengurangan jumlah kepemilikan saham (pendiri/founder) atas suatu
-      perusahaan sebagai akibat dari penjualan sebagian saham perusahaan kepada
-      pihak lain atau kepada masyarakat.
+      Adalah pengurangan jumlah kepemilikan saham (pendiri/founder) atas suatu perusahaan sebagai akibat dari penjualan sebagian saham perusahaan kepada pihak lain atau kepada masyarakat.
     </div>
     
     <div class="mb-6">
       <div class="font-bold mb-2">Earning Per Share (EPS)</div>
-      Adalah mengukur besarnya laba bersih yang diperoleh perusahaan atas setiap
-      lembar yang dimiliki.
+      Adalah mengukur besarnya laba bersih yang diperoleh perusahaan atas setiap lembar yang dimiliki.
     </div>
     
     <div class="mb-6">
       <div class="font-bold mb-2">Initial Public Offering (IPO)</div>
-      Yang dikenal dengan istilah Go-Public adalah kegiatan penawaran saham yang
-      dilakukan oleh Emiten (Perusahaan yang akan Go-Public) untuk menjual saham
-      atau efek kepada masyarakat berdasarkan tata cara yang diatur oleh UU Pasar
-      Modal dan Peraturan Pelaksanaannya.
+      Yang dikenal dengan istilah Go-Public adalah kegiatan penawaran saham yang dilakukan oleh Emiten (Perusahaan yang akan Go-Public) untuk menjual saham atau efek kepada masyarakat berdasarkan tata cara yang diatur oleh UU Pasar Modal dan Peraturan Pelaksanaannya.
     </div>
     
     <div class="mb-6">
@@ -892,16 +859,16 @@ export const QNA_PASAR = [
 export const QNA_UMUM = [
   {
     title:
-      "BERAPA % DENDA KETERLAMBATAN APABILA NASABAH TIDAK MEMBAYAR PADA JATUH TEMPO?",
+      "Berapa % Denda Keterlambatan Apablia Nasabah Tidak Membayar Pada Jatuh Tempo?",
     content: `45% p.a atau 0.125% per hari.`,
   },
   {
     title:
-      "APA YANG TERJADI BILA NASABAH TIDAK MEMBAYAR KEWAJIBANNYA SESUAI DENGAN JATUH TEMPO?",
+      "Apa Yang Terjadi Bila Nasabah Tidak Membayar Kewajibannya Sesuai Dengan Jatuh Tempo?",
     content: `T+2 akan suspend buy dan dikenakan denda keterlambatan, T+4 akan di forcesell`,
   },
   {
-    title: "KAPAN JADWAL TRADING BURSA?",
+    title: "Kapan Jadwal Trading Bursa?",
     content: `
     <div class="mt-4">
   <table class="table-auto w-full">
@@ -1000,7 +967,7 @@ export const QNA_UMUM = [
     `,
   },
   {
-    title: "APA YANG DIMAKSUD DENGAN LQ45?",
+    title: "Apa Yang Dimaksud Dengan LQ45?",
     content: `
     <div class="mb-4">
      Indeks LQ 45 adalah nilai kapitalisasi pasar dari 45 saham yang paling likuid dan memiliki nilai kapitalisasi yang besar hal itu merupakan indikator likuidasi. Indeks LQ 45, menggunakan 45 saham yang terpilih berdasarkan Likuiditas perdagangan saham dan disesuaikan setiap enam bulan (setiap awal bulan Februari dan Agustus). Dengan demikian saham yang terdapat dalam indeks tersebut akan selalu berubah.
@@ -1015,7 +982,7 @@ export const QNA_UMUM = [
     `,
   },
   {
-    title: "APA YANG DIMAKSUD DENGAN LQ SMS DAN DIGUNAKAN UNTUK APA?",
+    title: "Apa Yang Dimaksud Dengan LQ SMS Dan Digunakan Untuk Apa?",
     content: `
     <div class="mb-4">
     Indeks LQ 45 adalah nilai kapitalisasi pasar dari 45 saham yang paling likuid dan memiliki nilai kapitalisasi yang besar hal itu merupakan indikator likuidasi. Indeks LQ 45, menggunakan 45 saham yang terpilih berdasarkan Likuiditas perdagangan saham dan disesuaikan setiap enam bulan (setiap awal bulan Februari dan Agustus). Dengan demikian saham yang terdapat dalam indeks tersebut akan selalu berubah.
@@ -1030,13 +997,13 @@ export const QNA_UMUM = [
     `,
   },
   {
-    title: "BAGAIMANA CARA MENGAJUKAN MARGIN?",
+    title: "Bagaimana Cara Mengajukan Margin?",
     content: `
     Nasabah minimal sudah menjadi Nasabah PT Sinarmas Sekuritas selama 3 bulan dengan "track record" transaksi yang bagus,minimal pinjaman dan jaminan sebesar Rp. 200.000.000,-.
     `,
   },
   {
-    title: "SAHAM-SAHAM APA SAJA YANG BISA DITRANSAKSIKAN DI REKENING MARGIN?",
+    title: "Saham Apa Saja Yang Bisa Ditransaksikan Di Rekening Margin?",
     content: `
     <div class="mb-4">Saham yang termasuk dalam kategori margin yang daftarnya di update setiap awal bulan oleh BEI.</div>
 
@@ -1044,7 +1011,7 @@ export const QNA_UMUM = [
     `,
   },
   {
-    title: "APA SAJA SYARAT-SYARAT MARGIN?",
+    title: "Apa Saja Syarat Margin?",
     content: `
     <ul class="list-disc px-4">
       <li class="mb-2">
@@ -1063,15 +1030,15 @@ export const QNA_UMUM = [
     `,
   },
   {
-    title: "BERAPA % BATAS TERKENA MARGIN CALL?",
+    title: "Berapa % Batas Terkena Margin Call?",
     content: `65% dan akan di "forcesell" jika mencapai ratio 75%`,
   },
   {
-    title: "BAGAIMANA CARA MENGHITUNG RATIO MARGIN?",
+    title: "Bagaimana Cara Menghitung Ratio Margin?",
     content: `Hutang / jaminan x 98.5%`,
   },
   {
-    title: "BERAPA % BUNGA MARGIN?",
+    title: "Berapa % Bunga Margin?",
     content: `18% p.a`,
   },
 ];
