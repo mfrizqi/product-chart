@@ -8,6 +8,8 @@ import InvestmentPlan from "../components/pages/InvestmentPlan";
 import risetPage from "../components/pages/RisetPage"
 import corporateFinance from "../components/pages/CorporateFinance"
 import QNAPage from "../components/pages/QNAPage"
+import FormPage from "../components/pages/FormPage"
+import ChartsPage from "../components/pages/ChartsPage"
 
 const routes = [
   {
@@ -53,6 +55,16 @@ const routes = [
     path: "/tanya-jawab",
     name: "QNAPage",
     component: QNAPage
+  },
+  {
+    path: "/form",
+    name: "FormPage",
+    component: FormPage
+  },
+  {
+    path: "/chart-page",
+    name: "ChartPage",
+    component: ChartsPage
   }
 ];
 
