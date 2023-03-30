@@ -5,7 +5,7 @@
         class="bg-slate-100 rounded-md lg:mr-6 md:mt-0 mt-4 p-5 mb-4 lg:w-80 md:w-full self-start lg:absolute z-10"
       >
         <div class="text-2xl font-bold mb-2">
-          Yuk coba simulasikan investasi kamu!
+          Yuk coba simulasikan investasi Anda!
         </div>
         <div class="flex flex-col mb-3">
           <label for="first_invest" class="mb-2 font-medium">Investasi Awal</label>
