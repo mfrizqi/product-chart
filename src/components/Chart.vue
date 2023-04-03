@@ -143,7 +143,7 @@ export default {
         datasets: [
           {
             label: "",
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: [65, 70, 80, 85, 90, 95, 100],
             fill: false,
             // borderColor: "rgb(75, 192, 192)",
             borderColor: (context) => {
@@ -222,7 +222,7 @@ export default {
   },
   mounted() {
     // this.getData();
-    this.getRealData();
+    this.getAPIData();
   },
   computed: {
     todayDate() {
@@ -250,8 +250,9 @@ export default {
           console.error(error);
         });
     },
-    getRealData() {
-      const url = `https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/${this.selectedDate}/${this.todayDate}?adjusted=true&sort=asc&limit=5000&apiKey=${this.apikey}`;
+    getAPIData() {
+      const url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${this.productCode}/growth`
+      // const url = `https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/${this.selectedDate}/${this.todayDate}?adjusted=true&sort=asc&limit=5000&apiKey=${this.apikey}`;
       axios
         .get(url)
         .then((res) => {
@@ -262,7 +263,11 @@ export default {
           this.chartData.labels = dataDates;
         })
         .catch((error) => {
-          console.error(error);
+          // this.data = this.chartValue;
+          // const navValue = this.data.map((el) => el.nav);
+          // const dataDates = this.calculateStockDates(this.data);
+          // this.chartData.datasets[0].data = navValue;
+          // this.chartData.labels = dataDates;
         });
     },
     selectTimespan(time) {

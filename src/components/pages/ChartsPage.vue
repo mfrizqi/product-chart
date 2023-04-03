@@ -1,7 +1,58 @@
 <template>
   <div>
-    Charts page
-    <Chart :chartValue="data" />
+    <div class="font-semibold mb-3 text-2xl">Danamas Pasti</div>
+    <Chart :chartValue="data" :productCode="'005'" />
+    <br />
+    <hr />
+    <br />
+    
+    <div class="font-semibold mb-3 text-2xl">Danamas Rupiah Plus</div>
+    <Chart :chartValue="data" :productCode="'014'" />
+    <br />
+    <hr />
+    <br />
+
+    <div class="font-semibold mb-3 text-2xl">Danamas Stabil</div>
+    <Chart :chartValue="data" :productCode="'008'" />
+    <br />
+    <hr />
+    <br />
+    
+    <div class="font-semibold mb-3 text-2xl">Simas Danamas Saham</div>
+    <Chart :chartValue="data" :productCode="'020'" />
+    <br />
+    <hr />
+    <br />
+
+    <div class="font-semibold mb-3 text-2xl">Simas Saham Bertumbuh</div>
+    <Chart :chartValue="data" :productCode="'108'" />
+    <br />
+    <hr />
+    <br />
+
+    <div class="font-semibold mb-3 text-2xl">Simas Saham Maksima</div>
+    <Chart :chartValue="data" :productCode="'132'" />
+    <br />
+    <hr />
+    <br />
+
+    <div class="font-semibold mb-3 text-2xl">Simas Satu</div>
+    <Chart :chartValue="data" :productCode="'002'" />
+    <br />
+    <hr />
+    <br />
+
+    <div class="font-semibold mb-3 text-2xl">Simas Satu Prima</div>
+    <Chart :chartValue="data" :productCode="'049'" />
+    <br />
+    <hr />
+    <br />
+
+    <div class="font-semibold mb-3 text-2xl">Simas Syariah Pendapatan Tetap</div>
+    <Chart :chartValue="data" :productCode="'150'" />
+    <br />
+    <hr />
+    <br />
   </div>
 </template>
 
@@ -9,471 +60,511 @@
 import Chart from "@/components/Chart.vue";
 
 const example = [
-  {
-    aum: 16469917781847,
-    nav: 4359.4103,
-    code: "008",
-    nav_datetime: "2023-03-24T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16432330197480,
-    nav: 4357.4405,
-    code: "008",
-    nav_datetime: "2023-03-21T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16332726279651,
-    nav: 4356.784,
-    code: "008",
-    nav_datetime: "2023-03-20T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16322005499799,
-    nav: 4354.8154,
-    code: "008",
-    nav_datetime: "2023-03-17T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16312232948250,
-    nav: 4354.1593,
-    code: "008",
-    nav_datetime: "2023-03-16T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16252218934930,
-    nav: 4353.5033,
-    code: "008",
-    nav_datetime: "2023-03-15T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16295345502452,
-    nav: 4352.8474,
-    code: "008",
-    nav_datetime: "2023-03-14T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16295523079980,
-    nav: 4352.1916,
-    code: "008",
-    nav_datetime: "2023-03-13T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16221068920982,
-    nav: 4350.2251,
-    code: "008",
-    nav_datetime: "2023-03-10T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16225162034917,
-    nav: 4349.5697,
-    code: "008",
-    nav_datetime: "2023-03-09T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16221093714328,
-    nav: 4348.9144,
-    code: "008",
-    nav_datetime: "2023-03-08T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16212038566489,
-    nav: 4348.2592,
-    code: "008",
-    nav_datetime: "2023-03-07T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16235946131921,
-    nav: 4347.6041,
-    code: "008",
-    nav_datetime: "2023-03-06T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16232744271859,
-    nav: 4345.6396,
-    code: "008",
-    nav_datetime: "2023-03-03T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16207893035526,
-    nav: 4344.9849,
-    code: "008",
-    nav_datetime: "2023-03-02T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16384261833180,
-    nav: 4344.3303,
-    code: "008",
-    nav_datetime: "2023-03-01T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16572246229922,
-    nav: 4343.6758,
-    code: "008",
-    nav_datetime: "2023-02-28T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16607223477850,
-    nav: 4343.0214,
-    code: "008",
-    nav_datetime: "2023-02-27T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16593341323374,
-    nav: 4341.059,
-    code: "008",
-    nav_datetime: "2023-02-24T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16618744756918,
-    nav: 4340.405,
-    code: "008",
-    nav_datetime: "2023-02-23T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16789322273395,
-    nav: 4339.7511,
-    code: "008",
-    nav_datetime: "2023-02-22T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16816133523699,
-    nav: 4339.0973,
-    code: "008",
-    nav_datetime: "2023-02-21T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16873162425501,
-    nav: 4338.4436,
-    code: "008",
-    nav_datetime: "2023-02-20T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16848269116226,
-    nav: 4336.4833,
-    code: "008",
-    nav_datetime: "2023-02-17T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16860614448987,
-    nav: 4335.83,
-    code: "008",
-    nav_datetime: "2023-02-16T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16842914259755,
-    nav: 4335.1768,
-    code: "008",
-    nav_datetime: "2023-02-15T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16828688236179,
-    nav: 4334.5237,
-    code: "008",
-    nav_datetime: "2023-02-14T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16835918119437,
-    nav: 4333.8707,
-    code: "008",
-    nav_datetime: "2023-02-13T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16814748546277,
-    nav: 4331.9124,
-    code: "008",
-    nav_datetime: "2023-02-10T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16791959441973,
-    nav: 4331.2597,
-    code: "008",
-    nav_datetime: "2023-02-09T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16813434117154,
-    nav: 4330.6071,
-    code: "008",
-    nav_datetime: "2023-02-08T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16769369143892,
-    nav: 4329.9546,
-    code: "008",
-    nav_datetime: "2023-02-07T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16825415658203,
-    nav: 4329.3022,
-    code: "008",
-    nav_datetime: "2023-02-06T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16793217051944,
-    nav: 4327.346,
-    code: "008",
-    nav_datetime: "2023-02-03T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16758007832795,
-    nav: 4326.694,
-    code: "008",
-    nav_datetime: "2023-02-02T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16806319393961,
-    nav: 4326.0421,
-    code: "008",
-    nav_datetime: "2023-02-01T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16809755247106,
-    nav: 4325.3903,
-    code: "008",
-    nav_datetime: "2023-01-31T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16807220883240,
-    nav: 4324.7386,
-    code: "008",
-    nav_datetime: "2023-01-30T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16707308745322,
-    nav: 4322.7845,
-    code: "008",
-    nav_datetime: "2023-01-27T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16681704521656,
-    nav: 4322.1332,
-    code: "008",
-    nav_datetime: "2023-01-26T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0.41,
-  },
-  {
-    aum: 16690427746346,
-    nav: 4321.482,
-    code: "008",
-    nav_datetime: "2023-01-25T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16719293015895,
-    nav: 4320.8309,
-    code: "008",
-    nav_datetime: "2023-01-24T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16681093175504,
-    nav: 4318.2281,
-    code: "008",
-    nav_datetime: "2023-01-20T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16666649264610,
-    nav: 4317.5775,
-    code: "008",
-    nav_datetime: "2023-01-19T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16638693672900,
-    nav: 4316.927,
-    code: "008",
-    nav_datetime: "2023-01-18T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16627151403774,
-    nav: 4316.2766,
-    code: "008",
-    nav_datetime: "2023-01-17T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16672644254500,
-    nav: 4315.6263,
-    code: "008",
-    nav_datetime: "2023-01-16T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16622562012580,
-    nav: 4313.6763,
-    code: "008",
-    nav_datetime: "2023-01-13T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16624620317474,
-    nav: 4313.0264,
-    code: "008",
-    nav_datetime: "2023-01-12T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16634740559813,
-    nav: 4312.3766,
-    code: "008",
-    nav_datetime: "2023-01-11T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16611115439208,
-    nav: 4311.7269,
-    code: "008",
-    nav_datetime: "2023-01-10T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16631533445532,
-    nav: 4311.0773,
-    code: "008",
-    nav_datetime: "2023-01-09T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16569304860847,
-    nav: 4309.1293,
-    code: "008",
-    nav_datetime: "2023-01-06T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16544324865356,
-    nav: 4308.4801,
-    code: "008",
-    nav_datetime: "2023-01-05T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16491497602716,
-    nav: 4307.831,
-    code: "008",
-    nav_datetime: "2023-01-04T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16446264015532,
-    nav: 4307.182,
-    code: "008",
-    nav_datetime: "2023-01-03T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16432674482805,
-    nav: 4306.5331,
-    code: "008",
-    nav_datetime: "2023-01-02T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-  {
-    aum: 16260545950446,
-    nav: 4304.5872,
-    code: "008",
-    nav_datetime: "2022-12-30T00:00:00Z",
-    one_month: 0,
-    year_to_date: 0,
-  },
-];
+    {
+        "aum": 36126294502.66,
+        "nav": 1173.8299,
+        "code": "108",
+        "nav_datetime": "2023-03-31T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36170799493.82,
+        "nav": 1176.5419,
+        "code": "108",
+        "nav_datetime": "2023-03-30T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36407182279.11,
+        "nav": 1184.2308,
+        "code": "108",
+        "nav_datetime": "2023-03-29T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35980985905.36,
+        "nav": 1170.2118,
+        "code": "108",
+        "nav_datetime": "2023-03-28T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35624183859.02,
+        "nav": 1158.653,
+        "code": "108",
+        "nav_datetime": "2023-03-27T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35797885406.69,
+        "nav": 1165.9287,
+        "code": "108",
+        "nav_datetime": "2023-03-24T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35298169675.25,
+        "nav": 1149.5702,
+        "code": "108",
+        "nav_datetime": "2023-03-21T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 34812294013.79,
+        "nav": 1133.6916,
+        "code": "108",
+        "nav_datetime": "2023-03-20T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35113026090.14,
+        "nav": 1143.4452,
+        "code": "108",
+        "nav_datetime": "2023-03-17T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 34577294442.55,
+        "nav": 1125.0422,
+        "code": "108",
+        "nav_datetime": "2023-03-16T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 34805451266.49,
+        "nav": 1132.1239,
+        "code": "108",
+        "nav_datetime": "2023-03-15T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35004289979.46,
+        "nav": 1138.5288,
+        "code": "108",
+        "nav_datetime": "2023-03-14T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35749168338.48,
+        "nav": 1162.0809,
+        "code": "108",
+        "nav_datetime": "2023-03-13T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35699677705.5,
+        "nav": 1160.2016,
+        "code": "108",
+        "nav_datetime": "2023-03-10T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35935672503.5,
+        "nav": 1167.7503,
+        "code": "108",
+        "nav_datetime": "2023-03-09T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35794109897.38,
+        "nav": 1162.8881,
+        "code": "108",
+        "nav_datetime": "2023-03-08T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35731496279.8,
+        "nav": 1160.7263,
+        "code": "108",
+        "nav_datetime": "2023-03-07T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35809872537.61,
+        "nav": 1163.895,
+        "code": "108",
+        "nav_datetime": "2023-03-06T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35838549361.43,
+        "nav": 1164.7846,
+        "code": "108",
+        "nav_datetime": "2023-03-03T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36136320049.92,
+        "nav": 1174.5127,
+        "code": "108",
+        "nav_datetime": "2023-03-02T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36096568040.19,
+        "nav": 1173.2639,
+        "code": "108",
+        "nav_datetime": "2023-03-01T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36021631135.06,
+        "nav": 1170.8347,
+        "code": "108",
+        "nav_datetime": "2023-02-28T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36183450815.39,
+        "nav": 1176.0922,
+        "code": "108",
+        "nav_datetime": "2023-02-27T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36277040635.59,
+        "nav": 1179.0472,
+        "code": "108",
+        "nav_datetime": "2023-02-24T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36246435416.07,
+        "nav": 1177.6903,
+        "code": "108",
+        "nav_datetime": "2023-02-23T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36082660827.36,
+        "nav": 1172.3396,
+        "code": "108",
+        "nav_datetime": "2023-02-22T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36533688745.9,
+        "nav": 1187.0425,
+        "code": "108",
+        "nav_datetime": "2023-02-21T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36622062493.02,
+        "nav": 1190.1639,
+        "code": "108",
+        "nav_datetime": "2023-02-20T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36512759847.39,
+        "nav": 1187.2786,
+        "code": "108",
+        "nav_datetime": "2023-02-17T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36473695816.34,
+        "nav": 1186.2393,
+        "code": "108",
+        "nav_datetime": "2023-02-16T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36637783691.65,
+        "nav": 1191.4665,
+        "code": "108",
+        "nav_datetime": "2023-02-15T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36722997508.71,
+        "nav": 1191.1844,
+        "code": "108",
+        "nav_datetime": "2023-02-14T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36499403039.04,
+        "nav": 1184.4739,
+        "code": "108",
+        "nav_datetime": "2023-02-13T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36506911325.48,
+        "nav": 1184.346,
+        "code": "108",
+        "nav_datetime": "2023-02-10T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36335930266.26,
+        "nav": 1178.797,
+        "code": "108",
+        "nav_datetime": "2023-02-09T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36542269545.96,
+        "nav": 1185.6311,
+        "code": "108",
+        "nav_datetime": "2023-02-08T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36442577542.12,
+        "nav": 1182.5646,
+        "code": "108",
+        "nav_datetime": "2023-02-07T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36215065701.67,
+        "nav": 1174.5458,
+        "code": "108",
+        "nav_datetime": "2023-02-06T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36397793829.98,
+        "nav": 1180.3875,
+        "code": "108",
+        "nav_datetime": "2023-02-03T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36067966512.25,
+        "nav": 1169.7268,
+        "code": "108",
+        "nav_datetime": "2023-02-02T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36906520898.33,
+        "nav": 1168.6107,
+        "code": "108",
+        "nav_datetime": "2023-02-01T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36731933757.44,
+        "nav": 1163.0888,
+        "code": "108",
+        "nav_datetime": "2023-01-31T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 37022934958.96,
+        "nav": 1171.946,
+        "code": "108",
+        "nav_datetime": "2023-01-30T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 37121118731.22,
+        "nav": 1174.8862,
+        "code": "108",
+        "nav_datetime": "2023-01-27T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36959559844.33,
+        "nav": 1169.6938,
+        "code": "108",
+        "nav_datetime": "2023-01-26T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0.63
+    },
+    {
+        "aum": 36614381412.11,
+        "nav": 1158.6783,
+        "code": "108",
+        "nav_datetime": "2023-01-25T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36861992259.42,
+        "nav": 1167.1003,
+        "code": "108",
+        "nav_datetime": "2023-01-24T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36960663003.12,
+        "nav": 1170.2149,
+        "code": "108",
+        "nav_datetime": "2023-01-20T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36839586713.19,
+        "nav": 1166.0482,
+        "code": "108",
+        "nav_datetime": "2023-01-19T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36575616579.99,
+        "nav": 1157.6916,
+        "code": "108",
+        "nav_datetime": "2023-01-18T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36612704537.39,
+        "nav": 1158.859,
+        "code": "108",
+        "nav_datetime": "2023-01-17T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36198167435.46,
+        "nav": 1143.0404,
+        "code": "108",
+        "nav_datetime": "2023-01-16T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35954186073.13,
+        "nav": 1134.5076,
+        "code": "108",
+        "nav_datetime": "2023-01-13T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35975165545.75,
+        "nav": 1136.7692,
+        "code": "108",
+        "nav_datetime": "2023-01-12T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35654058783.99,
+        "nav": 1126.6382,
+        "code": "108",
+        "nav_datetime": "2023-01-11T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 35818692412.9,
+        "nav": 1131.9811,
+        "code": "108",
+        "nav_datetime": "2023-01-10T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36334222419.31,
+        "nav": 1147.6489,
+        "code": "108",
+        "nav_datetime": "2023-01-09T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36206183385.81,
+        "nav": 1143.4597,
+        "code": "108",
+        "nav_datetime": "2023-01-06T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36068816956.37,
+        "nav": 1139.3663,
+        "code": "108",
+        "nav_datetime": "2023-01-05T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36734514740.77,
+        "nav": 1160.5528,
+        "code": "108",
+        "nav_datetime": "2023-01-04T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 37097510687,
+        "nav": 1171.7483,
+        "code": "108",
+        "nav_datetime": "2023-01-03T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36727005179.21,
+        "nav": 1160.0867,
+        "code": "108",
+        "nav_datetime": "2023-01-02T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    },
+    {
+        "aum": 36797223277.16,
+        "nav": 1162.3175,
+        "code": "108",
+        "nav_datetime": "2022-12-30T00:00:00Z",
+        "one_month": 0,
+        "year_to_date": 0
+    }
+]
 
 export default {
   components: {
