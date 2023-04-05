@@ -1,93 +1,198 @@
 <template>
   <div style="max-width: 720px" class="mx-auto mt-6">
-    <div class="mb-6">
-      <div class="font-semibold mb-3">Dana anda saat ini</div>
-      <div class="flex items-center">
-        <div class="border border-slate-300 px-3 py-2 sm:text-sm">Rp</div>
-        <input
-          type="number"
-          name="text"
-          v-model="form.initialFund"
-          @change="checkFund()"
-          class="px-3 py-2 bg-gray-200 border-t border-r border-b shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block w-full sm:text-sm"
-          placeholder="Masukan Dana anda saat ini"
-        />
+    <div
+      class="flex justify-between border px-5 py-4 mb-6 rounded"
+      style="border-color: #eeeeee; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16)"
+    >
+      <div class="px-5 py-2 border text-sm rounded-full bg-slate-50 font-bold">
+        Dana Anda Saat ini
+      </div>
+      <div class="px-5 py-2 text-sm rounded-full font-bold text-slate-500">
+        Dana yang harus disiapkan
+      </div>
+      <div class="px-5 py-2 text-sm rounded-full font-bold text-slate-500">
+        Investasi Berkala
       </div>
     </div>
-    <div class="mb-6">
-      <div class="font-semibold mb-3">Jangka Waktu Investasi</div>
-      <div class="flex items-center">
-        <input
-          type="number"
-          name="text"
-          class="px-3 py-2 bg-gray-200 border-t border-l border-b shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block w-full sm:text-sm"
-          placeholder="Masukan jangka waktu investasi"
-          @change="checkDuration()"
-          v-model="form.duration"
-        />
-        <div class="border border-slate-300 px-3 py-2 sm:text-sm">Tahun</div>
+
+    <!-- Idle State -->
+    <div
+      style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16); border-radius: 16px"
+      class="p-6"
+      v-if="isIdle"
+    >
+      <div class="mb-6">
+        <div class="font-bold mb-3">Dana anda saat ini</div>
+        <div class="flex items-center">
+          <div
+            class="border-t border-l rounded-l border-b border-slate-300 px-3 py-2 sm:text-sm font-bold"
+          >
+            Rp
+          </div>
+          <input
+            type="number"
+            name="text"
+            v-model="form.initialFund"
+            @change="checkFund()"
+            class="px-3 py-2 border-t border-r border-b shadow-sm rounded-r border-slate-300 placeholder-slate-400 focus:outline-none block w-full sm:text-sm"
+            placeholder="Masukan Dana anda saat ini"
+          />
+        </div>
       </div>
-    </div>
-    <div class="mb-6">
-      <div class="font-semibold mb-3">Produk Investasi</div>
-      <select
-        class="px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block w-full sm:text-sm"
-        @change="selectChange($event)"
-      >
-        <option
-          class="mb-6"
-          :value="invest.code"
-          v-for="(invest, index) in productInvest"
-          :key="index"
+      <div class="mb-6">
+        <div class="font-semibold mb-3">Jangka Waktu Investasi</div>
+        <div class="flex items-center">
+          <input
+            type="number"
+            name="text"
+            class="px-3 py-2 border-t border-l rounded-l border-b shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block w-full sm:text-sm"
+            placeholder="Masukan jangka waktu investasi"
+            @change="checkDuration()"
+            v-model="form.duration"
+          />
+          <div
+            class="border-t border-r rounded-r border-b border-slate-300 px-3 py-2 sm:text-sm font-bold"
+          >
+            Tahun
+          </div>
+        </div>
+      </div>
+      <div class="mb-6">
+        <div class="font-semibold mb-3">Profil Resiko</div>
+        <select
+          class="px-3 py-2 bg-white border shadow-sm rounded border-slate-300 placeholder-slate-400 focus:outline-none block w-full sm:text-sm"
+          @change="selectChange($event)"
         >
-          {{ invest.name }}
-        </option>
-      </select>
-    </div>
-    <div class="mb-6">
-      <div class="font-semibold mb-3">Nilai investasi anda di masa depan</div>
-      <div class="flex items-center">
-        <div class="border border-slate-300 px-3 py-2 sm:text-sm">Rp</div>
-        <input
-          type="number"
-          v-model="form.outputTotal"
-          readonly
-          class="px-3 py-2 bg-gray-200 border-t border-r border-b shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block w-full sm:text-sm"
-          placeholder="Masukan Dana anda saat ini"
-        />
+          <option
+            class="mb-6"
+            :value="invest.code"
+            v-for="(invest, index) in productInvest"
+            :key="index"
+            @click="selectProduct(invest)"
+          >
+            {{ invest.name }}
+          </option>
+        </select>
       </div>
-    </div>
-    <div class="flex justify-between">
-      <div class="rounded-lg border px-4 py-2 font-semibold cursor-pointer" @click="resetForm()">
-        Reset
+      <div class="mb-6 hidden">
+        <div class="font-semibold mb-3">Nilai investasi anda di masa depan</div>
+        <div class="flex items-center">
+          <div class="border border-slate-300 px-3 py-2 sm:text-sm">Rp</div>
+          <input
+            type="number"
+            v-model="form.outputTotal"
+            readonly
+            class="px-3 py-2 bg-gray-200 border-t border-r border-b shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block w-full sm:text-sm"
+            placeholder="Masukan Dana anda saat ini"
+          />
+        </div>
       </div>
-      <div
-        class="rounded-lg border px-6 py-2 bg-red-600 text-white font-semibold cursor-pointer tracking-wide flex"
-        @click="calculateInvest()"
-        :disabled="isLoading"
-      >
-        <svg
-          class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          v-if="isLoading"
+      <div class="flex justify-between">
+        <div
+          class="rounded-md border border-slate-500 px-4 py-3 font-semibold cursor-pointer"
+          @click="resetForm()"
         >
-          <circle
-            class="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            stroke-width="4"
-          ></circle>
-          <path
-            class="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          ></path>
-        </svg>
-        Hitung
+          Reset
+        </div>
+        <div
+          class="rounded-md border px-6 py-3 bg-red-600 text-white font-semibold cursor-pointer tracking-wide flex"
+          @click="calculateInvest()"
+          :disabled="isLoading"
+        >
+          <svg
+            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            v-if="isLoading"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          Hitung Keuntungan
+        </div>
+      </div>
+    </div>
+
+    <!-- Calculated State -->
+    <div
+      style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16); border-radius: 16px"
+      v-if="!isIdle"
+    >
+      <div class="pt-8 px-6">
+        <div class="text-center text-xl font-bold mb-6">
+          Estimasi Perhitungan
+        </div>
+
+        <div class="flex justify-between mb-6">
+          <div class="font-semibold text-sm">Dana Anda saat ini</div>
+          <div class="font-bold">{{ form.initialFund }} IDR</div>
+        </div>
+
+        <div class="flex justify-between mb-6">
+          <div class="font-semibold text-sm">Jangka waktu investasi</div>
+          <div class="font-bold">{{ form.duration }} Tahun</div>
+        </div>
+
+        <div class="flex justify-between mb-6">
+          <div class="font-semibold text-sm">Profil Risiko</div>
+          <div class="font-bold">{{ form.productName }}</div>
+        </div>
+      </div>
+
+      <div class="flex justify-between mb-6 bg-zinc-100 px-6 py-5">
+        <div class="font-bold">Nilai investasi Masa Depan (Rupiah)</div>
+        <div class="font-bold text-red-600">{{ form.outputTotal }}</div>
+      </div>
+
+      <div class="px-6">
+        <div class="flex justify-between">
+          <div
+            class="rounded-md border border-slate-500 px-4 py-3 font-semibold cursor-pointer"
+            @click="resetForm()"
+          >
+            Hitung ulang
+          </div>
+          <div
+            class="rounded-md border px-6 py-3 bg-red-600 text-white font-semibold cursor-pointer tracking-wide flex"
+            @click="calculateInvest()"
+            :disabled="isLoading"
+          >
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              v-if="isLoading"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            Mulai Investasi!
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -252,15 +357,26 @@ export default {
       form: {
         initialFund: 0,
         duration: 0,
-        productCode: '005',
+        productName: "Danamas Pasti",
+        productCode: "005",
         outputTotal: 0,
       },
+      isIdle: false,
     };
   },
   methods: {
     selectChange(ev) {
-      console.log(ev.target.value);
-      this.form.productCode = ev.target.value
+      this.form.productCode = ev.target.value;
+      const product = this.productInvest.filter(
+        (el) => el.code === this.form.productCode
+      );
+      this.form.productName = product[0].name;
+
+      console.log(this.form);
+    },
+    selectProduct(invest) {
+      this.form.productName = invest?.name;
+      console.log(this.form);
     },
     checkFund() {
       if (this.form.initialFund < 0) {
@@ -277,9 +393,10 @@ export default {
       }
     },
     resetForm() {
-      this.form.initialFund = 0
-      this.form.duration = 0
-      this.form.outputTotal = 0
+      this.form.initialFund = 0;
+      this.form.duration = 0;
+      this.form.outputTotal = 0;
+      this.isIdle = true;
     },
     calculateInvest() {
       this.form.outputTotal = 100000000;
@@ -299,17 +416,18 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          if(res.data.result){
-            this.form.outputTotal = res.data.result
+          if (res.data.result) {
+            this.form.outputTotal = res.data.result;
           }
-           if(res.result){
-            this.form.outputTotal = res.result
+          if (res.result) {
+            this.form.outputTotal = res.result;
           }
         })
         .catch((error) => {
           console.error(error);
         })
         .finally(() => {
+          this.isIdle = false;
           this.isLoading = false;
         });
     },
