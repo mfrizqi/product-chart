@@ -24,7 +24,7 @@
               @click="selectTimespan(time)"
               :class="[
                 { active: activeBtn === index },
-                { 'mr-4': index < timespans.length-1 },
+                { 'mr-4': index < timespans.length - 1 },
               ]"
             >
               {{ time.name }}
@@ -37,9 +37,9 @@
               class="flex-1 p-4 bg-white drop-shadow-md rounded-md mr-3 flex justify-between"
             >
               <div class="flex flex-col justify-between">
-                <div class="font-bold block mb-1">{{
-                  moment().format("MMMM")
-                }}</div>
+                <div class="font-bold block mb-1">
+                  {{ moment().format("MMMM") }}
+                </div>
                 <div class="font-bold block text-gray-400 text-sm">
                   {{ moment().format("YYYY") }}
                 </div>
@@ -128,12 +128,16 @@ export default {
     },
     withStatus: {
       type: Boolean,
-      default: true
+      default: true,
     },
     chartValue: {
       type: Object,
-      default: ()=>{}
-    }
+      default: () => {},
+    },
+    productCode: {
+      type: String,
+      default: "005",
+    },
   },
   data() {
     var self = this;
@@ -202,6 +206,7 @@ export default {
         },
       },
       apikey: "dXUpzvWgv2nzCgkZUs3OY1aDVIZ7Vwq4",
+      token: "YnNpbS1zdGc6YnNpbXN0Zw==",
       activeBtn: 1,
       data: {},
       timespans: [
@@ -251,10 +256,14 @@ export default {
         });
     },
     getAPIData() {
-      const url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${this.productCode}/growth`
+      const url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${this.productCode}/growth`;
       // const url = `https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/${this.selectedDate}/${this.todayDate}?adjusted=true&sort=asc&limit=5000&apiKey=${this.apikey}`;
       axios
-        .get(url)
+        .get(url, {
+          headers: {
+            Authorization: `Basic ${this.token}`,
+          },
+        })
         .then((res) => {
           this.data = this.chartValue;
           const navValue = this.data.map((el) => el.nav);
