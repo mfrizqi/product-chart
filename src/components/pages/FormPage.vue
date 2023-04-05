@@ -4,13 +4,19 @@
       class="flex justify-between border px-5 py-4 mb-6 rounded"
       style="border-color: #eeeeee; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16)"
     >
-      <div class="px-5 py-2 border text-sm rounded-full bg-slate-50 font-bold cursor-pointer">
+      <div
+        class="px-5 py-2 border text-sm rounded-full bg-slate-50 font-bold cursor-pointer"
+      >
         Dana Anda Saat ini
       </div>
-      <div class="px-5 py-2 text-sm rounded-full font-bold text-slate-500 cursor-pointer">
+      <div
+        class="px-5 py-2 text-sm rounded-full font-bold text-slate-500 cursor-pointer"
+      >
         Dana yang harus disiapkan
       </div>
-      <div class="px-5 py-2 text-sm rounded-full font-bold text-slate-500 cursor-pointer">
+      <div
+        class="px-5 py-2 text-sm rounded-full font-bold text-slate-500 cursor-pointer"
+      >
         Investasi Berkala
       </div>
     </div>
@@ -169,7 +175,11 @@
 
         <section class="mb-8">
           <div
-            :style="[product.isSelected ? {'box-shadow': '0 4px 8px 0 rgba(0, 0, 0, 0.16)'} : {'box-shadow': 'none'}]"
+            :style="[
+              product.isSelected
+                ? { 'box-shadow': '0 4px 8px 0 rgba(0, 0, 0, 0.16)' }
+                : { 'box-shadow': 'none' },
+            ]"
             :class="[product.isSelected ? 'bg-white' : 'bg-zinc-100']"
             class="flex justify-between px-4 py-3 mb-4 cursor-pointer border rounded-md"
             v-for="(product, index) in productRecommends"
@@ -182,16 +192,20 @@
                 {{ product.name }}
               </div>
             </div>
-            <img src="@/assets/check.svg" alt="" v-if="product.isSelected">
+            <img src="@/assets/check.svg" alt="" v-if="product.isSelected" />
           </div>
         </section>
 
         <div class="flex justify-between">
           <div
-            class="rounded-md border border-slate-500 px-4 py-3 font-semibold cursor-pointer"
+            class="rounded-md border border-slate-500 px-4 py-3 font-semibold cursor-pointer flex"
             @click="resetForm()"
           >
             Hitung ulang
+            <img
+              src="@/assets/retry.svg"
+              style="width: 18px; margin-top: 4px; margin-left: 4px"
+            />
           </div>
           <div
             class="rounded-md border px-6 py-3 bg-red-600 text-white font-semibold cursor-pointer tracking-wide flex"
@@ -447,15 +461,15 @@ export default {
       this.form.productName = invest?.name;
       console.log(this.form);
     },
-    selectInvest(index){
-      const tempArray = []
+    selectInvest(index) {
+      const tempArray = [];
       for (let i = 0; i < this.productRecommends.length; i++) {
         const element = this.productRecommends[i];
-        if(element.isSelected){
-          element.isSelected = false
+        if (element.isSelected) {
+          element.isSelected = false;
         } else {
-          if(index === i){
-            element.isSelected = true
+          if (index === i) {
+            element.isSelected = true;
           }
         }
 
@@ -463,7 +477,7 @@ export default {
       }
 
       this.productRecommends = tempArray;
-    },    
+    },
     checkFund() {
       if (this.form.initialFund < 0) {
         this.form.initialFund = 0;
@@ -491,8 +505,8 @@ export default {
       this.selectInvest(0);
     },
     calculateInvest() {
-      if(this.form.initialFund <= 0 || this.form.duration <= 0){
-        return
+      if (this.form.initialFund <= 0 || this.form.duration <= 0) {
+        return;
       }
 
       this.form.outputTotal = 100000000;
