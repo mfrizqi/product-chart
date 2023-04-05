@@ -4,13 +4,13 @@
       class="flex justify-between border px-5 py-4 mb-6 rounded"
       style="border-color: #eeeeee; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16)"
     >
-      <div class="px-5 py-2 border text-sm rounded-full bg-slate-50 font-bold">
+      <div class="px-5 py-2 border text-sm rounded-full bg-slate-50 font-bold cursor-pointer">
         Dana Anda Saat ini
       </div>
-      <div class="px-5 py-2 text-sm rounded-full font-bold text-slate-500">
+      <div class="px-5 py-2 text-sm rounded-full font-bold text-slate-500 cursor-pointer">
         Dana yang harus disiapkan
       </div>
-      <div class="px-5 py-2 text-sm rounded-full font-bold text-slate-500">
+      <div class="px-5 py-2 text-sm rounded-full font-bold text-slate-500 cursor-pointer">
         Investasi Berkala
       </div>
     </div>
@@ -137,7 +137,9 @@
 
         <div class="flex justify-between mb-6">
           <div class="font-semibold text-sm">Dana Anda saat ini</div>
-          <div class="font-bold">{{ form.initialFund }} IDR</div>
+          <div class="font-bold">
+            {{ formatDecimals(form.initialFund) }} IDR
+          </div>
         </div>
 
         <div class="flex justify-between mb-6">
@@ -153,10 +155,37 @@
 
       <div class="flex justify-between mb-6 bg-zinc-100 px-6 py-5">
         <div class="font-bold">Nilai investasi Masa Depan (Rupiah)</div>
-        <div class="font-bold text-red-600">{{ form.outputTotal }}</div>
+        <div class="font-bold text-red-600">
+          {{ formatDecimals(form.outputTotal) }}
+        </div>
       </div>
 
-      <div class="px-6">
+      <div class="px-6 pb-8">
+        <div class="font-bold mb-3">Rekomendasi produk investasi</div>
+        <div class="text-slate-400 mb-4">
+          Berikut merupakan rekomendasi Produk Investasi kami berdasarkan profil
+          resiko yang anda pilih:
+        </div>
+
+        <section class="mb-8">
+          <div
+            :style="[product.isSelected ? {'box-shadow': '0 4px 8px 0 rgba(0, 0, 0, 0.16)'} : {'box-shadow': 'none'}]"
+            :class="[product.isSelected ? 'bg-white' : 'bg-zinc-100']"
+            class="flex justify-between px-4 py-3 mb-4 cursor-pointer border rounded-md"
+            v-for="(product, index) in productRecommends"
+            :key="index"
+            @click="selectInvest(index)"
+          >
+            <div class="flex">
+              <div class="mr-4 font-bold text-red-600">0{{ index + 1 }}</div>
+              <div class="font-bold">
+                {{ product.name }}
+              </div>
+            </div>
+            <img src="@/assets/check.svg" alt="" v-if="product.isSelected">
+          </div>
+        </section>
+
         <div class="flex justify-between">
           <div
             class="rounded-md border border-slate-500 px-4 py-3 font-semibold cursor-pointer"
@@ -348,10 +377,38 @@ const PRODUCT_INVEST = [
   },
 ];
 
+let PRODUCT_RECOMMENDATION = [
+  {
+    name: "Danamas Rupiah Plus",
+    isSelected: true,
+  },
+  {
+    name: "Danamas Dolar",
+    isSelected: false,
+  },
+  {
+    name: "Simas Danamas Instrumen Negara",
+    isSelected: false,
+  },
+  {
+    name: "Danamas Pasti",
+    isSelected: false,
+  },
+  {
+    name: "Simas Syariah Pendapatan Tetap",
+    isSelected: false,
+  },
+  {
+    name: "Simas Syariah Pendapatan Optima",
+    isSelected: false,
+  },
+];
+
 export default {
   data() {
     return {
       productInvest: PRODUCT_INVEST,
+      productRecommends: PRODUCT_RECOMMENDATION,
       outputTotal: 0,
       isLoading: false,
       form: {
@@ -361,8 +418,20 @@ export default {
         productCode: "005",
         outputTotal: 0,
       },
-      isIdle: false,
+      isIdle: true,
     };
+  },
+  filters: {
+    toCurrency: (value) => {
+      if (typeof value !== "number") {
+        return value;
+      }
+      var formatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      });
+      return formatter.format(value);
+    },
   },
   methods: {
     selectChange(ev) {
@@ -378,6 +447,23 @@ export default {
       this.form.productName = invest?.name;
       console.log(this.form);
     },
+    selectInvest(index){
+      const tempArray = []
+      for (let i = 0; i < this.productRecommends.length; i++) {
+        const element = this.productRecommends[i];
+        if(element.isSelected){
+          element.isSelected = false
+        } else {
+          if(index === i){
+            element.isSelected = true
+          }
+        }
+
+        tempArray.push(element);
+      }
+
+      this.productRecommends = tempArray;
+    },    
     checkFund() {
       if (this.form.initialFund < 0) {
         this.form.initialFund = 0;
@@ -392,13 +478,23 @@ export default {
         this.form.duration = 50;
       }
     },
+    formatDecimals(num) {
+      var str = num.toLocaleString("en-US");
+      str = str.replace(/,/g, ".");
+      return str;
+    },
     resetForm() {
       this.form.initialFund = 0;
       this.form.duration = 0;
       this.form.outputTotal = 0;
       this.isIdle = true;
+      this.selectInvest(0);
     },
     calculateInvest() {
+      if(this.form.initialFund <= 0 || this.form.duration <= 0){
+        return
+      }
+
       this.form.outputTotal = 100000000;
       this.isLoading = true;
       const url = "https://api.siminvest.co.id/api/v1/pcs/calculator";
@@ -429,6 +525,7 @@ export default {
         .finally(() => {
           this.isIdle = false;
           this.isLoading = false;
+          console.log(this.form);
         });
     },
   },
