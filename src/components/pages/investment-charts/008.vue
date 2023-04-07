@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="font-semibold mb-3 text-2xl">Danamas Stabil</div>
     <Chart :chartValue="data" :productCode="'008'" />
   </div>
 </template>

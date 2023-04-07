@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div class="font-semibold mb-3 text-2xl">Simas Satu Prima</div>
     <Chart :chartValue="data" :productCode="'049'" />
-    <br />
-    <hr />
-    <br />
   </div>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="font-semibold mb-3 text-2xl">Simas Danamas Saham</div>
     <Chart :chartValue="data" :productCode="'020'" />
   </div>
 </template>

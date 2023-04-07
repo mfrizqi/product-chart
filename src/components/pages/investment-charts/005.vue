@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="font-semibold mb-3 text-2xl">Danamas Pasti</div>
     <Chart :chartValue="data" :productCode="'005'" />
   </div>
 </template>

@@ -13,15 +13,15 @@ import FormInvestment from "../components/pages/FormInvestment";
 import ChartsPage from "../components/pages/ChartsPage";
 
 // CHART PAGES
-import chart002 from "../components/pages/investment-charts/002";
-import chart005 from "../components/pages/investment-charts/005";
-import chart008 from "../components/pages/investment-charts/008";
-import chart014 from "../components/pages/investment-charts/014";
-import chart020 from "../components/pages/investment-charts/020";
-import chart049 from "../components/pages/investment-charts/049";
-import chart108 from "../components/pages/investment-charts/108";
-import chart132 from "../components/pages/investment-charts/132";
-import chart150 from "../components/pages/investment-charts/150";
+import chartSimasSatu from "../components/pages/investment-charts/002";
+import chartDanamasPasti from "../components/pages/investment-charts/005";
+import chartDanamasStabil from "../components/pages/investment-charts/008";
+import chartDanamasRupiahPlus from "../components/pages/investment-charts/014";
+import chartSimasDanamasSaham from "../components/pages/investment-charts/020";
+import chartSimasSatuPrima from "../components/pages/investment-charts/049";
+import chartSimasSahamBertumbuh from "../components/pages/investment-charts/108";
+import chartSimasSahamMaksima from "../components/pages/investment-charts/132";
+import chartSimasSyariahPendapatanTetap from "../components/pages/investment-charts/150";
 
 const routes = [
   {
@@ -84,49 +84,49 @@ const routes = [
     component: ChartsPage,
   },
   {
-    path: "/investment-chart/002",
-    name: "Chart 002",
-    component: chart002,
+    path: "/investment-chart/simas-satu",
+    name: "Chart Simas Satu",
+    component: chartSimasSatu,
   },
   {
-    path: "/investment-chart/005",
-    name: "Chart 005",
-    component: chart005,
+    path: "/investment-chart/danamas-pasti",
+    name: "Chart Danamas Pasti",
+    component: chartDanamasPasti,
   },
   {
-    path: "/investment-chart/008",
+    path: "/investment-chart/danamas-stabil",
     name: "Chart 008",
-    component: chart008,
+    component: chartDanamasStabil,
   },
   {
-    path: "/investment-chart/014",
+    path: "/investment-chart/danamas-rupiah-plus",
     name: "Chart 014",
-    component: chart014,
+    component: chartDanamasRupiahPlus,
   },
   {
-    path: "/investment-chart/020",
-    name: "Chart 020",
-    component: chart020,
+    path: "/investment-chart/simas-danamas-saham",
+    name: "Chart Simas Danamas Saham",
+    component: chartSimasDanamasSaham,
   },
   {
-    path: "/investment-chart/049",
-    name: "Chart 049",
-    component: chart049,
+    path: "/investment-chart/simas-satu-prima",
+    name: "Chart Simas Satu Prima",
+    component: chartSimasSatuPrima,
   },
   {
-    path: "/investment-chart/108",
-    name: "Chart 108",
-    component: chart108,
+    path: "/investment-chart/simas-saham-bertumbuh",
+    name: "Chart Simas Saham Bertumbuh",
+    component: chartSimasSahamBertumbuh,
   },
   {
-    path: "/investment-chart/132",
-    name: "Chart 132",
-    component: chart132,
+    path: "/investment-chart/simas-saham-maksima",
+    name: "Chart Simas Saham Maksima",
+    component: chartSimasSahamMaksima,
   },
   {
-    path: "/investment-chart/150",
-    name: "Chart 150",
-    component: chart150,
+    path: "/investment-chart/simas-syariah-pendapatan-tetap",
+    name: "Chart Simas Syariah Pendapatan Tetap",
+    component: chartSimasSyariahPendapatanTetap,
   },
 ];
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="font-semibold mb-3 text-2xl">Simas Syariah Pendapatan Tetap</div>
     <Chart :chartValue="data" :productCode="'150'" />
   </div>
 </template>
