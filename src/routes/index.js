@@ -11,6 +11,7 @@ import QNAPage from "../components/pages/QNAPage";
 import FormPage from "../components/pages/FormPage";
 import FormInvestment from "../components/pages/FormInvestment";
 import ChartsPage from "../components/pages/ChartsPage";
+import ChartPage from "../components/pages/ChartPage";
 
 // CHART PAGES
 import chartSimasSatu from "../components/pages/investment-charts/002";
@@ -82,6 +83,11 @@ const routes = [
     path: "/chart-page",
     name: "ChartPage",
     component: ChartsPage,
+  },
+  {
+    path: "/chart/:name",
+    name: "ChartPage",
+    component: ChartPage,
   },
   {
     path: "/investment-chart/simas-satu",

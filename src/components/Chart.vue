@@ -209,6 +209,7 @@ export default {
       token: "YnNpbS1zdGc6YnNpbXN0Zw==",
       activeBtn: 1,
       data: {},
+      product: {},
       timespans: [
         { name: "All", value: 3 },
         { name: "1m", value: 1 },
@@ -227,7 +228,9 @@ export default {
   },
   mounted() {
     // this.getData();
-    this.getAPIData();
+    // this.getAPIData();
+    // this.getChartData(this.productCode);
+    this.getMutualFunds()
   },
   computed: {
     todayDate() {
@@ -240,6 +243,14 @@ export default {
     },
   },
   methods: {
+    setupChart() {
+      console.log(this.chartValue);
+      this.data = this.chartValue;
+      const navValue = this.data.map((el) => el.nav);
+      const dataDates = this.calculateStockDates(this.data);
+      this.chartData.datasets[0].data = navValue;
+      this.chartData.labels = dataDates;
+    },
     getData() {
       const url = `https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/${this.selectedDate}/${this.todayDate}?adjusted=true&sort=asc&limit=5000&apiKey=${this.apikey}`;
       axios
@@ -279,6 +290,53 @@ export default {
           // this.chartData.labels = dataDates;
         });
     },
+     getMutualFunds() {
+      const name = this.$route.params.name;
+      console.log(name);
+      const url = "http://trading.simasnet.com/ROL/web/nab.php";
+      axios
+        .get(url)
+        .then((res) => {
+          const data = res.data.results;
+          const rawName = name.split('-');
+          let procName = []
+          for (let i = 0; i < rawName.length; i++) {
+            procName.push(rawName[i].charAt(0).toUpperCase() + rawName[i].slice(1))
+          }
+          const finalName = procName.join(' ');
+          console.log(finalName)
+          this.product = data.filter((el) => el.product_name === finalName)[0]
+          console.log(this.product)
+          this.getChartData(this.product?.product_id)
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {});
+    },
+    getChartData(id) {
+      const start = moment(this.todayDate).format('MM/DD/YYYY');
+      const end = moment(this.selectedDate).format('MM/DD/YYYY');
+      console.log(start, end)
+      const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
+      axios
+        .get(url)
+        .then((res) => {
+          console.log(res);
+          const data = res.data.results;
+          console.log(data);
+
+          this.data = data
+          const navValue = this.data.map((el) => el.nab);
+          const dataDates = this.calculateStockDates(this.data);
+          this.chartData.datasets[0].data = navValue;
+          this.chartData.labels = dataDates;
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {});
+    },
     selectTimespan(time) {
       const idx = this.timespans.findIndex((el) => el.name === time.name);
       this.activeBtn = idx;
@@ -288,17 +346,24 @@ export default {
         this.selectedTime.type = "months";
       }
       this.selectedTime.duration = time.value;
-      this.getData();
+      this.getChartData(this.product?.product_id);
     },
     calculateStockDates(timeResults) {
+      const dates = [];
+      timeResults.forEach((el) => {
+        const date = new Date(el.nab_date);
+        const momentDate = moment(new Date(el.nab_date)).format("MMM DD YY");
+        dates.push(`${momentDate}`);
+      });
+      return dates;
+    },
+    calculateStockDatesOld(timeResults) {
       const dates = [];
       timeResults.forEach((el) => {
         const date = new Date(el.nav_datetime);
         const momentDate = moment(el.nav_datetime).format("MMM DD");
         // const monthName = date.toLocaleString("en-US", { month: "short" });
         // const dateNumber = date.getDate();
-        console.log(date);
-        console.log(momentDate);
         dates.push(`${momentDate}`);
       });
       return dates;
