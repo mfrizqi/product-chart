@@ -12,6 +12,7 @@ import FormPage from "../components/pages/FormPage";
 import FormInvestment from "../components/pages/FormInvestment";
 import ChartsPage from "../components/pages/ChartsPage";
 import ChartPage from "../components/pages/ChartPage";
+import StockTicker from "../components/pages/StockTicker";
 
 // CHART PAGES
 import chartSimasSatu from "../components/pages/investment-charts/002";
@@ -134,6 +135,12 @@ const routes = [
     name: "Chart Simas Syariah Pendapatan Tetap",
     component: chartSimasSyariahPendapatanTetap,
   },
+  {
+    path: "/stock-ticker",
+    name: "Stock Ticker",
+    component: StockTicker,
+  }
+  
 ];
 
 const router = createRouter({
