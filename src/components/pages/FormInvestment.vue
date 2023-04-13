@@ -183,6 +183,10 @@
         </div>
       </div>
 
+      <div class="px-6 pb-4 flex items-center justify-end cursor-pointer">
+        <a href="#" class="font-semibold text-red-600 text-sm inline-block"> Selengkapnya </a> <img src="@/assets/chevron-right-red.svg" alt="" style="width: 22px">
+      </div>
+
       <div class="px-6 pb-8">
         <div class="flex justify-between">
           <div
