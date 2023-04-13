@@ -14,12 +14,11 @@
         >
           <option
             class="mb-6"
-            :value="invest.code"
+            :data-value="invest"
             v-for="(invest, index) in productInvest"
             :key="index"
-            @click="selectProduct(invest)"
           >
-            {{ invest.name }}
+            {{ invest.product_name }}
           </option>
         </select>
       </div>
@@ -42,7 +41,7 @@
         </div>
       </div>
       <div class="mb-6">
-        <div class="font-semibold mb-3">Periode Investasi setiap tanggal</div>
+        <div class="font-semibold mb-3">Dalam Kurun Waktu</div>
         <div class="flex items-center">
           <select
             class="px-3 py-2 bg-white border shadow-sm rounded border-slate-300 placeholder-slate-400 focus:outline-none block w-full sm:text-sm"
@@ -54,7 +53,7 @@
               v-for="(period, index) in periodInvest"
               :key="index"
             >
-              {{ period }}
+              {{ period }} Tahun
             </option>
           </select>
         </div>
@@ -63,6 +62,7 @@
         <div class="font-semibold mb-3">Tanggal Awal Investasi</div>
         <VueDatePicker
           v-model="form.startDate"
+          :min-date="new Date()"
           placeholder="Dd / MMm / YYYY"
           :enable-time-picker="false"
           month-name-format="short"
@@ -74,6 +74,7 @@
         <div class="font-semibold mb-3">Tanggal Akhir Investasi</div>
         <VueDatePicker
           v-model="form.endDate"
+          :min-date="new Date()"
           placeholder="Dd / MMm / YYYY"
           :enable-time-picker="false"
           month-name-format="short"
@@ -117,6 +118,14 @@
           Hitung Keuntungan
         </div>
       </div>
+
+      <div class="mt-6 text-xs">
+        <div class="font-semibold mb-3">Disclaimer</div>
+        <div>
+          Perhitungan kalkulator investasi diatas merupakan alat bantu alat
+          bantu simulasi dan buka <br/> merupakan saran investasi.
+        </div>
+      </div>
     </div>
 
     <!-- Calculated State -->
@@ -135,7 +144,7 @@
             class="font-bold px-6 py-4 rounded-lg border"
             style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16)"
           >
-            {{ form.product?.name }}
+            {{ form.product?.product_name }}
           </div>
         </div>
 
@@ -147,14 +156,12 @@
         </div>
 
         <div class="flex justify-between mb-6">
-          <div class="font-semibold text-sm">
-            Periode Investasi setiap tanggal
-          </div>
-          <div class="font-bold">{{ form.periodInvest }}
-            <span v-if="form.periodInvest === 1"> (Satu)</span>
+          <div class="font-semibold text-sm">Dalam Kurun Waktu</div>
+          <div class="font-bold">
+            {{ form.periodInvest }} Tahun
+            <!-- <span v-if="form.periodInvest === 1"> (Satu)</span>
             <span v-if="form.periodInvest === 10"> (Sepuluh)</span>
-            <span v-if="form.periodInvest === 20"> (Dua Puluh)</span>
-
+            <span v-if="form.periodInvest === 20"> (Dua Puluh)</span> -->
           </div>
         </div>
 
@@ -216,6 +223,14 @@
             </svg>
             Mulai Investasi !
           </div>
+        </div>
+      </div>
+      
+      <div class="p-6 text-xs">
+        <div class="font-semibold mb-3">Disclaimer</div>
+        <div>
+          Perhitungan kalkulator investasi diatas merupakan alat bantu alat
+          bantu simulasi dan buka <br/> merupakan saran investasi.
         </div>
       </div>
     </div>
@@ -414,11 +429,9 @@ export default {
       outputTotal: 0,
       isLoading: false,
       form: {
-        initialFund: 0,
+        initialFund: null,
         duration: 0,
-        product: PRODUCT_INVEST[0],
-        productName: "Danamas Pasti",
-        productCode: "005",
+        product: null,
         outputTotal: 0,
         periodInvest: 1,
         startDate: null,
@@ -439,11 +452,30 @@ export default {
       return formatter.format(value);
     },
   },
+  mounted(){
+    this.getMutualFunds();
+  },
   methods: {
+    getMutualFunds() {
+      const url = "http://trading.simasnet.com/ROL/web/nab.php";
+      axios
+        .get(url)
+        .then((res) => {
+          const data = res.data.results;
+          console.log(data)
+          this.productInvest = data
+          this.form.product = this.productInvest[0]
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {});
+    },
     selectChange(ev) {
-      this.form.productCode = ev.target.value;
+      console.log(ev.target.value)
+      this.form.productName = ev.target.value;
       const product = this.productInvest.filter(
-        (el) => el.code === this.form.productCode
+        (el) => el.product_name === this.form.productName
       );
       this.form.product = product[0];
 
@@ -454,7 +486,7 @@ export default {
     },
     selectProduct(invest) {
       this.form.productName = invest?.name;
-      console.log(this.form);
+      this.product = invest
     },
     checkFund() {
       if (this.form.initialFund < 0) {
@@ -494,7 +526,7 @@ export default {
       return end.diff(start);
     },
     resetForm() {
-      this.form.initialFund = 0;
+      this.form.initialFund = null;
       this.form.periodInvest = 1;
       this.form.startDate = null;
       this.form.endDate = null;
@@ -518,11 +550,11 @@ export default {
         return;
       }
 
-      const totalNAV = this.form.product?.nav * monthDifference;
+      const totalNAB = this.form.product?.nab * monthDifference;
       const totalInit = this.form.initialFund * monthDifference;
-      console.log(totalNAV)
-      console.log(totalInit)
-      this.form.outputTotal = totalNAV + totalInit;
+      console.log(totalNAB);
+      console.log(totalInit);
+      this.form.outputTotal = totalNAB + totalInit;
 
       // this.isLoading = true;
       // const url = "https://api.siminvest.co.id/api/v1/pcs/calculator";
