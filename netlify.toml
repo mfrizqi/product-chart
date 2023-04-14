@@ -1,0 +1,6 @@
+[[redirects]]
+  from = "/investment-plan-v2"
+  to = "http://trading.simasnet.com/ROL/web/nab.php"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
