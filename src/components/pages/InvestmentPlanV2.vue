@@ -248,7 +248,7 @@ export default {
       this.form.periodInvest = ev.target.value;
     },
     getData() {
-      const url = "http://trading.simasnet.com/ROL/web/nab.php";
+      const url = "https://trading.simasnet.com/ROL/web/nab.php";
       axios
         .get(url)
         .then((res) => {
@@ -263,35 +263,37 @@ export default {
         .finally(() => {});
     },
     submitCalculate() {
-      this.arrInvest = [];
-      this.arrDeposito = [];
-      let inv = 0;
-      let depo = 0;
-      let saving = 0;
-      inv = this.initialFund;
-      depo = this.initialFund;
+      // this.arrInvest = [];
+      // this.arrDeposito = [];
+      // let inv = 0;
+      // let depo = 0;
+      // let saving = 0;
+      // inv = this.initialFund;
+      // depo = this.initialFund;
 
-      this.arrInvest.push(inv);
-      this.arrDeposito.push(depo);
-      this.arrSaving.push(saving);
+      // this.arrInvest.push(inv);
+      // this.arrDeposito.push(depo);
+      // this.arrSaving.push(saving);
 
-      let monthly = 12;
+      // let monthly = 12;
 
-      for (let i = 1; i < this.form.duration; i++) {
-        inv =
-          inv +
-          this.monthlyValue * Math.pow(1 + 13 / 100 / 12, 12 * i) * monthly;
-        depo =
-          depo +
-          this.monthlyValue * Math.pow(1 + 8 / 100 / 12, 12 * i) * monthly;
-        saving =
-          saving +
-          this.monthlyValue * Math.pow(1 + 0 / 100 / 12, 12 * i) * monthly;
+      // for (let i = 1; i < this.form.duration; i++) {
+      //   inv =
+      //     inv +
+      //     this.monthlyValue * Math.pow(1 + 13 / 100 / 12, 12 * i) * monthly;
+      //   depo =
+      //     depo +
+      //     this.monthlyValue * Math.pow(1 + 8 / 100 / 12, 12 * i) * monthly;
+      //   saving =
+      //     saving +
+      //     this.monthlyValue * Math.pow(1 + 0 / 100 / 12, 12 * i) * monthly;
 
-        this.arrInvest.push(inv);
-        this.arrDeposito.push(depo);
-        this.arrSaving.push(saving);
-      }
+      //   this.arrInvest.push(inv);
+      //   this.arrDeposito.push(depo);
+      //   this.arrSaving.push(saving);
+      // }
+
+      this.isIdle = false
     },
   },
 };
