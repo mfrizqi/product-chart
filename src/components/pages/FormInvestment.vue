@@ -123,7 +123,8 @@
         <div class="font-semibold mb-3">Disclaimer</div>
         <div>
           Perhitungan kalkulator investasi diatas merupakan alat bantu alat
-          bantu simulasi dan buka <br/> merupakan saran investasi.
+          bantu simulasi dan buka <br />
+          merupakan saran investasi.
         </div>
       </div>
     </div>
@@ -184,7 +185,10 @@
       </div>
 
       <div class="px-6 pb-4 flex items-center justify-end cursor-pointer">
-        <a href="#" class="font-semibold text-red-600 text-sm inline-block"> Selengkapnya </a> <img src="@/assets/chevron-right-red.svg" alt="" style="width: 22px">
+        <a href="#" class="font-semibold text-red-600 text-sm inline-block">
+          Selengkapnya
+        </a>
+        <img src="@/assets/chevron-right-red.svg" alt="" style="width: 22px" />
       </div>
 
       <div class="px-6 pb-8">
@@ -229,12 +233,13 @@
           </div>
         </div>
       </div>
-      
+
       <div class="p-6 text-xs">
         <div class="font-semibold mb-3">Disclaimer</div>
         <div>
           Perhitungan kalkulator investasi diatas merupakan alat bantu alat
-          bantu simulasi dan buka <br/> merupakan saran investasi.
+          bantu simulasi dan buka <br />
+          merupakan saran investasi.
         </div>
       </div>
     </div>
@@ -456,7 +461,7 @@ export default {
       return formatter.format(value);
     },
   },
-  mounted(){
+  mounted() {
     this.getMutualFunds();
   },
   methods: {
@@ -466,9 +471,9 @@ export default {
         .get(url)
         .then((res) => {
           const data = res.data.results;
-          console.log(data)
-          this.productInvest = data
-          this.form.product = this.productInvest[0]
+          console.log(data);
+          this.productInvest = data;
+          this.form.product = this.productInvest[0];
         })
         .catch((error) => {
           console.error(error);
@@ -476,7 +481,7 @@ export default {
         .finally(() => {});
     },
     selectChange(ev) {
-      console.log(ev.target.value)
+      console.log(ev.target.value);
       this.form.productName = ev.target.value;
       const product = this.productInvest.filter(
         (el) => el.product_name === this.form.productName
@@ -490,11 +495,21 @@ export default {
     },
     selectProduct(invest) {
       this.form.productName = invest?.name;
-      this.product = invest
+      this.product = invest;
     },
     checkFund() {
       if (this.form.initialFund < 0) {
-        this.form.initialFund = 0;
+        this.form.initialFund = null;
+      }
+
+      const amount = this.form.initialFund.toString();
+      this.form.initialFund = amount;
+      console.log(amount);
+      console.log(parseInt(amount));
+      if (amount[0] === "0") {
+        console.log("detect 0 front");
+        amount.slice(1);
+        this.form.initialFund = parseInt(amount);
       }
     },
     checkDuration() {

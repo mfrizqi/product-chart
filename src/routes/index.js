@@ -5,6 +5,7 @@ import Calculator from "../components/pages/Calculator.vue";
 import ReksadanaCampuran from "../components/pages/reksadana-campuran/reksadanaCampuran";
 import ReksadanaDetail from "../components/pages/reksadana-campuran/reksadanaDetail";
 import InvestmentPlan from "../components/pages/InvestmentPlan";
+import InvestmentPlanV2 from "../components/pages/InvestmentPlanV2";
 import risetPage from "../components/pages/RisetPage";
 import corporateFinance from "../components/pages/CorporateFinance";
 import QNAPage from "../components/pages/QNAPage";
@@ -56,6 +57,11 @@ const routes = [
     component: InvestmentPlan,
   },
   {
+    path: "/investment-plan-v2",
+    name: "investmentPlanV2",
+    component: InvestmentPlanV2,
+  },
+  {
     path: "/riset",
     name: "risetPage",
     component: risetPage,
@@ -90,51 +96,6 @@ const routes = [
     name: "ChartPage",
     component: ChartPage,
   },
-  // {
-  //   path: "/investment-chart/simas-satu",
-  //   name: "Chart Simas Satu",
-  //   component: chartSimasSatu,
-  // },
-  // {
-  //   path: "/investment-chart/danamas-pasti",
-  //   name: "Chart Danamas Pasti",
-  //   component: chartDanamasPasti,
-  // },
-  // {
-  //   path: "/investment-chart/danamas-stabil",
-  //   name: "Chart 008",
-  //   component: chartDanamasStabil,
-  // },
-  // {
-  //   path: "/investment-chart/danamas-rupiah-plus",
-  //   name: "Chart 014",
-  //   component: chartDanamasRupiahPlus,
-  // },
-  // {
-  //   path: "/investment-chart/simas-danamas-saham",
-  //   name: "Chart Simas Danamas Saham",
-  //   component: chartSimasDanamasSaham,
-  // },
-  // {
-  //   path: "/investment-chart/simas-satu-prima",
-  //   name: "Chart Simas Satu Prima",
-  //   component: chartSimasSatuPrima,
-  // },
-  // {
-  //   path: "/investment-chart/simas-saham-bertumbuh",
-  //   name: "Chart Simas Saham Bertumbuh",
-  //   component: chartSimasSahamBertumbuh,
-  // },
-  // {
-  //   path: "/investment-chart/simas-saham-maksima",
-  //   name: "Chart Simas Saham Maksima",
-  //   component: chartSimasSahamMaksima,
-  // },
-  // {
-  //   path: "/investment-chart/simas-syariah-pendapatan-tetap",
-  //   name: "Chart Simas Syariah Pendapatan Tetap",
-  //   component: chartSimasSyariahPendapatanTetap,
-  // },
   {
     path: "/stock-ticker",
     name: "Stock Ticker",
