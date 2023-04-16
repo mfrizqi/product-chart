@@ -58,7 +58,7 @@
           </select>
         </div>
       </div>
-      <div class="mb-6">
+      <div class="mb-6 hidden">
         <div class="font-semibold mb-3">Tanggal Awal Investasi</div>
         <VueDatePicker
           v-model="form.startDate"
@@ -70,7 +70,7 @@
           :preview-format="formatDate"
         />
       </div>
-      <div class="mb-6">
+      <div class="mb-6 hidden">
         <div class="font-semibold mb-3">Tanggal Akhir Investasi</div>
         <VueDatePicker
           v-model="form.endDate"
@@ -166,12 +166,12 @@
           </div>
         </div>
 
-        <div class="flex justify-between mb-6">
+        <div class="flex justify-between mb-6 hidden">
           <div class="font-semibold text-sm">Tanggal Awal Investasi</div>
           <div class="font-bold">{{ form.startDisplay }}</div>
         </div>
 
-        <div class="flex justify-between mb-6">
+        <div class="flex justify-between mb-6 hidden">
           <div class="font-semibold text-sm">Tanggal Akhir Investasi</div>
           <div class="font-bold">{{ form.endDisplay }}</div>
         </div>
@@ -552,64 +552,60 @@ export default {
       this.form.outputTotal = 0;
       this.isIdle = true;
     },
-    calculateInvest() {
-      const selectedDate = this.checkDate();
+    async calculateInvest() {
+      // const selectedDate = this.checkDate();
 
-      const start = moment(this.form.startDate);
-      const end = moment(this.form.endDate);
-      const monthDifference = end.diff(start, "months");
+      // const start = moment(this.form.startDate);
+      // const end = moment(this.form.endDate);
+      // const monthDifference = end.diff(start, "months");
 
-      if (
-        this.form.initialFund <= 0 ||
-        !this.form.startDate ||
-        !this.form.endDate ||
-        selectedDate <= 0 ||
-        monthDifference === 0
-      ) {
-        return;
-      }
+      // if (
+      //   this.form.initialFund <= 0 ||
+      //   !this.form.startDate ||
+      //   !this.form.endDate ||
+      //   selectedDate <= 0 ||
+      //   monthDifference === 0
+      // ) {
+      //   return;
+      // }
 
-      const totalNAB = this.form.product?.nab * monthDifference;
-      const totalInit = this.form.initialFund * monthDifference;
-      console.log(totalNAB);
-      console.log(totalInit);
-      this.form.outputTotal = totalNAB + totalInit;
+      const config = {
+        headers: {
+          Authorization: "Bearer simasBearer",
+        },
+      };
 
-      // this.isLoading = true;
-      // const url = "https://api.siminvest.co.id/api/v1/pcs/calculator";
-      // const req = {
-      //   installment: this.form.initialFund.toString(),
-      //   duration: this.form.duration.toString(),
-      //   product_id: this.form.productCode,
-      // };
-      // console.log(req);
-      // axios
-      //   .post(url, req, {
-      //     headers: {
-      //       Authorization: `Basic ${this.token}`,
-      //     },
-      //   })
-      //   .then((res) => {
-      //     console.log(res);
-      //     if (res.data.result) {
-      //       this.form.outputTotal = res.data.result;
-      //     }
-      //     if (res.result) {
-      //       this.form.outputTotal = res.result;
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     console.error(error);
-      //   })
-      //   .finally(() => {
-      //     this.isIdle = false;
-      //     this.isLoading = false;
-      //     console.log(this.form);
-      //   });
+      this.isLoading = true;
+      const url = "https://api.siminvest.co.id/api/v1/pcs/calculator";
+      const req = {
+        installment: this.form.initialFund.toString(),
+        duration: (this.form.periodInvest * 12).toString(),
+        product_id: this.form.product?.product_id,
+      };
+      console.log(req);
+      axios
+        .post(url, req, {
+          headers: {
+            Authorization: `Bearer simasBearer`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.result) {
+            this.form.outputTotal = res.data.result;
+          }
+          if (res.result) {
+            this.form.outputTotal = res.result;
+          }
 
-      this.isIdle = false;
-      this.isLoading = false;
-      console.log(this.form);
+          this.isIdle = false;
+          this.isLoading = false;
+          console.log(this.form);
+        })
+        .catch((error) => {
+          console.error(error);
+          this.isLoading = false;
+        })
     },
   },
 };
