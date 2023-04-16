@@ -461,13 +461,17 @@ export default {
     },
   },
   mounted() {
+    console.log(process.env.NODE_ENV);
+    // console.log(import.meta.env.DEV);
+    // console.log(import.meta.env.PROD);
     this.getMutualFunds();
   },
   methods: {
     getMutualFunds() {
       const url = "http://trading.simasnet.com/ROL/web/nab.php";
+      const localurl = "http://localhost:8080/api/nab";
       axios
-        .get(url)
+        .get(localurl)
         .then((res) => {
           const data = res.data.results;
           console.log(data);
@@ -476,7 +480,7 @@ export default {
         })
         .catch((error) => {
           console.error(error);
-          this.form.product = this.productInvest[0]
+          this.form.product = this.productInvest[0];
         })
         .finally(() => {});
     },
@@ -601,7 +605,7 @@ export default {
         .catch((error) => {
           console.error(error);
           this.isLoading = false;
-        })
+        });
     },
   },
 };
