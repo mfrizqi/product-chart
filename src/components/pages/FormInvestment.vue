@@ -205,7 +205,6 @@
           </div>
           <div
             class="rounded-md border px-6 py-3 bg-red-600 text-white font-semibold cursor-pointer tracking-wide flex"
-            @click="calculateInvest()"
             :disabled="isLoading"
           >
             <svg
@@ -466,7 +465,7 @@ export default {
   },
   methods: {
     getMutualFunds() {
-      const url = "https://trading.simasnet.com/ROL/web/nab.php";
+      const url = "http://trading.simasnet.com/ROL/web/nab.php";
       axios
         .get(url)
         .then((res) => {
@@ -585,11 +584,7 @@ export default {
       };
       console.log(req);
       axios
-        .post(url, req, {
-          headers: {
-            Authorization: `Bearer simasBearer`,
-          },
-        })
+        .post(url, req, config)
         .then((res) => {
           console.log(res);
           if (res.data.result) {
