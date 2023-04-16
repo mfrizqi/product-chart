@@ -468,10 +468,16 @@ export default {
   },
   methods: {
     getMutualFunds() {
-      const url = "http://trading.simasnet.com/ROL/web/nab.php";
-      const localurl = "http://localhost:8080/api/nab";
+      let url = '';
+
+      if(process.env.NODE_ENV === 'production'){
+        url = window.location.origin+'api/nab'
+      } else{
+        url = 'http://trading.simasnet.com/ROL/web/nab.php' 
+      }
+      // const localurl = "https://localhost:8080/api/nab";
       axios
-        .get(localurl)
+        .get(url)
         .then((res) => {
           const data = res.data.results;
           console.log(data);
