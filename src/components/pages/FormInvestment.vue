@@ -471,7 +471,7 @@ export default {
       let url = '';
 
       if(process.env.NODE_ENV === 'production'){
-        url = window.location.origin+'api/nab'
+        url = window.location.origin+'/api/nab'
       } else{
         url = 'http://trading.simasnet.com/ROL/web/nab.php' 
       }
