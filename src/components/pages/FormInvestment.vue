@@ -466,7 +466,7 @@ export default {
   },
   methods: {
     getMutualFunds() {
-      const url = "http://trading.simasnet.com/ROL/web/nab.php";
+      const url = "https://trading.simasnet.com/ROL/web/nab.php";
       axios
         .get(url)
         .then((res) => {
