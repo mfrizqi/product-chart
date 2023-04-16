@@ -477,6 +477,7 @@ export default {
         })
         .catch((error) => {
           console.error(error);
+          this.form.product = this.productInvest[0]
         })
         .finally(() => {});
     },
