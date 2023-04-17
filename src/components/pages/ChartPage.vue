@@ -587,7 +587,13 @@ export default {
         .finally(() => {});
     },
     getProductDetail(id) {
-      const url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
+      let url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
+
+       if (process.env.NODE_ENV === "production") {
+        url = window.location.origin + `/api/detail/${id}`;
+      } else {
+        url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
+      }
       const config = {
         headers:{
           Authorization: 'Basic YnNpbS1zdGc6YnNpbXN0Zw=='

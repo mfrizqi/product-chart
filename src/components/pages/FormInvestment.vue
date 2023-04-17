@@ -91,7 +91,7 @@
         </div>
         <div
           class="rounded-md border px-6 py-3 bg-red-600 text-white font-semibold cursor-pointer tracking-wide flex"
-          @click="calculateInvestV2()"
+          @click="calculateInvest()"
           :disabled="isLoading"
         >
           <svg
@@ -584,6 +584,7 @@ export default {
         headers: {
           Authorization: "simasBearer",
           Accept: "*/*",
+          "Content-Type": "application/json",
         },
       };
 
@@ -636,7 +637,7 @@ export default {
       console.log("008", typeof "008");
 
       var raw = JSON.stringify({
-        installment: "50000000",
+        installment: "5",
         duration: "12",
         product_id: "008",
       });
@@ -647,13 +648,13 @@ export default {
         product_id: product_id,
       });
 
-      console.log(raw, typeof raw)
-      console.log(raw2, typeof raw2)
+      console.log(raw, typeof raw);
+      console.log(raw2, typeof raw2);
 
       var requestOptions = {
         method: "POST",
         headers: myHeaders,
-        body: raw2,
+        body: raw,
         redirect: "follow",
       };
 
