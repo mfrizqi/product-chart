@@ -91,7 +91,7 @@
         </div>
         <div
           class="rounded-md border px-6 py-3 bg-red-600 text-white font-semibold cursor-pointer tracking-wide flex"
-          @click="calculateInvest()"
+          @click="calculateInvestV2()"
           :disabled="isLoading"
         >
           <svg
@@ -184,7 +184,9 @@
         </div>
       </div>
 
-      <div class="px-6 pb-4 flex items-center justify-end cursor-pointer">
+      <div
+        class="px-6 pb-4 flex items-center justify-end cursor-pointer hidden"
+      >
         <a href="#" class="font-semibold text-red-600 text-sm inline-block">
           Selengkapnya
         </a>
@@ -433,7 +435,7 @@ export default {
     return {
       productInvest: PRODUCT_INVEST,
       productRecommends: PRODUCT_RECOMMENDATION,
-      periodInvest: [1, 10, 20],
+      periodInvest: [1, 3, 5],
       outputTotal: 0,
       isLoading: false,
       form: {
@@ -468,12 +470,12 @@ export default {
   },
   methods: {
     getMutualFunds() {
-      let url = '';
+      let url = "";
 
-      if(process.env.NODE_ENV === 'production'){
-        url = window.location.origin+'/api/nab'
-      } else{
-        url = 'http://trading.simasnet.com/ROL/web/nab.php' 
+      if (process.env.NODE_ENV === "production") {
+        url = window.location.origin + "/api/nab";
+      } else {
+        url = "http://trading.simasnet.com/ROL/web/nab.php";
       }
       axios
         .get(url)
@@ -580,7 +582,8 @@ export default {
 
       const config = {
         headers: {
-          Authorization: "Bearer simasBearer",
+          Authorization: "simasBearer",
+          Accept: "*/*",
         },
       };
 
@@ -592,7 +595,7 @@ export default {
         product_id: this.form.product?.product_id,
       };
       console.log(req);
-      axios
+      const data = axios
         .post(url, req, config)
         .then((res) => {
           console.log(res);
@@ -609,8 +612,55 @@ export default {
         })
         .catch((error) => {
           console.error(error);
+          console.error(error.response.data);
           this.isLoading = false;
         });
+
+      console.log(data);
+    },
+
+    calculateInvestV2() {
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", "simasBearer");
+      myHeaders.append("Content-Type", "application/json");
+
+      const installment = this.form.initialFund.toString();
+      const duration = (this.form.periodInvest * 12).toString();
+      const product_id = this.form.product?.product_id;
+
+      console.log(installment, typeof installment);
+      console.log("50000000", typeof "50000000");
+      console.log(duration, typeof duration);
+      console.log("12", typeof "12");
+      console.log(product_id, typeof product_id);
+      console.log("008", typeof "008");
+
+      var raw = JSON.stringify({
+        installment: "50000000",
+        duration: "12",
+        product_id: "008",
+      });
+
+      var raw2 = JSON.stringify({
+        installment: installment,
+        duration: duration,
+        product_id: product_id,
+      });
+
+      console.log(raw, typeof raw)
+      console.log(raw2, typeof raw2)
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw2,
+        redirect: "follow",
+      };
+
+      fetch("https://api.siminvest.co.id/api/v1/pcs/calculator", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
     },
   },
 };

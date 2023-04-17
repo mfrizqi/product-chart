@@ -1,6 +1,17 @@
 <template>
   <div>
     <div class="font-semibold mb-3 text-2xl hidden">Danamas Pasti</div>
+    <div class="flex justify-end mb-16">
+      <button class="px-6 py-2 bg-red-700 mr-12 text-white rounded" @click="goto(detail?.propectus)">
+        Prospektus
+      </button>
+      <button class="px-6 py-2 bg-orange-600 mr-12 text-white rounded" @click="goto(detail?.ffs_url)">
+        Factsheet
+      </button>
+      <button class="px-6 py-2 bg-green-600 mr-12 text-white rounded" @click="goto(product?.URL_WEB)">
+        Beli Sekarang
+      </button>
+    </div>
     <Chart :chartValue="data" :productCode="'005'" />
   </div>
 </template>
@@ -524,7 +535,8 @@ export default {
     return {
       data: example,
       product: {},
-      navs: []
+      detail:{},
+      navs: [],
     };
   },
   mounted() {
@@ -539,17 +551,21 @@ export default {
         .get(url)
         .then((res) => {
           const data = res.data.results;
-          const rawName = name.split('-');
-          let procName = []
+          const rawName = name.split("-");
+          let procName = [];
           for (let i = 0; i < rawName.length; i++) {
-            procName.push(rawName[i].charAt(0).toUpperCase() + rawName[i].slice(1))
+            procName.push(
+              rawName[i].charAt(0).toUpperCase() + rawName[i].slice(1)
+            );
           }
-          console.log(data)
+          console.log(data);
 
-          const finalName = procName.join(' ');
-          console.log(finalName)
-          this.product = data.filter((el) => el.product_name === finalName)[0]
-          this.getChartData(this.product?.product_id)
+          const finalName = procName.join(" ");
+          console.log(finalName);
+          this.product = data.filter((el) => el.product_name === finalName)[0];
+          console.log(this.product);
+          this.getChartData(this.product?.product_id);
+          this.getProductDetail(this.product?.product_id)
         })
         .catch((error) => {
           console.error(error);
@@ -557,12 +573,11 @@ export default {
         .finally(() => {});
     },
     getChartData(id) {
-      const url =
-        `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=01/01/2023&end_date=03/31/2023`;
+      const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=01/01/2023&end_date=03/31/2023`;
       axios
         .get(url)
         .then((res) => {
-          console.log(res)
+          console.log(res);
           const data = res.data.results;
           console.log(data);
         })
@@ -571,6 +586,28 @@ export default {
         })
         .finally(() => {});
     },
+    getProductDetail(id) {
+      const url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
+      const config = {
+        headers:{
+          Authorization: 'Basic YnNpbS1zdGc6YnNpbXN0Zw=='
+        }
+      }
+      axios
+        .get(url, config)
+        .then((res) => {
+          console.log(res);
+          const detail = res.data;
+          console.log(detail);
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {});
+    },
+    goto(url){
+      window.open(url, '_blank').focus();
+    }
   },
 };
 </script>
