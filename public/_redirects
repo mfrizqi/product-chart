@@ -1,4 +1,5 @@
 /api/nab  http://trading.simasnet.com/ROL/web/nab.php  200!
-/api/detail/:id  https://bsim.siminvest.co.id/api/v1/pcs/product/fund/:splat  200!
+/api/nab  http://trading.simasnet.com/ROL/web/nab.php  200!
+/api/detail/:id  https://bsim.siminvest.co.id/api/v1/pcs/product/fund/:id  200!
 
 /* /index.html 200
