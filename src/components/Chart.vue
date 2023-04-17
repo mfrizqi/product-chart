@@ -64,6 +64,34 @@
           </section>
         </div>
       </div>
+
+      <div
+        style="background-color: black; opacity: 0.1"
+        class="absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center"
+        v-if="isLoading"
+      >
+        <svg
+          class="animate-spin -ml-1 mr-3 h-10 w-10 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          v-if="isLoading"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+      </div>
     </div>
   </section>
 </template>
@@ -207,6 +235,7 @@ export default {
       },
       apikey: "dXUpzvWgv2nzCgkZUs3OY1aDVIZ7Vwq4",
       token: "YnNpbS1zdGc6YnNpbXN0Zw==",
+      isLoading: true,
       activeBtn: 1,
       data: {},
       product: {},
@@ -230,7 +259,7 @@ export default {
     // this.getData();
     // this.getAPIData();
     // this.getChartData(this.productCode);
-    this.getMutualFunds()
+    this.getMutualFunds();
   },
   computed: {
     todayDate() {
@@ -290,7 +319,7 @@ export default {
           // this.chartData.labels = dataDates;
         });
     },
-     getMutualFunds() {
+    getMutualFunds() {
       const name = this.$route.params.name;
       console.log(name);
       const url = "http://trading.simasnet.com/ROL/web/nab.php";
@@ -298,16 +327,18 @@ export default {
         .get(url)
         .then((res) => {
           const data = res.data.results;
-          const rawName = name.split('-');
-          let procName = []
+          const rawName = name.split("-");
+          let procName = [];
           for (let i = 0; i < rawName.length; i++) {
-            procName.push(rawName[i].charAt(0).toUpperCase() + rawName[i].slice(1))
+            procName.push(
+              rawName[i].charAt(0).toUpperCase() + rawName[i].slice(1)
+            );
           }
-          const finalName = procName.join(' ');
-          console.log(finalName)
-          this.product = data.filter((el) => el.product_name === finalName)[0]
-          console.log(this.product)
-          this.getChartData(this.product?.product_id)
+          const finalName = procName.join(" ");
+          console.log(finalName);
+          this.product = data.filter((el) => el.product_name === finalName)[0];
+          console.log(this.product);
+          this.getChartData(this.product?.product_id);
         })
         .catch((error) => {
           console.error(error);
@@ -315,9 +346,10 @@ export default {
         .finally(() => {});
     },
     getChartData(id) {
-      const start = moment(this.todayDate).format('MM/DD/YYYY');
-      const end = moment(this.selectedDate).format('MM/DD/YYYY');
-      console.log(start, end)
+      this.isLoading = true;
+      const start = moment(this.todayDate).format("MM/DD/YYYY");
+      const end = moment(this.selectedDate).format("MM/DD/YYYY");
+      console.log(start, end);
       const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       axios
         .get(url)
@@ -326,7 +358,7 @@ export default {
           const data = res.data.results;
           console.log(data);
 
-          this.data = data
+          this.data = data;
           const navValue = this.data.map((el) => el.nab);
           const dataDates = this.calculateStockDates(this.data);
           this.chartData.datasets[0].data = navValue;
@@ -335,7 +367,9 @@ export default {
         .catch((error) => {
           console.error(error);
         })
-        .finally(() => {});
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     selectTimespan(time) {
       const idx = this.timespans.findIndex((el) => el.name === time.name);
