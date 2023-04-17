@@ -475,7 +475,6 @@ export default {
       } else{
         url = 'http://trading.simasnet.com/ROL/web/nab.php' 
       }
-      // const localurl = "https://localhost:8080/api/nab";
       axios
         .get(url)
         .then((res) => {
