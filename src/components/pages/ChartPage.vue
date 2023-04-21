@@ -1,16 +1,30 @@
 <template>
   <div>
-    <div class="font-semibold mb-3 text-2xl hidden">Danamas Pasti</div>
-    <div class="flex justify-end mb-16">
-      <button class="px-6 py-2 bg-red-700 mr-12 text-white rounded" @click="goto(detail?.propectus)">
+    <div class="flex justify-end">
+      <button
+        class="px-6 py-2 bg-red-700 mr-12 text-white rounded"
+        @click="goto(detail?.propectus)"
+      >
         Prospektus
       </button>
-      <button class="px-6 py-2 bg-orange-600 mr-12 text-white rounded" @click="goto(detail?.ffs_url)">
+      <button
+        class="px-6 py-2 bg-orange-600 mr-12 text-white rounded"
+        @click="goto(detail?.ffs_url)"
+      >
         Factsheet
       </button>
-      <button class="px-6 py-2 bg-green-600 mr-12 text-white rounded" @click="goto(product?.URL_WEB)">
+      <button
+        class="px-6 py-2 bg-green-600 mr-12 text-white rounded"
+        @click="goto(product?.URL_WEB)"
+      >
         Beli Sekarang
       </button>
+    </div>
+    <div class="">
+      <div class="text-gray-600">NAB / Unit</div>
+      <div class="font-bold mb-3 text-3xl text-green-600">
+        Rp. {{ product?.nab ? formatPrice(product.nab) : "-" }}
+      </div>
     </div>
     <Chart :chartValue="data" :productCode="'005'" />
   </div>
@@ -535,20 +549,36 @@ export default {
     return {
       data: example,
       product: {},
-      detail:{},
+      detail: {},
       navs: [],
     };
+  },
+  computed:{
+    toCurrency: (value) => {
+      if (typeof value !== "number") {
+        return value;
+      }
+      var formatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      });
+      return formatter.format(value);
+    },
   },
   mounted() {
     this.getMutualFunds();
   },
   methods: {
+    formatPrice(value) {
+        let val = (value/1).toFixed(4).replace(',', '.')
+        return val.toString()
+    },
     getMutualFunds() {
       const name = this.$route.params.name;
       console.log(name);
-      let url = '';
+      let url = "";
 
-       if (process.env.NODE_ENV === "production") {
+      if (process.env.NODE_ENV === "production") {
         url = window.location.origin + "/api/nab";
       } else {
         url = "http://trading.simasnet.com/ROL/web/nab.php";
@@ -571,7 +601,7 @@ export default {
           this.product = data.filter((el) => el.product_name === finalName)[0];
           console.log(this.product);
           this.getChartData(this.product?.product_id);
-          this.getProductDetail(this.product?.product_id)
+          this.getProductDetail(this.product?.product_id);
         })
         .catch((error) => {
           console.error(error);
@@ -595,16 +625,16 @@ export default {
     getProductDetail(id) {
       let url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
 
-       if (process.env.NODE_ENV === "production") {
+      if (process.env.NODE_ENV === "production") {
         url = window.location.origin + `/api/detail/${id}`;
       } else {
         url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
       }
       const config = {
-        headers:{
-          Authorization: 'Basic YnNpbS1zdGc6YnNpbXN0Zw=='
-        }
-      }
+        headers: {
+          Authorization: "Basic YnNpbS1zdGc6YnNpbXN0Zw==",
+        },
+      };
       axios
         .get(url, config)
         .then((res) => {
@@ -617,9 +647,9 @@ export default {
         })
         .finally(() => {});
     },
-    goto(url){
-      window.open(url, '_blank').focus();
-    }
+    goto(url) {
+      window.open(url, "_blank").focus();
+    },
   },
 };
 </script>
