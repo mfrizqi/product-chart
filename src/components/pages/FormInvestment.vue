@@ -58,7 +58,7 @@
           </select>
         </div>
       </div>
-      <div class="mb-6 hidden">
+      <!-- <div class="mb-6 hidden">
         <div class="font-semibold mb-3">Tanggal Awal Investasi</div>
         <VueDatePicker
           v-model="form.startDate"
@@ -81,7 +81,7 @@
           :format="formatDate"
           :preview-format="formatDate"
         />
-      </div>
+      </div> -->
       <div class="flex justify-between">
         <div
           class="rounded-md border border-slate-500 px-4 py-3 font-semibold cursor-pointer"
@@ -193,7 +193,7 @@
         <img src="@/assets/chevron-right-red.svg" alt="" style="width: 22px" />
       </div>
 
-      <div class="px-6 pb-8">
+      <div class="px-6 pb-4">
         <div class="flex justify-between">
           <div
             class="rounded-md border border-slate-500 px-4 py-3 font-semibold cursor-pointer flex"
@@ -432,7 +432,7 @@ let PRODUCT_RECOMMENDATION = [
 
 export default {
   components: {
-    VueDatePicker,
+    // VueDatePicker,
   },
   data() {
     return {
@@ -484,14 +484,19 @@ export default {
         url = "https://bsim.siminvest.co.id/api/v1/pcs/products/fund";
       }
       axios
-        .get(url, {headers:{
-          Authorization: 'Basic YnNpbS1zdGc6YnNpbXN0Zw=='
-        }})
+        .get(url,
+        {
+          headers:{
+            Authorization: 'Basic YnNpbS1zdGc6YnNpbXN0Zw=='
+          }
+        })
         .then((res) => {
           const data = res.data;
           console.log(data);
           this.productInvest = data;
           this.form.product = this.productInvest[0];
+          console.log(this.productInvest);
+          console.log(this.form)
         })
         .catch((error) => {
           console.error(error);
