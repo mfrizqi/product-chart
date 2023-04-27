@@ -488,7 +488,7 @@ export default {
           Authorization: 'Basic YnNpbS1zdGc6YnNpbXN0Zw=='
         }})
         .then((res) => {
-          const data = res.data.results;
+          const data = res.data;
           console.log(data);
           this.productInvest = data;
           this.form.product = this.productInvest[0];
