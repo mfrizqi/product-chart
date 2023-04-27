@@ -20,7 +20,7 @@
               v-for="(invest, index) in productInvest"
               :key="index"
             >
-              {{ invest.product_name }}
+              {{ invest.name }}
             </option>
           </select>
         </div>
@@ -78,10 +78,31 @@
           </div>
         </div>
         <button
-          class="w-full p-4 rounded bg-red-600 font-semibold text-white mt-4"
-          :disabled="investValue === 0 && monthlyValue === 0"
-          @click="submitCalculate()"
+          class="w-full p-4 rounded bg-red-600 font-semibold text-white mt-4 flex justify-center"
+          :disabled="(investValue === 0 && monthlyValue === 0) || isLoading"
+          @click="calculateInvest()"
         >
+          <svg
+            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            v-if="isLoading"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
           <span class="tracking-wider text-sm">Hitung Keuntungannya</span>
         </button>
 
@@ -113,52 +134,56 @@
 
         <div class="grid grid-cols-2 mb-4 text-xs">
           <div>
-            <div>Simas Satu</div>
-            <div>Rp. 0</div>
+            <div>{{ form?.product?.name }}</div>
+            <div>Rp.{{ formatDecimals(form.calculateData?.result) }}</div>
           </div>
           <div>
             <div>Deposito</div>
-            <div>Rp.0</div>
+            <div>
+              Rp.{{ formatDecimals(form.calculateData?.deposito_result) }}
+            </div>
           </div>
         </div>
         <div class="grid grid-cols-2 mb-4 text-xs">
           <div>
             <div>Imbal hasil 1 tahun</div>
-            <div>5.55%</div>
+            <div>{{ form.calculateData?.interest }}%</div>
           </div>
           <div>
             <div>Bunga setelah pajak</div>
-            <div>2.99%</div>
+            <div>{{ form.calculateData?.deposito_interest }}%</div>
           </div>
         </div>
         <div class="grid grid-cols-2 mb-4 text-xs">
           <div>
             <div>Pajak Imbal Hasil</div>
-            <div>Rp. 0</div>
+            <div>{{ form.calculateData?.pajak_imbal_hasil }}</div>
           </div>
           <div>
             <div>Pajak Bunga</div>
-            <div>Rp.0</div>
+            <div>{{ form.calculateData?.pajak_bunga }}</div>
           </div>
         </div>
         <div class="grid grid-cols-2 mb-4 text-xs">
           <div>
             <div>Investasi Awal</div>
-            <div>Rp. 0</div>
+            <div>
+              Rp {{ formatDecimals(form.calculateData?.investasi_awal) }}
+            </div>
           </div>
           <div>
             <div>Investasi Awal</div>
-            <div>Rp.0</div>
+            <div>Rp {{ form.calculateData?.deposito_investasi_awal }}</div>
           </div>
         </div>
         <div class="grid grid-cols-2 mb-4 text-xs">
           <div>
             <div>Waktu Pencairan</div>
-            <div>> 0 Bulan</div>
+            <div>{{ form.calculateData?.waktu_pencairan }}</div>
           </div>
           <div>
             <div>Waktu Pencairan</div>
-            <div>1- 12 Bulan</div>
+            <div>{{ form.calculateData?.deposito_waktu_pencairan }}</div>
           </div>
         </div>
         <button
@@ -189,6 +214,153 @@
 import ProductCalcV2 from "@/components/ProductCalcV2.vue";
 import axios from "axios";
 
+const PRODUCT_INVEST = [
+  {
+    aum: 66693590430.58,
+    category: "Pendapatan Tetap",
+    code: "005",
+    difference: 0.63,
+    initial_purchase: 500000,
+    minimum_buy: 500000,
+    minimum_sell: 100000,
+    name: "Danamas Pasti",
+    nav: 4414.9796,
+    nav_datetime: "28 Mar 2023",
+    percentage: 1.27,
+    unit: 15106205.7978,
+    one_year: 5.12,
+    mi_logo: "",
+  },
+  {
+    aum: 1953852829703.9,
+    category: "Pasar Uang",
+    code: "014",
+    difference: 0.17,
+    initial_purchase: 100000,
+    minimum_buy: 100000,
+    minimum_sell: 100000,
+    name: "Danamas Rupiah Plus",
+    nav: 1630.8932,
+    nav_datetime: "28 Mar 2023",
+    percentage: 0.92,
+    unit: 1198026228.6359,
+    one_year: 3.73,
+    mi_logo: "",
+  },
+  {
+    aum: 16471985316543,
+    category: "Pendapatan Tetap",
+    code: "008",
+    difference: 0.66,
+    initial_purchase: 10000000,
+    minimum_buy: 5000000,
+    minimum_sell: 100000,
+    name: "Danamas Stabil",
+    nav: 4362.0382,
+    nav_datetime: "28 Mar 2023",
+    percentage: 1.33,
+    unit: 3776212990.6481,
+    one_year: 5.55,
+    mi_logo: "",
+  },
+  {
+    aum: 15313909964.78,
+    category: "Saham",
+    code: "020",
+    difference: 23.3,
+    initial_purchase: 100000,
+    minimum_buy: 100000,
+    minimum_sell: 100000,
+    name: "Simas Danamas Saham",
+    nav: 1502.127,
+    nav_datetime: "28 Mar 2023",
+    percentage: -3.77,
+    unit: 10194817.0593,
+    one_year: -4.89,
+    mi_logo: "",
+  },
+  {
+    aum: 35980985905.36,
+    category: "Saham",
+    code: "108",
+    difference: 11.56,
+    initial_purchase: 100000,
+    minimum_buy: 100000,
+    minimum_sell: 100000,
+    name: "Simas Saham Bertumbuh",
+    nav: 1170.2118,
+    nav_datetime: "28 Mar 2023",
+    percentage: 0.68,
+    unit: 30747413.3361,
+    one_year: -1.13,
+    mi_logo: "",
+  },
+  {
+    aum: 99803099681.52,
+    category: "Saham",
+    code: "132",
+    difference: 8.64,
+    initial_purchase: 100000,
+    minimum_buy: 100000,
+    minimum_sell: 100000,
+    name: "Simas Saham Maksima",
+    nav: 976.9008,
+    nav_datetime: "28 Mar 2023",
+    percentage: 1,
+    unit: 102162982.8551,
+    one_year: -2.63,
+    mi_logo: "",
+  },
+  {
+    aum: 73338698681.85,
+    category: "Campuran",
+    code: "002",
+    difference: 51.28,
+    initial_purchase: 100000,
+    minimum_buy: 100000,
+    minimum_sell: 100000,
+    name: "Simas Satu",
+    nav: 7201.8797,
+    nav_datetime: "28 Mar 2023",
+    percentage: -0.29,
+    unit: 10183271.8314,
+    one_year: -7.83,
+    mi_logo: "",
+  },
+  {
+    aum: 41637178933.2,
+    category: "Campuran",
+    code: "049",
+    difference: 12.51,
+    initial_purchase: 100000,
+    minimum_buy: 100000,
+    minimum_sell: 100000,
+    name: "Simas Satu Prima",
+    nav: 1476.9818,
+    nav_datetime: "28 Mar 2023",
+    percentage: -1.18,
+    unit: 28190719.028,
+    one_year: -7.04,
+    mi_logo: "",
+  },
+  {
+    aum: 14775042799.44,
+    category: "Pendapatan Tetap",
+    code: "150",
+    difference: 0.17,
+    initial_purchase: 10000000,
+    minimum_buy: 5000000,
+    minimum_sell: 100000,
+    name: "Simas Syariah Pendapatan Tetap",
+    nav: 1199.9879,
+    nav_datetime: "28 Mar 2023",
+    percentage: 1.26,
+    unit: 12312659.8189,
+    one_year: 5.12,
+    mi_logo: "",
+  },
+];
+
 export default {
   name: "InvestmentPlan",
   components: {
@@ -200,14 +372,14 @@ export default {
   data() {
     return {
       product: {},
-      productInvest: [],
+      productInvest: PRODUCT_INVEST,
       investAmount: null,
       arrInvest: [],
       arrSaving: [],
       arrDeposito: [],
       investValue: null,
       monthlyValue: null,
-      periodInvest: [1, 10, 20],
+      periodInvest: [1, 3, 5],
       form: {
         initialFund: null,
         duration: 0,
@@ -216,11 +388,19 @@ export default {
         periodInvest: 1,
         startDate: null,
         endDate: null,
+        calculateData: {},
       },
       isIdle: true,
+      isLoading: false
     };
   },
   methods: {
+    formatDecimals(value) {
+      var num = parseInt(value);
+      var str = num.toLocaleString("en-US");
+      str = str.replace(/,/g, ".");
+      return str;
+    },
     numberOnly(evt) {
       if (
         (evt.which != 8 && evt.which != 0 && evt.which < 48) ||
@@ -248,19 +428,110 @@ export default {
       this.form.periodInvest = ev.target.value;
     },
     getData() {
-      const url = "http://trading.simasnet.com/ROL/web/nab.php";
+      let url = "https://bsim.siminvest.co.id/api/v1/pcs/products/fund";
+      if (process.env.NODE_ENV === "production") {
+        url = window.location.origin + "/api/products";
+      } else {
+        url = "https://bsim.siminvest.co.id/api/v1/pcs/products/fund";
+      }
       axios
-        .get(url)
+        .get(url, {
+          headers: {
+            Authorization: "Basic YnNpbS1zdGc6YnNpbXN0Zw==",
+          },
+        })
         .then((res) => {
-          const data = res.data.results;
+          const data = res.data.data;
           console.log(data);
           this.productInvest = data;
           this.form.product = this.productInvest[0];
+          console.log(this.productInvest);
+          console.log(this.form);
         })
         .catch((error) => {
           console.error(error);
+          this.form.product = this.productInvest[0];
         })
         .finally(() => {});
+
+      // OLD DATAS
+      // const url = "http://trading.simasnet.com/ROL/web/nab.php";
+      // axios
+      //   .get(url)
+      //   .then((res) => {
+      //     const data = res.data.results;
+      //     console.log(data);
+      //     this.productInvest = data;
+      //     this.form.product = this.productInvest[0];
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   })
+      //   .finally(() => {});
+    },
+    async calculateInvest() {
+      // const selectedDate = this.checkDate();
+
+      // const start = moment(this.form.startDate);
+      // const end = moment(this.form.endDate);
+      // const monthDifference = end.diff(start, "months");
+
+      if (
+        this.form.initialFund <= 0
+        // !this.form.startDate ||
+        // !this.form.endDate ||
+        // selectedDate <= 0 ||
+        // monthDifference === 0
+      ) {
+        return;
+      }
+
+      const config = {
+        headers: {
+          Authorization: "simasBearer",
+          Accept: "*/*",
+          "Content-Type": "application/json",
+          withCredentials: true,
+        },
+      };
+
+      this.isLoading = true;
+      const url = "https://api.siminvest.co.id/api/v1/pcs/calculator";
+      let req = {
+        installment: this.form.initialFund.toString(),
+        duration: (this.form.periodInvest * 12).toString(),
+        product_id: this.form.product?.code,
+      };
+
+      // let req = {
+      //   installment: "50000",
+      //   duration: "12",
+      //   product_id: "002",
+      // };
+      console.log(req);
+      const data = axios
+        .post(url, req, config)
+        .then((res) => {
+          console.log(res);
+          if (res.data.result) {
+            this.calculateData = res.data.result;
+            this.form.calculateData = res.data;
+            this.form.outputTotal = res.data.result;
+          }
+
+          this.isIdle = false;
+          this.isLoading = false;
+          console.log(this.form);
+          this.isLoading = false;
+          this.isIdle = false;
+        })
+        .catch((error) => {
+          console.error(error);
+          console.error(error.response.data);
+          this.isLoading = false;
+        });
+
+      console.log(data);
     },
     submitCalculate() {
       // this.arrInvest = [];
@@ -292,8 +563,7 @@ export default {
       //   this.arrDeposito.push(depo);
       //   this.arrSaving.push(saving);
       // }
-
-      this.isIdle = false
+      this.calculateInvest();
     },
   },
 };
