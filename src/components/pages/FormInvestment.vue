@@ -18,7 +18,7 @@
             v-for="(invest, index) in productInvest"
             :key="index"
           >
-            {{ invest.product_name }}
+            {{ invest.name }}
           </option>
         </select>
       </div>
@@ -145,7 +145,7 @@
             class="font-bold px-6 py-4 rounded-lg border"
             style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16)"
           >
-            {{ form.product?.product_name }}
+            {{ form.product?.name }}
           </div>
         </div>
 
@@ -503,7 +503,7 @@ export default {
       console.log(ev.target.value);
       this.form.productName = ev.target.value;
       const product = this.productInvest.filter(
-        (el) => el.product_name === this.form.productName
+        (el) => el.name === this.form.productName
       );
       this.form.product = product[0];
 
@@ -599,17 +599,17 @@ export default {
 
       this.isLoading = true;
       const url = "https://api.siminvest.co.id/api/v1/pcs/calculator";
-      // let req = {
-      //   installment: this.form.initialFund.toString(),
-      //   duration: (this.form.periodInvest * 12).toString(),
-      //   product_id: this.form.product?.product_id,
-      // };
-
       let req = {
-        installment: "50000",
-        duration: "12",
-        product_id: "002",
+        installment: this.form.initialFund.toString(),
+        duration: (this.form.periodInvest * 12).toString(),
+        product_id: this.form.product?.code,
       };
+
+      // let req = {
+      //   installment: "50000",
+      //   duration: "12",
+      //   product_id: "002",
+      // };
       console.log(req);
       const data = axios
         .post(url, req, config)
