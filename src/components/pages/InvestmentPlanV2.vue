@@ -545,7 +545,6 @@ export default {
         .finally(() => {
         });
     },
-
     getChartData(id) {
       this.isLoading = true;
       const start = moment(this.todayDate).format("MM/DD/YYYY");
@@ -583,6 +582,16 @@ export default {
         dates.push(`${momentDate}`);
       });
       return dates;
+    },
+    selectChange(ev) {
+      console.log(ev.target.value);
+      this.form.productName = ev.target.value;
+      const product = this.productInvest.filter(
+        (el) => el.name === this.form.productName
+      );
+      this.form.product = product[0];
+
+      console.log(this.form);
     },
     goto(url) {
       window.open(url, "_blank");
