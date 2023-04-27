@@ -309,7 +309,8 @@ export default {
         .get(url)
         .then((res) => {
           const data = res.data.results;
-          this.products = data;
+          const sortedData = data.sort((a,b) => b.nab-a.nab)
+          this.products = sortedData;
           // const rawName = name.split('-');
           // let procName = []
           // for (let i = 0; i < rawName.length; i++) {
