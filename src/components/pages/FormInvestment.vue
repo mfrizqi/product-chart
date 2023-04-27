@@ -491,7 +491,7 @@ export default {
           }
         })
         .then((res) => {
-          const data = res.data;
+          const data = res.data.data;
           console.log(data);
           this.productInvest = data;
           this.form.product = this.productInvest[0];
