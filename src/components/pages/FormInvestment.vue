@@ -427,6 +427,9 @@ let PRODUCT_RECOMMENDATION = [
   },
 ];
 
+// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.headers.common['Access-Control-Max-Age'] = 600;
+
 export default {
   components: {
     VueDatePicker,
@@ -448,6 +451,9 @@ export default {
         endDate: null,
       },
       isIdle: true,
+      postInitFund: '500000',
+      postDuration: "12",
+      postId: "002"
     };
   },
   filters: {
@@ -473,12 +479,14 @@ export default {
       let url = "";
 
       if (process.env.NODE_ENV === "production") {
-        url = window.location.origin + "/api/nab";
+        url = window.location.origin + "/api/products";
       } else {
-        url = "http://trading.simasnet.com/ROL/web/nab.php";
+        url = "https://bsim.siminvest.co.id/api/v1/pcs/products/fund";
       }
       axios
-        .get(url)
+        .get(url, {headers:{
+          Authorization: 'Basic YnNpbS1zdGc6YnNpbXN0Zw=='
+        }})
         .then((res) => {
           const data = res.data.results;
           console.log(data);
@@ -570,30 +578,37 @@ export default {
       // const end = moment(this.form.endDate);
       // const monthDifference = end.diff(start, "months");
 
-      // if (
-      //   this.form.initialFund <= 0 ||
-      //   !this.form.startDate ||
-      //   !this.form.endDate ||
-      //   selectedDate <= 0 ||
-      //   monthDifference === 0
-      // ) {
-      //   return;
-      // }
+      if (
+        this.form.initialFund <= 0 
+        // !this.form.startDate ||
+        // !this.form.endDate ||
+        // selectedDate <= 0 ||
+        // monthDifference === 0
+      ) {
+        return;
+      }
 
       const config = {
         headers: {
           Authorization: "simasBearer",
           Accept: "*/*",
           "Content-Type": "application/json",
+          withCredentials: true
         },
       };
 
       this.isLoading = true;
       const url = "https://api.siminvest.co.id/api/v1/pcs/calculator";
-      const req = {
-        installment: this.form.initialFund.toString(),
-        duration: (this.form.periodInvest * 12).toString(),
-        product_id: this.form.product?.product_id,
+      // let req = {
+      //   installment: this.form.initialFund.toString(),
+      //   duration: (this.form.periodInvest * 12).toString(),
+      //   product_id: this.form.product?.product_id,
+      // };
+
+      let req = {
+        installment: "50000",
+        duration: "12",
+        product_id: "002",
       };
       console.log(req);
       const data = axios
@@ -623,7 +638,9 @@ export default {
     calculateInvestV2() {
       var myHeaders = new Headers();
       myHeaders.append("Authorization", "simasBearer");
-      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("api_key", 'Basic YnNpbS1zdGc6YnNpbXN0Zw==')
+      // myHeaders.append("Content-Type", "application/json");
+      // myHeaders.append("Accept", "*/*",)
 
       const installment = this.form.initialFund.toString();
       const duration = (this.form.periodInvest * 12).toString();
@@ -643,9 +660,9 @@ export default {
       });
 
       var raw2 = JSON.stringify({
-        installment: installment,
-        duration: duration,
-        product_id: product_id,
+        installment: this.postInitFund,
+        duration: this.postDuration,
+        product_id: this.postId,
       });
 
       console.log(raw, typeof raw);
@@ -654,7 +671,7 @@ export default {
       var requestOptions = {
         method: "POST",
         headers: myHeaders,
-        body: raw,
+        body: raw2,
         redirect: "follow",
       };
 
