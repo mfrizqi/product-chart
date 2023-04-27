@@ -188,6 +188,7 @@
         </div>
         <button
           class="w-full p-4 rounded bg-red-600 font-semibold text-white mt-4"
+          @click="goto(detailProduct?.URL_WEB)"
         >
           <span class="tracking-wider text-sm">Mulai Investasi</span>
         </button>
@@ -213,6 +214,7 @@
 <script>
 import ProductCalcV2 from "@/components/ProductCalcV2.vue";
 import axios from "axios";
+import moment from "moment";
 
 const PRODUCT_INVEST = [
   {
@@ -369,6 +371,16 @@ export default {
   mounted() {
     this.getData();
   },
+  computed: {
+    todayDate() {
+      return `${moment().format("YYYY-MM-DD")}`;
+    },
+    selectedDate() {
+      return `${moment()
+        .add(this.form.periodInvest * 12, 'M')
+        .format("YYYY-MM-DD")}`;
+    },
+  },
   data() {
     return {
       product: {},
@@ -390,8 +402,9 @@ export default {
         endDate: null,
         calculateData: {},
       },
+      detailProduct: {},
       isIdle: true,
-      isLoading: false
+      isLoading: false,
     };
   },
   methods: {
@@ -470,19 +483,7 @@ export default {
       //   .finally(() => {});
     },
     async calculateInvest() {
-      // const selectedDate = this.checkDate();
-
-      // const start = moment(this.form.startDate);
-      // const end = moment(this.form.endDate);
-      // const monthDifference = end.diff(start, "months");
-
-      if (
-        this.form.initialFund <= 0
-        // !this.form.startDate ||
-        // !this.form.endDate ||
-        // selectedDate <= 0 ||
-        // monthDifference === 0
-      ) {
+      if (this.form.initialFund <= 0) {
         return;
       }
 
@@ -502,13 +503,6 @@ export default {
         duration: (this.form.periodInvest * 12).toString(),
         product_id: this.form.product?.code,
       };
-
-      // let req = {
-      //   installment: "50000",
-      //   duration: "12",
-      //   product_id: "002",
-      // };
-      console.log(req);
       const data = axios
         .post(url, req, config)
         .then((res) => {
@@ -519,51 +513,79 @@ export default {
             this.form.outputTotal = res.data.result;
           }
 
-          this.isIdle = false;
-          this.isLoading = false;
           console.log(this.form);
-          this.isLoading = false;
-          this.isIdle = false;
+          this.getProductData();
         })
         .catch((error) => {
           console.error(error);
           console.error(error.response.data);
           this.isLoading = false;
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
-
-      console.log(data);
     },
-    submitCalculate() {
-      // this.arrInvest = [];
-      // this.arrDeposito = [];
-      // let inv = 0;
-      // let depo = 0;
-      // let saving = 0;
-      // inv = this.initialFund;
-      // depo = this.initialFund;
+    getProductData() {
+      const url = "http://trading.simasnet.com/ROL/web/nab.php";
+      axios
+        .get(url)
+        .then((res) => {
+          const data = res.data.results;
+          console.log(data);
+          console.log(this.form.product);
+          const filtered = data.filter(
+            (el) => el.product_id === this.form.product?.code
+          );
+          this.detailProduct = filtered[0];
+          this.getChartData(this.form.product?.code);
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+        });
+    },
 
-      // this.arrInvest.push(inv);
-      // this.arrDeposito.push(depo);
-      // this.arrSaving.push(saving);
+    getChartData(id) {
+      this.isLoading = true;
+      const start = moment(this.todayDate).format("MM/DD/YYYY");
+      const end = moment(this.selectedDate).format("MM/DD/YYYY");
+      console.log(start, end);
+      const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
+      axios
+        .get(url)
+        .then((res) => {
+          console.log(res);
+          const data = res.data.results;
+          console.log(data);
 
-      // let monthly = 12;
-
-      // for (let i = 1; i < this.form.duration; i++) {
-      //   inv =
-      //     inv +
-      //     this.monthlyValue * Math.pow(1 + 13 / 100 / 12, 12 * i) * monthly;
-      //   depo =
-      //     depo +
-      //     this.monthlyValue * Math.pow(1 + 8 / 100 / 12, 12 * i) * monthly;
-      //   saving =
-      //     saving +
-      //     this.monthlyValue * Math.pow(1 + 0 / 100 / 12, 12 * i) * monthly;
-
-      //   this.arrInvest.push(inv);
-      //   this.arrDeposito.push(depo);
-      //   this.arrSaving.push(saving);
-      // }
-      this.calculateInvest();
+          this.data = data;
+          const navValue = this.data.map((el) => el.nab);
+          const dataDates = this.calculateStockDates(this.data);
+          console.log(navValue)
+          console.log(dataDates)
+          // this.chartData.datasets[0].data = navValue;
+          // this.chartData.labels = dataDates;
+          this.isIdle = false;
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+     calculateStockDates(timeResults) {
+      const dates = [];
+      timeResults.forEach((el) => {
+        const date = new Date(el.nab_date);
+        const momentDate = moment(new Date(el.nab_date)).format("MMM DD YY");
+        dates.push(`${momentDate}`);
+      });
+      return dates;
+    },
+    goto(url) {
+      window.open(url, "_blank");
     },
   },
 };
