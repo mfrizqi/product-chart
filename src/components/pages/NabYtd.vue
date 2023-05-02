@@ -4,7 +4,7 @@
       <div class="mr-6">{{product?.product_name}}</div>
       <div class="nab-value mr-2" :id="`nab-value-${index}`">{{product?.nab}}</div>
       |
-      <div class="ytd-value mr-2" :id="`ytd-value-${index}`">{{product?.return_year_to_date}}</div>
+      <div class="ytd-value ml-2" :id="`ytd-value-${index}`">{{product?.return_year_to_date}}</div>
     </div>
     
   </div>
