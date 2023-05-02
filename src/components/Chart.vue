@@ -322,7 +322,13 @@ export default {
     getMutualFunds() {
       const name = this.$route.params.name;
       console.log(name);
-      const url = "http://trading.simasnet.com/ROL/web/nab.php";
+      let url = "";
+
+      if (process.env.NODE_ENV === "production") {
+        url = window.location.origin + "/api/nab";
+      } else {
+        url = "http://trading.simasnet.com/ROL/web/nab.php";
+      }
       axios
         .get(url)
         .then((res) => {
