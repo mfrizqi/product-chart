@@ -22,7 +22,14 @@ export default {
   },
   methods: {
     getData() {
-      const url = "http://trading.simasnet.com/ROL/web/nab.php";
+      
+      let url = "http://trading.simasnet.com/ROL/web/nab.php";
+
+      if (process.env.NODE_ENV === "production") {
+        url = window.location.origin + "/api/nab";
+      } else {
+        url = "http://trading.simasnet.com/ROL/web/nab.php";
+      }
       axios
         .get(url)
         .then((res) => {
