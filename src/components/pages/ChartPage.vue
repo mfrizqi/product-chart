@@ -555,7 +555,7 @@ export default {
     return {
       data: example,
       product: {},
-      detail: {},
+      detail: { propectus: "", ffs_url: "" },
       navs: [],
     };
   },
@@ -645,7 +645,7 @@ export default {
         .get(url, config)
         .then((res) => {
           console.log(res);
-          this.detail = res.data;
+          this.detail = res.data.data;
           console.log(this.detail);
         })
         .catch((error) => {
