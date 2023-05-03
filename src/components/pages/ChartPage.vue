@@ -606,7 +606,7 @@ export default {
           console.log(finalName);
           this.product = data.filter((el) => el.product_name === finalName)[0];
           console.log(this.product);
-          this.getChartData(this.product?.product_id);
+          // this.getChartData(this.product?.product_id);
           this.getProductDetail(this.product?.product_id);
         })
         .catch((error) => {
@@ -614,20 +614,20 @@ export default {
         })
         .finally(() => {});
     },
-    getChartData(id) {
-      const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=01/01/2023&end_date=03/31/2023`;
-      axios
-        .get(url)
-        .then((res) => {
-          console.log(res);
-          const data = res.data.results;
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-        .finally(() => {});
-    },
+    // getChartData(id) {
+    //   const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=01/01/2023&end_date=03/31/2023`;
+    //   axios
+    //     .get(url)
+    //     .then((res) => {
+    //       console.log(res);
+    //       const data = res.data.results;
+    //       console.log(data);
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     })
+    //     .finally(() => {});
+    // },
     getProductDetail(id) {
       let url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
 

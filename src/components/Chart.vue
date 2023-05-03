@@ -356,13 +356,39 @@ export default {
       const start = moment(this.todayDate).format("MM/DD/YYYY");
       const end = moment(this.selectedDate).format("MM/DD/YYYY");
       console.log(start, end);
-      let url = ''
+      let url = "";
       // const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // if (process.env.NODE_ENV === "production") {
       //   url = window.location.origin + `/api/range?id=${id}&start_date=${end}&end_date=${start}`;
       // } else {
-        url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
+      url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // }
+      axios
+        .get(url)
+        .then((res) => {
+          console.log(res);
+          const data = res.data.results;
+          console.log(data);
+
+          this.data = data;
+          const navValue = this.data.map((el) => el.nab);
+          const dataDates = this.calculateStockDates(this.data);
+          this.chartData.datasets[0].data = navValue;
+          this.chartData.labels = dataDates;
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+
+      if (process.env.NODE_ENV === "production") {
+        url =
+          window.location.origin +
+          `/api/range?id=${id}&start_date=${end}&end_date=${start}`;
+      }
+      console.log('chart data by proxy')
       axios
         .get(url)
         .then((res) => {
