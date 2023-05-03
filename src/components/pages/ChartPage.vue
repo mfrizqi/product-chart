@@ -1,31 +1,37 @@
 <template>
   <div>
-    <div class="flex justify-end">
-      <button
-        class="px-6 py-2 bg-red-700 mr-12 text-white rounded"
-        @click="goto(detail?.propectus)"
-      >
-        Prospektus
-      </button>
-      <button
-        class="px-6 py-2 bg-orange-600 mr-12 text-white rounded"
-        @click="goto(detail?.ffs_url)"
-      >
-        Factsheet
-      </button>
-      <button
-        class="px-6 py-2 bg-green-600 mr-12 text-white rounded"
-        @click="goto(product?.URL_WEB)"
-      >
-        Beli Sekarang
-      </button>
-    </div>
-    <div class="">
-      <div class="text-gray-600">NAB / Unit</div>
-      <div class="font-bold mb-3 text-3xl text-green-600">
-        Rp. {{ product?.nab ? formatPrice(product.nab) : "-" }}
+    <div class="flex justify-between">
+      <div class="">
+        <div class="text-gray-600">NAB / Unit</div>
+        <div class="font-bold mb-3 text-3xl text-green-600">
+          Rp. {{ product?.nab ? formatPrice(product.nab) : "-" }}
+        </div>
+      </div>
+      <div class="flex justify-end">
+        <button
+          class="px-6 py-2 bg-red-700 mr-12 text-white rounded"
+          style="max-height: 40px"
+          @click="goto(detail?.propectus)"
+        >
+          Prospektus
+        </button>
+        <button
+          class="px-6 py-2 bg-orange-600 mr-12 text-white rounded"
+          style="max-height: 40px"
+          @click="goto(detail?.ffs_url)"
+        >
+          Factsheet
+        </button>
+        <button
+          class="px-6 py-2 bg-green-600 text-white rounded"
+          style="max-height: 40px"
+          @click="goto(product?.URL_WEB)"
+        >
+          Beli Sekarang
+        </button>
       </div>
     </div>
+
     <Chart :chartValue="data" :productCode="'005'" />
   </div>
 </template>
@@ -553,7 +559,7 @@ export default {
       navs: [],
     };
   },
-  computed:{
+  computed: {
     toCurrency: (value) => {
       if (typeof value !== "number") {
         return value;
@@ -570,8 +576,8 @@ export default {
   },
   methods: {
     formatPrice(value) {
-        let val = (value/1).toFixed(4).replace(',', '.')
-        return val.toString()
+      let val = (value / 1).toFixed(4).replace(",", ".");
+      return val.toString();
     },
     getMutualFunds() {
       const name = this.$route.params.name;
