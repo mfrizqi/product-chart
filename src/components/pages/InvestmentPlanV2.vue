@@ -544,6 +544,7 @@ export default {
           );
           this.detailProduct = filtered[0];
           this.getChartData(this.form.product?.code);
+          this.isIdle = false;
         })
         .catch((error) => {
           console.error(error);
