@@ -54,6 +54,10 @@ export default {
       type: String,
       default: "label",
     },
+    duration: {
+      type: Number,
+      default: 12
+    },
     // width: {
     //   type: Number,
     //   default: 100,
@@ -273,8 +277,8 @@ export default {
     initChart() {
       this.chartData.labels = [];
       this.chartData.datasets[0].data = [];
-      for (let i = 0; i < 25; i++) {
-        this.chartData.labels.push(`T ${i + 1}`);
+      for (let i = 0; i < this.duration; i++) {
+        this.chartData.labels.push(`M ${i + 1}`);
         // this.chartData.labels.push(`T  `);
       }
 
@@ -292,14 +296,14 @@ export default {
       arrSaving.push(saving);
 
       let monthly = 11;
-      for (let i = 1; i < 25; i++) {
+      for (let i = 1; i < this.duration; i++) {
         // Calculation values
         invest =
-          invest + baseAdd * Math.pow(1 + 13 / 100 / 12, 12 * i) * monthly;
+          invest + baseAdd * Math.pow(1 + 13 / 100 / 12, 12 * i);
         deposito =
-          deposito + baseAdd * Math.pow(1 + 8 / 100 / 12, 12 * i) * monthly;
+          deposito + baseAdd * Math.pow(1 + 8 / 100 / 12, 12 * i);
         saving =
-          saving + baseAdd * Math.pow(1 + 0 / 100 / 12, 12 * i) * monthly;
+          saving + baseAdd * Math.pow(1 + 0 / 100 / 12, 12 * i);
 
         //Add Values to array
         arrInvest.push(invest);

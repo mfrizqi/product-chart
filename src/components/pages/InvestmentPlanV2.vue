@@ -211,6 +211,7 @@
       :calc-invest="arrInvest"
       :calc-deposito="arrDeposito"
       :calc-saving="arrSaving"
+      :duration="duration"
     />
   </div>
 </template>
@@ -410,6 +411,7 @@ export default {
       detailProduct: {},
       isIdle: true,
       isLoading: false,
+      duration: 12
     };
   },
   methods: {
@@ -427,13 +429,15 @@ export default {
         evt.preventDefault();
       }
     },
-    convertInitial(state){
-      if(state){
-        console.log(state)
-        this.form.initialDisplay = this.form.initialFund
+    convertInitial(state) {
+      if (state) {
+        console.log(state);
+        this.form.initialDisplay = this.form.initialFund;
       } else {
-        const str =  this.form.initialFund.toLocaleString("en-US").replace(/,/g, '.');
-        this.form.initialDisplay = str
+        const str = this.form.initialFund
+          .toLocaleString("en-US")
+          .replace(/,/g, ".");
+        this.form.initialDisplay = str;
       }
     },
     checkFund() {
@@ -576,28 +580,60 @@ export default {
       const end = moment(this.selectedDate).format("MM/DD/YYYY");
       console.log(start, end);
       const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
-      axios
-        .get(url)
-        .then((res) => {
-          console.log(res);
-          const data = res.data.results;
-          console.log(data);
+      // axios
+      //   .get(url)
+      //   .then((res) => {
+      //     console.log(res);
+      //     const data = res.data.results;
+      //     console.log(data);
 
-          this.data = data;
-          const navValue = this.data.map((el) => el.nab);
-          const dataDates = this.calculateStockDates(this.data);
-          console.log(navValue);
-          console.log(dataDates);
-          // this.chartData.datasets[0].data = navValue;
-          // this.chartData.labels = dataDates;
-          this.isIdle = false;
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-        .finally(() => {
-          this.isLoading = false;
-        });
+      //     this.data = data;
+      //     const navValue = this.data.map((el) => el.nab);
+      //     const dataDates = this.calculateStockDates(this.data);
+      //     console.log(navValue);
+      //     console.log(dataDates);
+      //     // this.chartData.datasets[0].data = navValue;
+      //     // this.chartData.labels = dataDates;
+      //     this.isIdle = false;
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   })
+      //   .finally(() => {
+      //     this.isLoading = false;
+      //   });
+
+      this.arrInvest = [];
+      this.arrDeposito = [];
+      // this.arrSaving = [];
+      let inv = 0;
+      let depo = 0;
+      // let saving = 0;
+      inv = this.form.initialFund;
+      depo = this.form.initialFund;
+      // saving = this.form.initialFund;
+
+      this.arrInvest.push(inv);
+      this.arrDeposito.push(depo);
+      // this.arrSaving.push(saving);
+
+      let monthly = 12;
+      this.duration = this.form.periodInvest * 12
+      console.log('detailProduct')
+      console.log(this.detailProduct)
+
+      for (let i = 1; i < this.duration; i++) {
+        // inv = inv + (this.form.initialFund + this.detailProduct?.nab);
+        inv = inv + parseInt(((this.form.initialFund + this.detailProduct?.nab) * Math.pow(1 + 13 / 100 / 12, i)).toFixed(0));
+        depo = depo + this.form.initialFund;
+        // saving =
+        //   saving +
+        //   this.form.initialFund  * Math.pow(1 + 0 / 100 / 12, 12 * i) * monthly;
+
+        this.arrInvest.push(inv);
+        this.arrDeposito.push(depo);
+        // this.arrSaving.push(saving);
+      }
     },
     calculateStockDates(timeResults) {
       const dates = [];
