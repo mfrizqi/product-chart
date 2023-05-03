@@ -645,8 +645,8 @@ export default {
         .get(url, config)
         .then((res) => {
           console.log(res);
-          const detail = res.data;
-          console.log(detail);
+          this.detail = res.data;
+          console.log(this.detail);
         })
         .catch((error) => {
           console.error(error);

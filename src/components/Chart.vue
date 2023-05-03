@@ -356,7 +356,13 @@ export default {
       const start = moment(this.todayDate).format("MM/DD/YYYY");
       const end = moment(this.selectedDate).format("MM/DD/YYYY");
       console.log(start, end);
-      const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
+      let url = ''
+      // const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
+      if (process.env.NODE_ENV === "development") {
+        url = window.location.origin + `/api/range?id=${id}&start_date=${end}&end_date=${start}`;
+      } else {
+        url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
+      }
       axios
         .get(url)
         .then((res) => {
