@@ -377,7 +377,7 @@ export default {
     },
     selectedDate() {
       return `${moment()
-        .add(this.form.periodInvest * 12, 'M')
+        .add(this.form.periodInvest * 12, "M")
         .format("YYYY-MM-DD")}`;
     },
   },
@@ -526,7 +526,13 @@ export default {
         });
     },
     getProductData() {
-      const url = "http://trading.simasnet.com/ROL/web/nab.php";
+      let url = "http://trading.simasnet.com/ROL/web/nab.php";
+
+      if (process.env.NODE_ENV === "production") {
+        url = window.location.origin + "/api/nab";
+      } else {
+        url = "http://trading.simasnet.com/ROL/web/nab.php";
+      }
       axios
         .get(url)
         .then((res) => {
@@ -542,8 +548,7 @@ export default {
         .catch((error) => {
           console.error(error);
         })
-        .finally(() => {
-        });
+        .finally(() => {});
     },
     getChartData(id) {
       this.isLoading = true;
@@ -561,8 +566,8 @@ export default {
           this.data = data;
           const navValue = this.data.map((el) => el.nab);
           const dataDates = this.calculateStockDates(this.data);
-          console.log(navValue)
-          console.log(dataDates)
+          console.log(navValue);
+          console.log(dataDates);
           // this.chartData.datasets[0].data = navValue;
           // this.chartData.labels = dataDates;
           this.isIdle = false;
@@ -574,7 +579,7 @@ export default {
           this.isLoading = false;
         });
     },
-     calculateStockDates(timeResults) {
+    calculateStockDates(timeResults) {
       const dates = [];
       timeResults.forEach((el) => {
         const date = new Date(el.nab_date);
