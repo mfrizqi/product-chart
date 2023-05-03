@@ -33,12 +33,16 @@
               Rp
             </div>
             <input
-              type="number"
-              name="text"
-              v-model="form.initialFund"
+              type="text"
+              name="initialFund"
+              ref="initialFund"
+              v-model="form.initialDisplay"
               @change="checkFund()"
               class="px-3 py-2 border-t border-r border-b shadow-sm rounded-r border-slate-300 placeholder-slate-400 focus:outline-none block w-full sm:text-sm"
               placeholder="500.000"
+              @keypress="numberOnly($event)"
+              @focus="convertInitial(true)"
+              @blur="convertInitial(false)"
             />
           </div>
         </div>
@@ -393,6 +397,7 @@ export default {
       monthlyValue: null,
       periodInvest: [1, 3, 5],
       form: {
+        initialDisplay: null,
         initialFund: null,
         duration: 0,
         product: null,
@@ -422,20 +427,34 @@ export default {
         evt.preventDefault();
       }
     },
+    convertInitial(state){
+      if(state){
+        console.log(state)
+        this.form.initialDisplay = this.form.initialFund
+      } else {
+        const str =  this.form.initialFund.toLocaleString("en-US").replace(/,/g, '.');
+        this.form.initialDisplay = str
+      }
+    },
     checkFund() {
-      if (this.form.initialFund < 0) {
-        this.form.initialFund = null;
+      if (this.form.initialDisplay < 0) {
+        this.form.initialDisplay = null;
       }
 
-      const amount = this.form.initialFund.toString();
-      this.form.initialFund = amount;
+      const amount = this.form.initialDisplay.toString();
+      this.form.initialDisplay = amount;
       console.log(amount);
       console.log(parseInt(amount));
       if (amount[0] === "0") {
         console.log("detect 0 front");
         amount.slice(1);
+        this.form.initialDisplay = parseInt(amount).toLocaleString("en-US");
         this.form.initialFund = parseInt(amount);
       }
+
+      console.log(amount.toLocaleString("en-US"));
+      this.form.initialDisplay = parseInt(amount).toLocaleString("en-US");
+      this.form.initialFund = parseInt(amount);
     },
     selectPeriod(ev) {
       this.form.periodInvest = ev.target.value;
@@ -483,7 +502,7 @@ export default {
       //   .finally(() => {});
     },
     async calculateInvest() {
-      if (this.form.initialFund <= 0) {
+      if (this.form.initialDisplay <= 0) {
         return;
       }
 
@@ -499,7 +518,7 @@ export default {
       this.isLoading = true;
       const url = "https://api.siminvest.co.id/api/v1/pcs/calculator";
       let req = {
-        installment: this.form.initialFund.toString(),
+        installment: this.form.initialDisplay.toString(),
         duration: (this.form.periodInvest * 12).toString(),
         product_id: this.form.product?.code,
       };
