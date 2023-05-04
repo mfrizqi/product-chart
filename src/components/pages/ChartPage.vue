@@ -7,7 +7,7 @@
           Rp. {{ product?.nab ? formatPrice(product.nab) : "-" }}
         </div>
       </div>
-      <div class="flex justify-end">
+      <div class="flex justify-end items-end">
         <button
           class="px-6 py-2 bg-red-700 mr-12 text-white rounded"
           style="max-height: 40px"
