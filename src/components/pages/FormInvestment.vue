@@ -31,12 +31,15 @@
             Rp
           </div>
           <input
-            type="number"
+            type="text"
             name="text"
-            v-model="form.initialFund"
+            v-model="form.initialDisplay"
             @change="checkFund()"
             class="px-3 py-2 border-t border-r border-b shadow-sm rounded-r border-slate-300 placeholder-slate-400 focus:outline-none block w-full sm:text-sm"
             placeholder="Masukan Dana anda saat ini"
+            @keypress="numberOnly($event)"
+            @focus="convertInitial(true)"
+            @blur="convertInitial(false)"
           />
         </div>
       </div>
@@ -180,7 +183,7 @@
       <div class="flex justify-between mb-6 bg-zinc-100 px-6 py-5">
         <div class="font-bold">Nilai investasi Masa Depan (Rupiah)</div>
         <div class="font-bold text-red-600">
-          {{ formatDecimals(form.outputTotal) }}
+          {{ formatDecimals(parseInt(form.outputTotal)) }}
         </div>
       </div>
 
@@ -208,6 +211,7 @@
           <div
             class="rounded-md border px-6 py-3 bg-red-600 text-white font-semibold cursor-pointer tracking-wide flex"
             :disabled="isLoading"
+            @click="toProduct()"
           >
             <svg
               class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
@@ -442,6 +446,7 @@ export default {
       outputTotal: 0,
       isLoading: false,
       form: {
+        initialDisplay: null,
         initialFund: null,
         duration: 0,
         product: null,
@@ -450,10 +455,11 @@ export default {
         startDate: null,
         endDate: null,
       },
+      detailProduct: {},
       isIdle: true,
-      postInitFund: '500000',
+      postInitFund: "500000",
       postDuration: "12",
-      postId: "002"
+      postId: "002",
     };
   },
   filters: {
@@ -484,11 +490,10 @@ export default {
         url = "https://bsim.siminvest.co.id/api/v1/pcs/products/fund";
       }
       axios
-        .get(url,
-        {
-          headers:{
-            Authorization: 'Basic YnNpbS1zdGc6YnNpbXN0Zw=='
-          }
+        .get(url, {
+          headers: {
+            Authorization: "Basic YnNpbS1zdGc6YnNpbXN0Zw==",
+          },
         })
         .then((res) => {
           const data = res.data.data;
@@ -496,7 +501,7 @@ export default {
           this.productInvest = data;
           this.form.product = this.productInvest[0];
           console.log(this.productInvest);
-          console.log(this.form)
+          console.log(this.form);
         })
         .catch((error) => {
           console.error(error);
@@ -521,20 +526,53 @@ export default {
       this.form.productName = invest?.name;
       this.product = invest;
     },
+    numberOnly(evt) {
+      if (
+        (evt.which != 8 && evt.which != 0 && evt.which < 48) ||
+        evt.which > 57
+      ) {
+        evt.preventDefault();
+      }
+    },
+    convertInitial(state) {
+      if (state) {
+        console.log(state);
+        if (this.form.initialDisplay === "") {
+          return;
+        }
+        this.form.initialDisplay = this.form.initialFund;
+      } else {
+        if (this.form.initialDisplay === "") {
+          return;
+        }
+        const str = this.form.initialFund
+          .toLocaleString("en-US")
+          .replace(/,/g, ".");
+        this.form.initialDisplay = str;
+      }
+    },
     checkFund() {
-      if (this.form.initialFund < 0) {
-        this.form.initialFund = null;
+      if (this.form.initialDisplay < 0) {
+        this.form.initialDisplay = null;
       }
 
-      const amount = this.form.initialFund.toString();
-      this.form.initialFund = amount;
+      const amount = this.form.initialDisplay.toString();
+      this.form.initialDisplay = amount;
       console.log(amount);
       console.log(parseInt(amount));
       if (amount[0] === "0") {
         console.log("detect 0 front");
         amount.slice(1);
+        this.form.initialDisplay = parseInt(amount).toLocaleString("en-US");
         this.form.initialFund = parseInt(amount);
       }
+
+      console.log(amount.toLocaleString("en-US"));
+      if (this.form.initialDisplay === "") {
+        return;
+      }
+      this.form.initialDisplay = parseInt(amount).toLocaleString("en-US");
+      this.form.initialFund = parseInt(amount);
     },
     checkDuration() {
       if (this.form.duration < 0) {
@@ -584,7 +622,7 @@ export default {
       // const monthDifference = end.diff(start, "months");
 
       if (
-        this.form.initialFund <= 0 
+        this.form.initialFund <= 0
         // !this.form.startDate ||
         // !this.form.endDate ||
         // selectedDate <= 0 ||
@@ -598,7 +636,7 @@ export default {
           Authorization: "simasBearer",
           Accept: "*/*",
           "Content-Type": "application/json",
-          withCredentials: true
+          withCredentials: true,
         },
       };
 
@@ -638,12 +676,12 @@ export default {
         });
 
       console.log(data);
+      this.getProductData();
     },
-
     calculateInvestV2() {
       var myHeaders = new Headers();
       myHeaders.append("Authorization", "simasBearer");
-      myHeaders.append("api_key", 'Basic YnNpbS1zdGc6YnNpbXN0Zw==')
+      myHeaders.append("api_key", "Basic YnNpbS1zdGc6YnNpbXN0Zw==");
       // myHeaders.append("Content-Type", "application/json");
       // myHeaders.append("Accept", "*/*",)
 
@@ -684,6 +722,38 @@ export default {
         .then((response) => response.text())
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
+    },
+    getProductData() {
+      let url = "http://trading.simasnet.com/ROL/web/nab.php";
+
+      if (process.env.NODE_ENV === "production") {
+        url = window.location.origin + "/api/nab";
+      } else {
+        url = "http://trading.simasnet.com/ROL/web/nab.php";
+      }
+      axios
+        .get(url)
+        .then((res) => {
+          const data = res.data.results;
+          console.log(data);
+          console.log(this.form.product);
+          const filtered = data.filter(
+            (el) => el.product_id === this.form.product?.code
+          );
+          this.detailProduct = filtered[0];
+          console.log("detailProduct");
+          console.log(this.detailProduct);
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {});
+    },
+    toProduct() {
+      const name = this.form.product?.name.toLowerCase().replace(" ", "-");
+      console.log(name);
+      const url = "https://sam.admire.id/" + name;
+      window.open(url, "_blank");
     },
   },
 };

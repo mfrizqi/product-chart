@@ -207,7 +207,7 @@
       </div>
     </div>
     <ProductCalcV2
-      class="lg:grow shrink lg:pt-16 md:pt-0 absolute left-5 right-0 top-72"
+      class="lg:grow shrink lg:pt-24 md:pt-0 absolute left-5 right-0 top-72"
       :calc-invest="arrInvest"
       :calc-deposito="arrDeposito"
       :calc-saving="arrSaving"
@@ -411,7 +411,7 @@ export default {
       detailProduct: {},
       isIdle: true,
       isLoading: false,
-      duration: 12
+      duration: 12,
     };
   },
   methods: {
@@ -432,8 +432,14 @@ export default {
     convertInitial(state) {
       if (state) {
         console.log(state);
+        if (this.form.initialDisplay === "") {
+          return;
+        }
         this.form.initialDisplay = this.form.initialFund;
       } else {
+        if (this.form.initialDisplay === "") {
+          return;
+        }
         const str = this.form.initialFund
           .toLocaleString("en-US")
           .replace(/,/g, ".");
@@ -457,6 +463,9 @@ export default {
       }
 
       console.log(amount.toLocaleString("en-US"));
+      if(this.form.initialDisplay === ''){
+        return
+      }
       this.form.initialDisplay = parseInt(amount).toLocaleString("en-US");
       this.form.initialFund = parseInt(amount);
     },
@@ -618,13 +627,20 @@ export default {
       // this.arrSaving.push(saving);
 
       let monthly = 12;
-      this.duration = this.form.periodInvest * 12
-      console.log('detailProduct')
-      console.log(this.detailProduct)
+      this.duration = this.form.periodInvest * 12;
+      console.log("detailProduct");
+      console.log(this.detailProduct);
 
       for (let i = 1; i < this.duration; i++) {
         // inv = inv + (this.form.initialFund + this.detailProduct?.nab);
-        inv = inv + parseInt(((this.form.initialFund + this.detailProduct?.nab) * Math.pow(1 + 13 / 100 / 12, i)).toFixed(0));
+        inv =
+          inv +
+          parseInt(
+            (
+              (this.form.initialFund + this.detailProduct?.nab) *
+              Math.pow(1 + 13 / 100 / 12, i)
+            ).toFixed(0)
+          );
         depo = depo + this.form.initialFund;
         // saving =
         //   saving +
