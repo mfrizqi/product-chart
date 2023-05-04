@@ -126,7 +126,7 @@
           class="text-left bg-white shadow-sm rounded-lg p-4 border-2 carousel__item flex flex-col justify-center"
         >
           <div>
-            <div class="text-xs text-gray-500">NAB 28 Mar 2023</div>
+            <div class="text-xs text-gray-500">NAB {{moment(product.nab_date,"DD-MM-YYYY").format("DD MMM YYYY")}}</div>
             <div>
               <a
                 href="#"
@@ -301,6 +301,7 @@
 import { Carousel, Navigation, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import axios from "axios";
+import moment from 'moment';
 
 export default {
   name: "Breakpoints",
@@ -319,7 +320,8 @@ export default {
       },
       currentSlide: 0,
       products: [],
-      isLoading: true
+      isLoading: true,
+      moment: moment
     };
   },
   mounted() {
