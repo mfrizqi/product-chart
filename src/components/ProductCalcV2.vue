@@ -9,6 +9,7 @@
         :plugins="chartPlugins"
         :css-classes="cssClasses"
         :styles="styles"
+        ref="lineSimas"
       />
     </div>
   </section>
@@ -56,7 +57,7 @@ export default {
     },
     duration: {
       type: Number,
-      default: 12
+      default: 12,
     },
     // width: {
     //   type: Number,
@@ -256,12 +257,16 @@ export default {
   watch: {
     calcInvest(newValue, oldValue) {
       console.log("calcInvest");
+      console.log(newValue.length > 0);
+      this.chartData.datasets[0].data = [];
       if (newValue.length > 0) {
         this.chartData.datasets[0].data = newValue;
       }
     },
     calcDeposito(newValue, oldValue) {
       console.log("calcDeposito");
+      console.log(newValue);
+      this.chartData.datasets[1].data = [];
       if (newValue.length > 0) {
         this.chartData.datasets[1].data = newValue;
       }
@@ -298,12 +303,9 @@ export default {
       let monthly = 11;
       for (let i = 1; i < this.duration; i++) {
         // Calculation values
-        invest =
-          invest + baseAdd * Math.pow(1 + 13 / 100 / 12, 12 * i);
-        deposito =
-          deposito + baseAdd * Math.pow(1 + 8 / 100 / 12, 12 * i);
-        saving =
-          saving + baseAdd * Math.pow(1 + 0 / 100 / 12, 12 * i);
+        invest = invest + baseAdd * Math.pow(1 + 13 / 100 / 12, 12 * i);
+        deposito = deposito + baseAdd * Math.pow(1 + 8 / 100 / 12, 12 * i);
+        saving = saving + baseAdd * Math.pow(1 + 0 / 100 / 12, 12 * i);
 
         //Add Values to array
         arrInvest.push(invest);
