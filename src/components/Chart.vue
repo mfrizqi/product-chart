@@ -358,11 +358,11 @@ export default {
       console.log(start, end);
       let url = "";
       // const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
-      if (process.env.NODE_ENV === "production") {
-        url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
-      } else {
+      // if (process.env.NODE_ENV === "production") {
+      //   url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
+      // } else {
       url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
-      }
+      // }
       axios
         .get(url)
         .then((res) => {
