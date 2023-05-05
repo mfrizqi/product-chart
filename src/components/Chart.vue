@@ -341,8 +341,9 @@ export default {
             );
           }
           const finalName = procName.join(" ");
-          console.log(finalName);
+          console.log('finalName: ', finalName);
           this.product = data.filter((el) => el.product_name === finalName)[0];
+          console.log('this.product')
           console.log(this.product);
           this.getChartData(this.product?.product_id);
         })
@@ -355,7 +356,7 @@ export default {
       this.isLoading = true;
       const start = moment(this.todayDate).format("MM/DD/YYYY");
       const end = moment(this.selectedDate).format("MM/DD/YYYY");
-      console.log(start, end);
+      console.log('start-end', start, end);
       let url = "";
       // const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // if (process.env.NODE_ENV === "production") {
@@ -384,31 +385,31 @@ export default {
           this.isLoading = false;
         });
 
-      if (process.env.NODE_ENV === "production") {
-        url =
-          window.location.origin +
-          `/api/range?id=${id}&start_date=${end}&end_date=${start}`;
-      }
-      console.log('chart data by proxy')
-      axios
-        .get(url)
-        .then((res) => {
-          console.log(res);
-          const data = res.data.results;
-          console.log(data);
+      // if (process.env.NODE_ENV === "production") {
+      //   url =
+      //     window.location.origin +
+      //     `/api/range?id=${id}&start_date=${end}&end_date=${start}`;
+      // }
+      // console.log('chart data by proxy')
+      // axios
+      //   .get(url)
+      //   .then((res) => {
+      //     console.log(res);
+      //     const data = res.data.results;
+      //     console.log(data);
 
-          this.data = data;
-          const navValue = this.data.map((el) => el.nab);
-          const dataDates = this.calculateStockDates(this.data);
-          this.chartData.datasets[0].data = navValue;
-          this.chartData.labels = dataDates;
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-        .finally(() => {
-          this.isLoading = false;
-        });
+      //     this.data = data;
+      //     const navValue = this.data.map((el) => el.nab);
+      //     const dataDates = this.calculateStockDates(this.data);
+      //     this.chartData.datasets[0].data = navValue;
+      //     this.chartData.labels = dataDates;
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   })
+      //   .finally(() => {
+      //     this.isLoading = false;
+      //   });
     },
     selectTimespan(time) {
       const idx = this.timespans.findIndex((el) => el.name === time.name);

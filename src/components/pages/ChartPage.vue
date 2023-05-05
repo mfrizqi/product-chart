@@ -581,7 +581,7 @@ export default {
     },
     getMutualFunds() {
       const name = this.$route.params.name;
-      console.log(name);
+      // console.log(name);
       let url = "";
 
       if (process.env.NODE_ENV === "production") {
@@ -600,12 +600,12 @@ export default {
               rawName[i].charAt(0).toUpperCase() + rawName[i].slice(1)
             );
           }
-          console.log(data);
+          // console.log(data);
 
           const finalName = procName.join(" ");
-          console.log(finalName);
+          // console.log(finalName);
           this.product = data.filter((el) => el.product_name === finalName)[0];
-          console.log(this.product);
+          // console.log(this.product);
           // this.getChartData(this.product?.product_id);
           this.getProductDetail(this.product?.product_id);
         })
@@ -619,9 +619,9 @@ export default {
     //   axios
     //     .get(url)
     //     .then((res) => {
-    //       console.log(res);
+          // console.log(res);
     //       const data = res.data.results;
-    //       console.log(data);
+          // console.log(data);
     //     })
     //     .catch((error) => {
     //       console.error(error);
@@ -644,9 +644,9 @@ export default {
       axios
         .get(url, config)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.detail = res.data.data;
-          console.log(this.detail);
+          // console.log(this.detail);
         })
         .catch((error) => {
           console.error(error);
