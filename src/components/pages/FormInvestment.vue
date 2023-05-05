@@ -27,6 +27,11 @@
         <div class="flex items-center">
           <div
             class="border-t border-l rounded-l border-b border-slate-300 px-3 py-2 sm:text-sm font-bold"
+            :class="[
+              form.initialDisplay === '' || form.initialDisplay === '0'
+                ? 'border-rose-500'
+                : '',
+            ]"
           >
             Rp
           </div>
@@ -40,7 +45,18 @@
             @keypress="numberOnly($event)"
             @focus="convertInitial(true)"
             @blur="convertInitial(false)"
+            :class="[
+              form.initialDisplay === '' || form.initialDisplay === '0'
+                ? 'border-rose-500'
+                : '',
+            ]"
           />
+        </div>
+        <div
+          v-if="form.initialDisplay === '' || form.initialDisplay === '0'"
+          class="text-rose-500 mt-1 px-3 py-2 text-sm flex"
+        >
+          Nilai Investasi/Bulan tidak boleh kosong
         </div>
       </div>
       <div class="mb-6">

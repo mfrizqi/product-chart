@@ -29,6 +29,11 @@
           <div class="flex items-center">
             <div
               class="border-t border-l rounded-l border-b border-slate-300 px-3 py-2 sm:text-sm font-bold"
+              :class="[
+                form.initialDisplay === '' || form.initialDisplay === '0'
+                  ? 'border-rose-500'
+                  : '',
+              ]"
             >
               Rp
             </div>
@@ -43,7 +48,18 @@
               @keypress="numberOnly($event)"
               @focus="convertInitial(true)"
               @blur="convertInitial(false)"
+              :class="[
+                form.initialDisplay === '' || form.initialDisplay === '0'
+                  ? 'border-rose-500'
+                  : '',
+              ]"
             />
+          </div>
+          <div
+            v-if="form.initialDisplay === '' || form.initialDisplay === '0'"
+            class="text-rose-500 mt-1 px-3 py-2 text-xs flex"
+          >
+            Nilai Investasi/Bulan tidak boleh kosong
           </div>
         </div>
         <div class="mb-6">
@@ -463,8 +479,8 @@ export default {
       }
 
       console.log(amount.toLocaleString("en-US"));
-      if(this.form.initialDisplay === ''){
-        return
+      if (this.form.initialDisplay === "") {
+        return;
       }
       this.form.initialDisplay = parseInt(amount).toLocaleString("en-US");
       this.form.initialFund = parseInt(amount);
@@ -531,7 +547,7 @@ export default {
       this.isLoading = true;
       const url = "https://api.siminvest.co.id/api/v1/pcs/calculator";
       let req = {
-        installment: this.form.initialDisplay.toString(),
+        installment: this.form.initialFund.toString(),
         duration: (this.form.periodInvest * 12).toString(),
         product_id: this.form.product?.code,
       };
