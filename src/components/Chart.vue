@@ -362,9 +362,10 @@ export default {
       //   url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // } else {
       url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
+      const url2 = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // }
       axios
-        .get(url)
+        .get(url2)
         .then((res) => {
           console.log(res);
           const data = res.data.results;
