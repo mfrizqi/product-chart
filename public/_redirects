@@ -2,6 +2,6 @@
 /api/nab  http://trading.simasnet.com/ROL/web/nab.php  200!
 /api/detail/:id  https://bsim.siminvest.co.id/api/v1/pcs/product/fund/:id  200!
 /api/products https://bsim.siminvest.co.id/api/v1/pcs/products/fund 200!
-/api/range?id=:id&start_date=:start_date&end_date=:end_date https://trading.simasnet.com/ROL/web/nab_range.php?product_id=:id&start_date=:start_date&end_date=:end_date  200!
+/api/range?id=:id&start_date=:start_date&end_date=:end_date http://trading.simasnet.com/ROL/web/nab_range.php?product_id=:id&start_date=:start_date&end_date=:end_date  200!
 
 /* /index.html 200
