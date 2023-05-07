@@ -27,7 +27,7 @@
             >{{ product.return_year_to_date }}%</span
           >
         </div>
-        <div @click="goto(product.product_name)">
+        <div @click="goto(product.product_name)" class="cursor-pointer">
           <img src="@/assets/arrow-up-right.svg" alt="" />
         </div>
       </div>
