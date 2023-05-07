@@ -10,9 +10,10 @@
         <div class="mr-12 font-bold">{{ product.product_name }}</div>
         <div class="text-sm">
           <span class="text-gray-500 mr-4">Profil Resiko</span
-          ><span class="text-green-600 font-bold">{{
-            product.rating ? product.rating : "-"
+          ><span class="font-bold" v-if="product.rating" :class="product.ratingColor">{{
+            product?.ratingText
           }}</span>
+          <span class="font-bold" v-if="!product.rating">{{ "-" }}</span>
         </div>
       </div>
       <div class="flex">
@@ -59,9 +60,13 @@ export default {
         .get(url)
         .then((res) => {
           const data = res.data.results;
-          this.products = data.filter((el) => el.type_id === type);
-          console.log("this.products");
-          console.log(this.products);
+          const filtered = data.filter((el) => el.type_id === type);
+          filtered.forEach((el) => {
+            el.ratingText = this.evaluateRating(el.rating)
+            el.ratingColor = this.evaluateRatingColor(el.rating)
+            return el
+          }, filtered);
+          this.products = filtered
         })
         .catch((error) => {
           console.error(error);
@@ -80,6 +85,22 @@ export default {
           return "Menengah Ke Tinggi";
         case "5":
           return "Tinggi";
+        default:
+          break;
+      }
+    },
+    evaluateRatingColor(rating){
+      switch (rating) {
+        case "0":
+          return "text-green-600";
+        case "2":
+          return "text-green-600";
+        case "3":
+          return "text-amber-600";
+        case "4":
+          return "text-pink-700";
+        case "5":
+          return "text-pink-700";
         default:
           break;
       }
