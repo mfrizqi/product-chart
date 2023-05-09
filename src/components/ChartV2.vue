@@ -375,7 +375,7 @@ export default {
       const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // const url = 'https://google.com'
       axios
-        .get(url, { agent })
+        .get(url, { httpsAgent: agent })
         .then((res) => {
           console.log(res);
           const data = res.data.results;
