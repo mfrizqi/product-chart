@@ -100,7 +100,7 @@
 <script>
 import { Line } from "vue-chartjs";
 import axios from "axios";
-var https = require('https-browserify')
+var https = require("https-browserify");
 import moment from "moment";
 
 import {
@@ -299,7 +299,6 @@ export default {
     },
     getAPIData() {
       const url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${this.productCode}/growth`;
-      // const url = `https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/${this.selectedDate}/${this.todayDate}?adjusted=true&sort=asc&limit=5000&apiKey=${this.apikey}`;
       axios
         .get(url, {
           headers: {
@@ -362,6 +361,8 @@ export default {
 
       const agent = new https.Agent({
         rejectUnauthorized: false,
+        requestCert: false,
+        agent: false,
       });
       let url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
@@ -373,7 +374,7 @@ export default {
       // }
       // url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       axios
-        .get(url, {agent})
+        .get(url, { agent })
         .then((res) => {
           console.log(res);
           const data = res.data.results;
