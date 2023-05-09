@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="chart-container">
-      V2
+      <!-- V2 -->
       <Line
         :chart-options="chartOptions"
         :chart-data="chartData"

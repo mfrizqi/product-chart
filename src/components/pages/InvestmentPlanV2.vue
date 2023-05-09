@@ -208,7 +208,7 @@
         </div>
         <button
           class="w-full p-4 rounded bg-red-600 font-semibold text-white mt-4"
-          @click="goto(detailProduct?.URL_WEB)"
+          @click="goto(form?.product?.name)"
         >
           <span class="tracking-wider text-sm">Mulai Investasi</span>
         </button>
@@ -687,7 +687,9 @@ export default {
 
       console.log(this.form);
     },
-    goto(url) {
+    goto(name) {
+      let urlname = name.toLowerCase().replace(/ /g, "-");
+      const url = "https://sam.admire.id/" + urlname;
       window.open(url, "_blank");
     },
   },
