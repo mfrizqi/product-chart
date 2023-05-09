@@ -100,6 +100,7 @@
 <script>
 import { Line } from "vue-chartjs";
 import axios from "axios";
+var https = require('https-browserify')
 import moment from "moment";
 
 import {
@@ -342,9 +343,9 @@ export default {
             );
           }
           const finalName = procName.join(" ");
-          console.log('finalName: ', finalName);
+          console.log("finalName: ", finalName);
           this.product = data.filter((el) => el.product_name === finalName)[0];
-          console.log('this.product')
+          console.log("this.product");
           console.log(this.product);
           this.getChartData(this.product?.product_id);
         })
@@ -357,7 +358,11 @@ export default {
       this.isLoading = true;
       const start = moment(this.todayDate).format("MM/DD/YYYY");
       const end = moment(this.selectedDate).format("MM/DD/YYYY");
-      console.log('start-end', start, end);
+      console.log("start-end", start, end);
+
+      const agent = new https.Agent({
+        rejectUnauthorized: false,
+      });
       let url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // if (process.env.NODE_ENV === "production") {
@@ -368,7 +373,7 @@ export default {
       // }
       // url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       axios
-        .get(url)
+        .get(url, {agent})
         .then((res) => {
           console.log(res);
           const data = res.data.results;
