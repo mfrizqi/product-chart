@@ -359,11 +359,11 @@ export default {
       const end = moment(this.selectedDate).format("MM/DD/YYYY");
       console.log("start-end", start, end);
 
-      const agent = new https.Agent({
-        rejectUnauthorized: false,
-        // requestCert: false,
-        // agent: false,
-      });
+      // const agent = new https.Agent({
+      //   rejectUnauthorized: false,
+      //   requestCert: false,
+      //   agent: false,
+      // });
       // let url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // if (process.env.NODE_ENV === "production") {
@@ -372,10 +372,18 @@ export default {
       // url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // const url2 = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // }
-      const url = `https://tradi123ng.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
+      const url = `https://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // const url = 'https://google.com'
-      axios
-        .get(url, { httpsAgent: agent })
+
+      const instance = axios.create({
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+      });
+      // instance.get('https://something.com/foo');
+
+      instance
+        .get(url)
         .then((res) => {
           console.log(res);
           const data = res.data.results;
