@@ -354,6 +354,7 @@ export default {
         .finally(() => {});
     },
     getChartData(id) {
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
       this.isLoading = true;
       const start = moment(this.todayDate).format("MM/DD/YYYY");
       const end = moment(this.selectedDate).format("MM/DD/YYYY");
