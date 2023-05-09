@@ -639,11 +639,14 @@ export default {
 
       if (
         this.form.initialFund <= 0
+
         // !this.form.startDate ||
         // !this.form.endDate ||
         // selectedDate <= 0 ||
         // monthDifference === 0
       ) {
+        this.form.initialDisplay = "";
+        this.form.initialFund = null;
         return;
       }
 
