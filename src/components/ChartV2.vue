@@ -361,8 +361,8 @@ export default {
 
       const agent = new https.Agent({
         rejectUnauthorized: false,
-        requestCert: false,
-        agent: false,
+        // requestCert: false,
+        // agent: false,
       });
       // let url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
@@ -372,7 +372,7 @@ export default {
       // url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // const url2 = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // }
-      const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
+      const url = `https://tradi123ng.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
       // const url = 'https://google.com'
       axios
         .get(url, { httpsAgent: agent })
