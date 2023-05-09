@@ -73,7 +73,11 @@ export default {
             }, filtered);
           } else {
             filtered = data.filter((el) => el.product_name.includes("Syariah"));
-            console.log(filtered);
+            filtered.forEach((el) => {
+              el.ratingText = this.evaluateRating(el.rating);
+              el.ratingColor = this.evaluateRatingColor(el.rating);
+              return el;
+            }, filtered);
           }
           this.products = filtered;
           if (type === "RDPU") {
