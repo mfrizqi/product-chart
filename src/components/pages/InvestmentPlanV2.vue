@@ -532,6 +532,8 @@ export default {
     },
     async calculateInvest() {
       if (this.form.initialDisplay <= 0) {
+        this.form.initialDisplay = ''
+        this.form.initialFund = null
         return;
       }
 
