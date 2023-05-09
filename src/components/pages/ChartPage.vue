@@ -32,13 +32,13 @@
       </div>
     </div>
 
-    <Chart :chartValue="data" :productCode="'005'" />
+    <ChartV2 :chartValue="data" :productCode="'005'" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import Chart from "@/components/Chart.vue";
+import ChartV2 from "@/components/ChartV2.vue";
 
 const example = [
   {
@@ -549,7 +549,7 @@ const example = [
 
 export default {
   components: {
-    Chart,
+    ChartV2,
   },
   data() {
     return {
