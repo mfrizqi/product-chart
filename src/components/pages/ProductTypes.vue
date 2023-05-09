@@ -81,7 +81,9 @@ export default {
           }
           this.products = filtered;
           if (type === "RDPU") {
-            this.products.pop();
+            // this.products.pop();
+            this.products = this.products.filter(el => el.product_id === '014')
+            // this.products = product
           }
           // filtered = data.filter((el) => el.type_id === type);
           // filtered.forEach((el) => {
