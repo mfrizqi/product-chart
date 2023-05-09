@@ -256,21 +256,29 @@ export default {
   },
   watch: {
     calcInvest(newValue, oldValue) {
-      console.log("calcInvest");
-      console.log(newValue.length > 0);
-      this.chartData.datasets[0].data = [];
+      console.log("-------- calcInvest --------");
+      console.log(newValue)
+      // this.chartData.datasets[0].data = [];
       if (newValue.length > 0) {
         this.chartData.datasets[0].data = newValue;
       }
     },
     calcDeposito(newValue, oldValue) {
-      console.log("calcDeposito");
+      console.log("----- calcDeposito -------");
       console.log(newValue);
-      this.chartData.datasets[1].data = [];
+      // this.chartData.datasets[1].data = [];
       if (newValue.length > 0) {
         this.chartData.datasets[1].data = newValue;
       }
     },
+    duration(newValue, oldValue){
+      console.log('------ duration --------')
+      console.log(newValue)
+      this.chartData.labels = []
+      for (let i = 0; i < newValue; i++) {
+        this.chartData.labels.push(`M ${i + 1}`);
+      }
+    }
     // calcSaving(newValue, oldValue) {
     //   console.log("calcSaving");
     //   if (newValue.length > 0) {

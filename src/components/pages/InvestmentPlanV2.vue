@@ -633,19 +633,15 @@ export default {
       // this.arrSaving = [];
       let inv = 0;
       let depo = 0;
-      // let saving = 0;
+      
       inv = this.form.initialFund;
       depo = this.form.initialFund;
-      // saving = this.form.initialFund;
-
+      
       this.arrInvest.push(inv);
       this.arrDeposito.push(depo);
-      // this.arrSaving.push(saving);
 
       let monthly = 12;
       this.duration = this.form.periodInvest * 12;
-      console.log("detailProduct");
-      console.log(this.detailProduct);
 
       for (let i = 1; i < this.duration; i++) {
         // inv = inv + (this.form.initialFund + this.detailProduct?.nab);
@@ -666,6 +662,11 @@ export default {
         this.arrDeposito.push(depo);
         // this.arrSaving.push(saving);
       }
+
+      console.log('+++ investmentPlanV2 : getChartData +++')
+      console.log(this.duration)
+      console.log(this.arrInvest)
+      console.log(this.arrDeposito)
     },
     calculateStockDates(timeResults) {
       const dates = [];
