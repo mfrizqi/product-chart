@@ -206,13 +206,30 @@
             <div>{{ form.calculateData?.deposito_waktu_pencairan }}</div>
           </div>
         </div>
-        <button
-          class="w-full p-4 rounded bg-red-600 font-semibold text-white mt-4"
-          @click="goto(form?.product?.name)"
-        >
-          <span class="tracking-wider text-sm">Mulai Investasi</span>
-        </button>
-
+         <div class="grid grid-cols-2 mb-4 text-xs">
+          <div>
+            <div>Waktu Investasi</div>
+            <div>{{ form.periodInvest }} Tahun</div>
+          </div>
+          <!-- <div>
+            <div>Waktu Pencairan</div>
+            <div>{{ form.calculateData?.deposito_waktu_pencairan }}</div>
+          </div> -->
+        </div>
+        <div class="flex justify-between">
+          <button
+            class="px-3 rounded border border-slate-500 font-semibold cursor-pointer text-sm"
+            @click="resetForm()"
+          >
+            <span class="tracking-wider text-sm">Hitung Baru</span>
+          </button>
+          <button
+            class="p-3 rounded bg-red-600 font-semibold text-white text-sm"
+            @click="goto(form?.product?.name)"
+          >
+            <span class="tracking-wider text-sm">Mulai Investasi</span>
+          </button>
+        </div>
         <div class="text-sm mt-6">
           <div class="font-semibold mb-3">Disclaimer</div>
           <div>
@@ -532,8 +549,8 @@ export default {
     },
     async calculateInvest() {
       if (this.form.initialDisplay <= 0) {
-        this.form.initialDisplay = ''
-        this.form.initialFund = null
+        this.form.initialDisplay = "";
+        this.form.initialFund = null;
         return;
       }
 
@@ -635,10 +652,10 @@ export default {
       // this.arrSaving = [];
       let inv = 0;
       let depo = 0;
-      
+
       inv = this.form.initialFund;
       depo = this.form.initialFund;
-      
+
       this.arrInvest.push(inv);
       this.arrDeposito.push(depo);
 
@@ -665,10 +682,10 @@ export default {
         // this.arrSaving.push(saving);
       }
 
-      console.log('+++ investmentPlanV2 : getChartData +++')
-      console.log(this.duration)
-      console.log(this.arrInvest)
-      console.log(this.arrDeposito)
+      console.log("+++ investmentPlanV2 : getChartData +++");
+      console.log(this.duration);
+      console.log(this.arrInvest);
+      console.log(this.arrDeposito);
     },
     calculateStockDates(timeResults) {
       const dates = [];
@@ -693,6 +710,16 @@ export default {
       let urlname = name.toLowerCase().replace(/ /g, "-");
       const url = "https://sam.admire.id/" + urlname;
       window.open(url, "_blank");
+    },
+    resetForm() {
+      // this.form.initialFund = null;
+      // this.form.initialDisplay = null;
+      // this.form.periodInvest = 1;
+      // this.form.startDate = null;
+      // this.form.endDate = null;
+      // this.form.outputTotal = 0;
+      this.isLoading = false;
+      this.isIdle = true;
     },
   },
 };
