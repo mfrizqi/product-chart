@@ -383,7 +383,9 @@ export default {
       });
       // instance.get('https://something.com/foo');
 
-      const proxy = `https://api.siminvest.co.id/api/v1/products/${id}/growth?period=${this.selectedTime.duration}${this.selectedTime.type[0]}`
+      // let proxy = `https://api.siminvest.co.id/api/v1/products/${id}/growth?period=1m`
+      // let proxy = `https://api.siminvest.co.id/api/v1/products/${id}/growth?period=${this.selectedTime.duration}${this.selectedTime.type[0]}`
+      let proxy = `https://google.com`
 
       axios
         .get(proxy)
