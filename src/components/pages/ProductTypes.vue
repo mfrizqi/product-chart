@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div
+    <!-- <div
       v-for="(product, index) in products"
       :key="index"
-      class="px-4 py-4 mb-4 flex justify-between border rounded-lg bg-neutral-100 hover:bg-white product"
-    >
-      <div class="flex items-center">
+      class="hidden px-4 py-4 mb-4 flex justify-between border rounded-lg bg-neutral-100 hover:bg-white product"
+    > -->
+    <!-- <div class="flex items-center">
         <div class="ml-2 mr-12 font-bold text-red-500">{{ index + 1 }}</div>
         <div class="mr-12 font-bold">{{ product.product_name }}</div>
         <div class="text-sm">
@@ -33,6 +33,63 @@
         <div @click="goto(product.product_name)" class="cursor-pointer">
           <img src="@/assets/arrow-up-right.svg" alt="" />
         </div>
+      </div> -->
+
+    <!-- <div class="ml-2  font-bold text-red-500">{{ index + 1 }}</div>
+      <div class=" font-bold">{{ product.product_name }}</div>
+      <div class="text-sm">
+        <span class="text-gray-500 mr-4">Profil Resiko</span
+        ><span
+          class="font-bold"
+          v-if="product.rating"
+          :class="product.ratingColor"
+          >{{ product?.ratingText }}</span
+        >
+        <span class="font-bold" v-if="!product.rating">{{ "-" }}</span>
+      </div>
+      <div class="text-sm ">
+        NAB / Unit
+        <span class="text-green-600 font-bold">Rp. {{ product.nab }}</span>
+      </div>
+      <div class="text-sm mr-6">
+        YTD
+        <span class="text-green-600 font-bold"
+          >{{ product.return_year_to_date }}%</span
+        >
+      </div>
+      <div @click="goto(product.product_name)" class="cursor-pointer">
+        <img src="@/assets/chevron-right.svg" alt="" />
+      </div> -->
+    <!-- </div> -->
+    <div
+      class="grid grid-cols-6 gap-4"
+      v-for="(product, index) in products"
+      :key="index"
+    >
+      <div class="ml-2 font-bold text-red-500">{{ index + 1 }}</div>
+      <div class="font-bold">{{ product.product_name }}</div>
+      <div class="text-sm">
+        <span class="text-gray-500 mr-4">Profil Resiko</span
+        ><span
+          class="font-bold"
+          v-if="product.rating"
+          :class="product.ratingColor"
+          >{{ product?.ratingText }}</span
+        >
+        <span class="font-bold" v-if="!product.rating">{{ "-" }}</span>
+      </div>
+      <div class="text-sm">
+        NAB / Unit
+        <span class="text-green-600 font-bold">Rp. {{ product.nab }}</span>
+      </div>
+      <div class="text-sm mr-6">
+        YTD
+        <span class="text-green-600 font-bold"
+          >{{ product.return_year_to_date }}%</span
+        >
+      </div>
+      <div @click="goto(product.product_name)" class="cursor-pointer text-right">
+        <img src="@/assets/chevron-right.svg" alt="" />
       </div>
     </div>
   </div>
@@ -82,7 +139,9 @@ export default {
           this.products = filtered;
           if (type === "RDPU") {
             // this.products.pop();
-            this.products = this.products.filter(el => el.product_id === '014')
+            this.products = this.products.filter(
+              (el) => el.product_id === "014"
+            );
             // this.products = product
           }
           // filtered = data.filter((el) => el.type_id === type);

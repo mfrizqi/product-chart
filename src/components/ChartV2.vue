@@ -383,15 +383,18 @@ export default {
       });
       // instance.get('https://something.com/foo');
 
-      instance
-        .get(url)
+      const proxy = `https://api.siminvest.co.id/api/v1/products/${id}/growth?period=1m`
+
+      axios
+        .get(proxy)
         .then((res) => {
           console.log(res);
-          const data = res.data.results;
+          const data = res.data.data;
+          console.log('data');
           console.log(data);
 
           this.data = data;
-          const navValue = this.data.map((el) => el.nab);
+          const navValue = this.data.map((el) => el.aum);
           const dataDates = this.calculateStockDates(this.data);
           this.chartData.datasets[0].data = navValue;
           this.chartData.labels = dataDates;
@@ -443,8 +446,8 @@ export default {
     calculateStockDates(timeResults) {
       const dates = [];
       timeResults.forEach((el) => {
-        const date = new Date(el.nab_date);
-        const momentDate = moment(new Date(el.nab_date)).format("MMM DD YY");
+        const date = new Date(el.nav_datetime);
+        const momentDate = moment(new Date(el.nav_datetime)).format("MMM DD YY");
         dates.push(`${momentDate}`);
       });
       return dates;
