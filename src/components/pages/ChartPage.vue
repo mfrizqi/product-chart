@@ -25,7 +25,7 @@
         <button
           class="px-6 py-2 bg-green-600 text-white rounded"
           style="max-height: 40px"
-          @click="goto('https://rol.sinarmas-am.co.id/index.php')"
+          @click="goto(product?.URL_WEB)"
         >
           Beli Sekarang
         </button>
