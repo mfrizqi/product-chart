@@ -383,7 +383,7 @@ export default {
       });
       // instance.get('https://something.com/foo');
 
-      const proxy = `https://api.siminvest.co.id/api/v1/products/${id}/growth?period=1m`
+      const proxy = `https://api.siminvest.co.id/api/v1/products/${id}/growth?period=${this.selectedTime.duration}${this.selectedTime.type[0]}`
 
       axios
         .get(proxy)
@@ -441,6 +441,8 @@ export default {
         this.selectedTime.type = "months";
       }
       this.selectedTime.duration = time.value;
+      console.log('this.selectedTime')
+      console.log(this.selectedTime)
       this.getChartData(this.product?.product_id);
     },
     calculateStockDates(timeResults) {
