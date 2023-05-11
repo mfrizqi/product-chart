@@ -4,7 +4,7 @@
       <div class="">
         <div class="text-gray-600">NAB / Unit</div>
         <div class="font-bold mb-3 text-3xl text-green-600">
-          Rp. {{ product?.nab ? formatPrice(product.nab) : "-" }}
+          Rp. {{ product?.nab ? product.nab.toLocaleString(undefined, { minimumFractionDigits: 4 }) : '-'}}
         </div>
       </div>
       <div class="flex justify-end items-end">

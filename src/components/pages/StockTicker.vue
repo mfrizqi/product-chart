@@ -140,7 +140,7 @@
             </div>
             <div class="flex justify-between items-end">
               <div class="font-bold text-md mt-2" :class="{'text-red-600': product.return_year_to_date < 0, 'text-green-600': product.return_year_to_date > 0}">
-                Rp {{ product.nab }} <span v-if="product.return_year_to_date > 0">▲</span><span v-if="product.return_year_to_date < 0">▼</span>
+                Rp {{ product.nab.toLocaleString(undefined, { minimumFractionDigits: 4 }) }} <span v-if="product.return_year_to_date > 0">▲</span><span v-if="product.return_year_to_date < 0">▼</span>
               </div>
               <div class="font-medium text-gray-400 text-xs text-end">YTD</div>
             </div>
