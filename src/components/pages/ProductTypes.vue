@@ -1,11 +1,11 @@
 <template>
   <div>
-    <!-- <div
+    <div
       v-for="(product, index) in products"
       :key="index"
-      class="hidden px-4 py-4 mb-4 flex justify-between border rounded-lg bg-neutral-100 hover:bg-white product"
-    > -->
-    <!-- <div class="flex items-center">
+      class="px-4 py-4 mb-4 flex justify-between border rounded-lg bg-neutral-100 hover:bg-white product"
+    >
+    <div class="flex items-center">
         <div class="ml-2 mr-12 font-bold text-red-500">{{ index + 1 }}</div>
         <div class="mr-12 font-bold">{{ product.product_name }}</div>
         <div class="text-sm">
@@ -33,7 +33,8 @@
         <div @click="goto(product.product_name)" class="cursor-pointer">
           <img src="@/assets/arrow-up-right.svg" alt="" />
         </div>
-      </div> -->
+      </div>
+    </div>
 
     <!-- <div class="ml-2  font-bold text-red-500">{{ index + 1 }}</div>
       <div class=" font-bold">{{ product.product_name }}</div>
@@ -61,12 +62,12 @@
         <img src="@/assets/chevron-right.svg" alt="" />
       </div> -->
     <!-- </div> -->
-    <div
+    <!-- <div
       class="grid grid-cols-6 gap-4"
       v-for="(product, index) in products"
       :key="index"
     >
-      <div class="ml-2 font-bold text-red-500">{{ index + 1 }}</div>
+      <div class="ml-2 font-bold text-red-500 ">{{ index + 1 }}</div>
       <div class="font-bold">{{ product.product_name }}</div>
       <div class="text-sm">
         <span class="text-gray-500 mr-4">Profil Resiko</span
@@ -91,7 +92,7 @@
       <div @click="goto(product.product_name)" class="cursor-pointer text-right">
         <img src="@/assets/chevron-right.svg" alt="" />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
