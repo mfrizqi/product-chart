@@ -5,7 +5,7 @@
       :key="index"
       class="px-4 py-4 flex justify-between border rounded-lg bg-neutral-100 hover:bg-white product"
     >
-      <!-- <div class="flex items-center">
+      <div class="flex items-center">
         <div class="ml-2 mr-12 font-bold text-red-500">{{ index + 1 }}</div>
         <div class="mr-12 font-bold">{{ product.product_name }}</div>
         <div class="text-sm">
@@ -33,12 +33,11 @@
         <div @click="goto(product.product_name)" class="cursor-pointer">
           <img src="@/assets/arrow-up-right.svg" alt="" />
         </div>
-      </div> -->
+      </div>
 
-      <div class="ml-2 mr-10 font-bold text-red-500">{{ index + 1 }}</div>
+      <!-- <div class="ml-2 mr-10 font-bold text-red-500">{{ index + 1 }}</div>
       <div class="flex-1 text-center font-bold">{{ product.product_name }}</div>
       <div class="flex-1 text-center text-sm">
-        <!-- <span class="text-gray-500 mr-4">Profil Resiko</span> -->
         <span
           class="font-bold"
           v-if="product.rating"
@@ -48,16 +47,14 @@
         <span class="font-bold" v-if="!product.rating">{{ "-" }}</span>
       </div>
       <div class="flex-1 text-center text-sm">
-        <!-- NAB / Unit -->
         <span class="text-green-600 font-bold">Rp. {{ product.nab }}</span>
       </div>
       <div class="flex-1 text-center text-sm mr-6">
-        <!-- YTD -->
         <span class="text-green-600 font-bold">{{ product.return_year_to_date }}%</span>
       </div>
       <div @click="goto(product.product_name)" class="cursor-pointer">
         <img src="@/assets/arrow-up-right.svg" alt="" />
-      </div>
+      </div> -->
     </div>
 
     <!-- <div class="ml-2  font-bold text-red-500">{{ index + 1 }}</div>
