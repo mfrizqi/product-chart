@@ -434,7 +434,11 @@ export default {
       };
 
       axios
-        .post(url, req)
+        .post(url, req, {
+          headers:{
+            'Content-Type' : 'text/plain' 
+          }
+        })
         .then((res) => {
           console.log(res);
           const data = res.data.data;
