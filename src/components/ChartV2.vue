@@ -417,8 +417,9 @@ export default {
     },
     getChartData(id) {
       this.isLoading = true;
-      const start = moment(this.todayDate).format("MM/DD/YYYY");
-      const end = moment(this.selectedDate).format("MM/DD/YYYY");
+      const start = moment(this.todayDate).format("YYYY-MM-DD");
+      const end = moment(this.selectedDate).format("YYYY-MM-DD");
+      console.log(start,end)
       let url = 'https://rol.sinarmas-am.co.id/API/web/nab_range.php';
 
        if (process.env.NODE_ENV === "production") {
@@ -428,9 +429,9 @@ export default {
       }
 
       let req = {
-        product_id: "008",
-        start_date: "2023-04-01",
-        end_date: "2023-04-05",
+        product_id: id,
+        start_date: end,
+        end_date: start,
       };
 
       axios
@@ -441,12 +442,12 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          const data = res.data.data;
+          const data = res.data.results;
           console.log("data");
           console.log(data);
 
           this.data = data;
-          const navValue = this.data.map((el) => el.aum);
+          const navValue = this.data.map((el) => el.nab);
           const dataDates = this.calculateStockDates(this.data);
           this.chartData.datasets[0].data = navValue;
           this.chartData.labels = dataDates;
@@ -500,8 +501,8 @@ export default {
     calculateStockDates(timeResults) {
       const dates = [];
       timeResults.forEach((el) => {
-        const date = new Date(el.nav_datetime);
-        const momentDate = moment(new Date(el.nav_datetime)).format(
+        const date = new Date(el.nabdatetime);
+        const momentDate = moment(new Date(el.nabdatetime)).format(
           "MMM DD YY"
         );
         dates.push(`${momentDate}`);
