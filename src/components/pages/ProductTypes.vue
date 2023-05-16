@@ -27,6 +27,20 @@
         ></path>
       </svg>
     </div>
+    <div class="px-4 py-4 flex items-center justify-between border rounded-lg bg-red-500">
+      <div class="ml-2 mr-10 font-bold text-white">No</div>
+      <div class="flex-1 text-center font-bold text-white">Nama Produk</div>
+      <div class="flex-1 text-center font-bold text-white">
+          Profil Risiko
+      </div>
+      <div class="flex-1 text-center font-bold text-white">
+        NAB/Unit
+      </div>
+      <div class="flex-1 text-center font-bold text-white mr-6">
+        YTD
+      </div>
+      <div class="px-6"></div>
+    </div>
     <div
       v-for="(product, index) in products"
       :key="index"
