@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="min-height: 86px">
     <div
       style="background-color: black; opacity: 0.1"
       class="absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center"
@@ -36,7 +36,7 @@
       <div class="flex-1 text-center font-bold text-white">
         NAB/Unit
       </div>
-      <div class="flex-1 text-center font-bold text-white mr-6">
+      <div class="flex-1 text-center font-bold text-white">
         YTD
       </div>
       <div class="px-6"></div>
