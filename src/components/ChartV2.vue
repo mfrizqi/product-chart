@@ -353,46 +353,92 @@ export default {
         })
         .finally(() => {});
     },
-    getChartData(id) {
-      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+    oldGetChartData(id) {
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
       this.isLoading = true;
       const start = moment(this.todayDate).format("MM/DD/YYYY");
       const end = moment(this.selectedDate).format("MM/DD/YYYY");
       console.log("start-end", start, end);
-
-      // const agent = new https.Agent({
-      //   rejectUnauthorized: false,
-      //   requestCert: false,
-      //   agent: false,
-      // });
-      // let url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
-      // const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
-      // if (process.env.NODE_ENV === "production") {
-      //   url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
-      // } else {
-      // url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
-      // const url2 = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
-      // }
       const url = `https://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
-      // const url = 'https://google.com'
 
       const instance = axios.create({
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,
         }),
       });
-      // instance.get('https://something.com/foo');
-
-      // let proxy = `https://api.siminvest.co.id/api/v1/products/${id}/growth?period=1m`
-      let proxy = `https://api.siminvest.co.id/api/v1/products/${id}/growth?period=${this.selectedTime.duration}${this.selectedTime.type[0]}`
-      // proxy = `https://google.com`
+      let proxy = `https://api.siminvest.co.id/api/v1/products/${id}/growth?period=${this.selectedTime.duration}${this.selectedTime.type[0]}`;
 
       axios
         .get(proxy)
         .then((res) => {
           console.log(res);
           const data = res.data.data;
-          console.log('data');
+          console.log("data");
+          console.log(data);
+
+          this.data = data;
+          const navValue = this.data.map((el) => el.aum);
+          const dataDates = this.calculateStockDates(this.data);
+          this.chartData.datasets[0].data = navValue;
+          this.chartData.labels = dataDates;
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+
+      // if (process.env.NODE_ENV === "production") {
+      //   url =
+      //     window.location.origin +
+      //     `/api/range?id=${id}&start_date=${end}&end_date=${start}`;
+      // }
+      // console.log('chart data by proxy')
+      // axios
+      //   .get(url)
+      //   .then((res) => {
+      //     console.log(res);
+      //     const data = res.data.results;
+      //     console.log(data);
+
+      //     this.data = data;
+      //     const navValue = this.data.map((el) => el.nab);
+      //     const dataDates = this.calculateStockDates(this.data);
+      //     this.chartData.datasets[0].data = navValue;
+      //     this.chartData.labels = dataDates;
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   })
+      //   .finally(() => {
+      //     this.isLoading = false;
+      //   });
+    },
+    getChartData(id) {
+      this.isLoading = true;
+      const start = moment(this.todayDate).format("MM/DD/YYYY");
+      const end = moment(this.selectedDate).format("MM/DD/YYYY");
+      let url = 'https://rol.sinarmas-am.co.id/API/web/nab_range.php';
+
+       if (process.env.NODE_ENV === "production") {
+        url = window.location.origin + "/api/nab_range";
+      } else {
+        url = "https://rol.sinarmas-am.co.id/API/web/nab_range.php";
+      }
+
+      let req = {
+        product_id: "008",
+        start_date: "2023-04-01",
+        end_date: "2023-04-05",
+      };
+
+      axios
+        .post(url, req)
+        .then((res) => {
+          console.log(res);
+          const data = res.data.data;
+          console.log("data");
           console.log(data);
 
           this.data = data;
@@ -443,15 +489,17 @@ export default {
         this.selectedTime.type = "months";
       }
       this.selectedTime.duration = time.value;
-      console.log('this.selectedTime')
-      console.log(this.selectedTime)
+      console.log("this.selectedTime");
+      console.log(this.selectedTime);
       this.getChartData(this.product?.product_id);
     },
     calculateStockDates(timeResults) {
       const dates = [];
       timeResults.forEach((el) => {
         const date = new Date(el.nav_datetime);
-        const momentDate = moment(new Date(el.nav_datetime)).format("MMM DD YY");
+        const momentDate = moment(new Date(el.nav_datetime)).format(
+          "MMM DD YY"
+        );
         dates.push(`${momentDate}`);
       });
       return dates;
