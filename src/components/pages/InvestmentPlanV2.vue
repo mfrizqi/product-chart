@@ -155,13 +155,14 @@
         <div class="grid grid-cols-2 mb-4 text-xs">
           <div>
             <div>{{ form?.product?.name }}</div>
-            <div>Rp.{{ formatDecimals(form.calculateData?.result) }}</div>
+            <!-- <div>Rp.{{ formatDecimals(form.calculateData?.result) }}</div> -->
+            <div>Rp.{{ convertToInternationalCurrencySystem(form.calculateData?.result) }}</div>
+            
           </div>
           <div>
             <div>Deposito</div>
-            <div>
-              Rp.{{ formatDecimals(form.calculateData?.deposito_result) }}
-            </div>
+            <!-- <div>Rp.{{ formatDecimals(form.calculateData?.deposito_result)}}</div> -->
+            <div>Rp.{{ convertToInternationalCurrencySystem(form.calculateData?.deposito_result)}}</div>
           </div>
         </div>
         <div class="grid grid-cols-2 mb-4 text-xs">
@@ -206,7 +207,7 @@
             <div>{{ form.calculateData?.deposito_waktu_pencairan }}</div>
           </div>
         </div>
-         <div class="grid grid-cols-2 mb-4 text-xs">
+        <div class="grid grid-cols-2 mb-4 text-xs">
           <div>
             <div>Waktu Investasi</div>
             <div>{{ form.periodInvest }} Tahun</div>
@@ -245,6 +246,8 @@
       :calc-deposito="arrDeposito"
       :calc-saving="arrSaving"
       :duration="duration"
+      :resetChart="isReset"
+      @reset="(state) => isReset = state"
     />
   </div>
 </template>
@@ -444,6 +447,7 @@ export default {
       detailProduct: {},
       isIdle: true,
       isLoading: false,
+      isReset: false,
       duration: 12,
     };
   },
@@ -618,6 +622,18 @@ export default {
         })
         .finally(() => {});
     },
+    convertToInternationalCurrencySystem(labelValue) {
+      // Nine Zeroes for Billions
+      return Math.abs(Number(labelValue)) >= 1.0e9
+        ? (Math.abs(Number(labelValue)) / 1.0e9).toFixed(0) + " Milyar"
+        : // Six Zeroes for Millions
+        Math.abs(Number(labelValue)) >= 1.0e6
+        ? (Math.abs(Number(labelValue)) / 1.0e6).toFixed(0) + " Juta"
+        : // Three Zeroes for Thousands
+        Math.abs(Number(labelValue)) >= 1.0e3
+        ? (Math.abs(Number(labelValue)) / 1.0e3).toFixed(0) + " Ribu"
+        : Math.abs(Number(labelValue));
+    },
     getChartData(id) {
       this.isLoading = true;
       const start = moment(this.todayDate).format("MM/DD/YYYY");
@@ -720,7 +736,12 @@ export default {
       // this.form.outputTotal = 0;
       this.isLoading = false;
       this.isIdle = true;
+      this.isReset = true;
+      this.duration = 12;
     },
+    // disableReset(){
+    //   this.isReset = false
+    // }
   },
 };
 </script>

@@ -95,6 +95,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    resetChart: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     var self = this;
@@ -215,6 +219,17 @@ export default {
               },
             },
           },
+          tooltip: {
+            enabled: true,
+            callbacks: {
+              label: (tooltipItems, data) => {
+                const value = self.convertToInternationalCurrencySystem(
+                  tooltipItems.raw
+                );
+                return value;
+              },
+            },
+          },
         },
         interaction: {
           intersect: false,
@@ -239,6 +254,7 @@ export default {
       widthCanvas: 0,
       heightCanvas: 0,
       gradientCanvas: null,
+      isReset: false
     };
   },
   mounted() {
@@ -257,7 +273,7 @@ export default {
   watch: {
     calcInvest(newValue, oldValue) {
       console.log("-------- calcInvest --------");
-      console.log(newValue)
+      console.log(newValue);
       // this.chartData.datasets[0].data = [];
       if (newValue.length > 0) {
         this.chartData.datasets[0].data = newValue;
@@ -271,14 +287,25 @@ export default {
         this.chartData.datasets[1].data = newValue;
       }
     },
-    duration(newValue, oldValue){
-      console.log('------ duration --------')
-      console.log(newValue)
-      this.chartData.labels = []
+    duration(newValue, oldValue) {
+      console.log("------ duration --------");
+      console.log(newValue);
+      this.chartData.labels = [];
       for (let i = 0; i < newValue; i++) {
         this.chartData.labels.push(`M ${i + 1}`);
       }
-    }
+    },
+    resetChart: {
+      handler() {
+        console.log('resetChart')
+        console.log(this.resetChart)
+        if(this.resetChart){
+          this.initChart();
+          this.$emit('reset', false)
+        }
+      },
+      immediate: true,
+    },
     // calcSaving(newValue, oldValue) {
     //   console.log("calcSaving");
     //   if (newValue.length > 0) {
@@ -287,6 +314,18 @@ export default {
     // },
   },
   methods: {
+    convertToInternationalCurrencySystem(labelValue) {
+      // Nine Zeroes for Billions
+      return Math.abs(Number(labelValue)) >= 1.0e9
+        ? (Math.abs(Number(labelValue)) / 1.0e9).toFixed(0) + " Milyar"
+        : // Six Zeroes for Millions
+        Math.abs(Number(labelValue)) >= 1.0e6
+        ? (Math.abs(Number(labelValue)) / 1.0e6).toFixed(0) + " Juta"
+        : // Three Zeroes for Thousands
+        Math.abs(Number(labelValue)) >= 1.0e3
+        ? (Math.abs(Number(labelValue)) / 1.0e3).toFixed(0) + " Ribu"
+        : Math.abs(Number(labelValue));
+    },
     initChart() {
       this.chartData.labels = [];
       this.chartData.datasets[0].data = [];
