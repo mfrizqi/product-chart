@@ -39,16 +39,16 @@
             >
               <div class="flex flex-col justify-between">
                 <div class="font-bold block mb-1">
-                  {{ moment().format("MMMM") }}
+                  {{ currentNabDate[1] }}
                 </div>
                 <div class="font-bold block text-gray-400 text-sm">
-                  {{ moment().format("YYYY") }}
+                  {{ currentNabDate[0] }}
                 </div>
               </div>
               <div
                 class="circle-date flex justify-center items-center text-xl font-bold text-black"
               >
-                {{ moment().format("DD") }}
+                {{ currentNabDate[2] }}
               </div>
             </div>
             <div
@@ -255,12 +255,16 @@ export default {
       widthCanvas: 0,
       heightCanvas: 0,
       gradientCanvas: null,
+      currentNabDate: []
     };
   },
   mounted() {
     // this.getData();
     // this.getAPIData();
     // this.getChartData(this.productCode);
+    this.currentNabDate.push(this.moment().format('YYYY'))
+    this.currentNabDate.push(this.moment().format('MMMM'))
+    this.currentNabDate.push(this.moment().format('DD'))
     this.getMutualFunds();
   },
   computed: {
@@ -437,7 +441,7 @@ export default {
       axios
         .post(url, req, {
           headers:{
-            'Content-Type' : 'text/plain' 
+            'Content-Type' : 'text/plain'
           }
         })
         .then((res) => {
@@ -447,6 +451,9 @@ export default {
           console.log(data);
 
           this.data = data;
+          console.log(this.data.at(-1))
+          const dateNab = moment(this.data.at(-1)['nabdatetime']).format('YYYY-MMM-DD').split('-');
+          this.currentNabDate = dateNab
           const navValue = this.data.map((el) => el.nab);
           const dataDates = this.calculateStockDates(this.data);
           this.chartData.datasets[0].data = navValue;

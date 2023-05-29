@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex justify-between">
+    <div class="flex justify-between mb-8">
       <div class="">
         <div class="text-gray-600">NAB / Unit</div>
         <div class="font-bold mb-3 text-3xl text-green-600">
@@ -9,21 +9,21 @@
       </div>
       <div class="flex justify-end items-end">
         <button
-          class="px-6 py-2 bg-red-700 mr-12 text-white rounded"
+          class="px-6 py-2 mb-3 bg-red-700 mr-12 text-white rounded"
           style="max-height: 40px"
           @click="goto(detail?.propectus)"
         >
           Prospektus
         </button>
         <button
-          class="px-6 py-2 bg-orange-600 mr-12 text-white rounded"
+          class="px-6 py-2 mb-3 bg-orange-600 mr-12 text-white rounded"
           style="max-height: 40px"
           @click="goto(detail?.ffs_url)"
         >
           Factsheet
         </button>
         <button
-          class="px-6 py-2 bg-green-600 text-white rounded"
+          class="px-6 py-2 mb-3 bg-green-600 text-white rounded"
           style="max-height: 40px"
           @click="goto('https://rol.sinarmas-am.co.id/index.php')"
         >
