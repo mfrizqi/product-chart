@@ -16,6 +16,7 @@ import ChartPage from "../components/pages/ChartPage";
 import StockTicker from "../components/pages/StockTicker";
 import NabYtd from "../components/pages/NabYtd";
 import ProductTypes from "../components/pages/ProductTypes"
+import ProductTypesV2 from "../components/pages/ProductTypesV2"
 
 // CHART PAGES
 import chartSimasSatu from "../components/pages/investment-charts/002";
@@ -112,6 +113,11 @@ const routes = [
     path: "/product-type/:type",
     name: "ProductTypes",
     component: ProductTypes,
+  },
+  {
+    path: "/products/:type",
+    name: "ProductTypes",
+    component: ProductTypesV2,
   },
   
 ];
