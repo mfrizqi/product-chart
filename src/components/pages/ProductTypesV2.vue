@@ -35,7 +35,7 @@
         class="border-t border-b border-zinc-200 p-6"
         :class="[{ 'border-t': index === 0 }]"
       >
-        <div class="mb-4 font-medium flex justify-between">
+        <div class="mb-4 font-semibold flex justify-between">
           <div>{{ product?.product_name }}</div>
           <div class="cursor-pointer md:hidden block">
             <div @click="goto(product?.product_name)">
@@ -49,31 +49,31 @@
         </div>
         <div class="flex shrink justify-between">
           <div>
-            <div class="font-thin text-sm">
+            <div class="font-normal text-sm">
               NAB {{ formatDate(product?.nab_date) }}
             </div>
             <div class="mt-2 mb-4">
-              <span class="font-thin mr-2">IDR</span>
-              <span class="font-normal text-3xl">
+              <span class="font-normal mr-2">IDR</span>
+              <span class="font-medium text-3xl">
                 {{ formatNAB(product?.nab) }}
               </span>
             </div>
           </div>
           <div class="md:block hidden">
-            <div class="text-sm text-right">YTD</div>
-            <div class="font-medium">{{ product?.return_year_to_date }}%</div>
+            <div class="text-sm text-right font-medium">YTD</div>
+            <div class="font-semibold">{{ product?.return_year_to_date }}%</div>
           </div>
           <div class="md:block hidden">
-            <div class="text-sm text-right">1Y</div>
-            <div class="font-medium">{{ product?.return_one_year }}%</div>
+            <div class="text-sm text-right font-medium">1Y</div>
+            <div class="font-semibold">{{ product?.return_one_year }}%</div>
           </div>
           <div class="md:block hidden">
-            <div class="text-sm text-right">3Y</div>
-            <div class="font-medium">{{ product?.return_three_year }}%</div>
+            <div class="text-sm text-right font-medium">3Y</div>
+            <div class="font-semibold">{{ product?.return_three_year }}%</div>
           </div>
           <div class="md:block hidden">
-            <div class="text-sm text-right">5Y</div>
-            <div class="font-medium">{{ product?.return_five_year }}%</div>
+            <div class="text-sm text-right font-medium">5Y</div>
+            <div class="font-semibold">{{ product?.return_five_year }}%</div>
           </div>
           <div class="cursor-pointer md:block hidden">
             <div @click="goto(product?.product_name)">
@@ -82,26 +82,26 @@
                 class="inline-block"
                 alt=""
               />
-              <span>Lihat Detail</span>
+              <span class="font-semibold">  Lihat Detail</span>
             </div>
           </div>
         </div>
          <div class="flex justify-between py-2">
             <div class="md:hidden block">
-              <div class="text-sm text-right">YTD</div>
-              <div class="font-medium">{{ product?.return_year_to_date }}%</div>
+              <div class="text-sm text-right font-medium">YTD</div>
+              <div class="font-semibold">{{ product?.return_year_to_date }}%</div>
             </div>
             <div class="md:hidden block">
-              <div class="text-sm text-right">1Y</div>
-              <div class="font-medium">{{ product?.return_one_year }}%</div>
+              <div class="text-sm text-right font-medium">1Y</div>
+              <div class="font-semibold">{{ product?.return_one_year }}%</div>
             </div>
             <div class="md:hidden block">
-              <div class="text-sm text-right">3Y</div>
-              <div class="font-medium">{{ product?.return_three_year }}%</div>
+              <div class="text-sm text-right font-medium">3Y</div>
+              <div class="font-semibold">{{ product?.return_three_year }}%</div>
             </div>
             <div class="md:hidden block">
-              <div class="text-sm text-right">5Y</div>
-              <div class="font-medium">{{ product?.return_five_year }}%</div>
+              <div class="text-sm text-right font-medium">5Y</div>
+              <div class="font-semibold">{{ product?.return_five_year }}%</div>
             </div>
           </div>
         <div class="mt-2">
