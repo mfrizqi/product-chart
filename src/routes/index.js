@@ -13,6 +13,7 @@ import FormPage from "../components/pages/FormPage";
 import FormInvestment from "../components/pages/FormInvestment";
 import ChartsPage from "../components/pages/ChartsPage";
 import ChartPage from "../components/pages/ChartPage";
+import ChartPageV2 from "../components/pages/ChartPageV2";
 import StockTicker from "../components/pages/StockTicker";
 import NabYtd from "../components/pages/NabYtd";
 import ProductTypes from "../components/pages/ProductTypes"
@@ -98,6 +99,11 @@ const routes = [
     path: "/chart/:name",
     name: "ChartPage",
     component: ChartPage,
+  },
+  {
+    path: "/chart/v2/:name",
+    name: "ChartPageV2",
+    component: ChartPageV2,
   },
   {
     path: "/stock-ticker",
