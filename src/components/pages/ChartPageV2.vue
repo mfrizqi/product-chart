@@ -132,82 +132,61 @@
         </div>
       </div>
     </div>
-    <ChartV2 :chartValue="data" :productCode="'005'" />
-    <div class="flex justify-between mt-8">
-      <div class="grow items-center border-r border-gray-200" style="height: 220px">
-        <div class="p-10">
-          <div>Product Info Documents</div>
-          <div>Your Investment Documents Here</div>
-        </div>
-        <!-- <div></div> -->
-      </div>
-      <div class="grow border-r border-gray-200">Prospektus</div>
-      <div class="grow">Factsheet</div>
-      <!-- <div></div> -->
-      <!-- <button
-        class="px-6 py-2 mb-3 bg-red-700 mr-12 text-white rounded"
-        style="max-height: 40px"
-        @click="goto(detail?.propectus)"
+    <!-- <ChartV2 :chartValue="data" :productCode="'005'" /> -->
+    <ChartV3 :chartValue="data" :productCode="'005'" :showRisk="false" />
+    <div class="flex flex-wrap md:flex-no-wrap justify-between mt-8">
+      <div
+        class="basis-full md:basis-auto grow flex flex-wrap items-center border-b border-gray-200 md:border-b-0"
+        style="height: 220px"
       >
-        Prospektus
-      </button>
-      <button
-        class="px-6 py-2 mb-3 bg-orange-600 mr-12 text-white rounded"
-        style="max-height: 40px"
-        @click="goto(detail?.ffs_url)"
-      >
-        Factsheet
-      </button>
-      <button
-        class="px-6 py-2 mb-3 bg-green-600 text-white rounded"
-        style="max-height: 40px"
-        @click="goto('https://rol.sinarmas-am.co.id/index.php')"
-      >
-        Beli Sekarang
-      </button> -->
-      <!-- </div> -->
-    </div>
-  </div>
-  <!-- <div class="hidden">
-    <div class="flex justify-between mb-8">
-      <div class="">
-        <div class="text-gray-600">NAB / Unit</div>
-        <div class="font-bold mb-3 text-3xl text-green-600">
-          Rp. {{ product?.nab ? product.nab.toLocaleString(undefined, { minimumFractionDigits: 4 }) : '-'}}
+        <div class="p-10 grow basis-full text-center md:text-left">
+          <div class="font-bold text-3xl mb-4">
+            Product Info <br />
+            Documents
+          </div>
+          <div class="font-medium">
+            Your Investment <br />
+            Documents Here
+            <img src="@/assets/arrow-right.svg" class="inline-block" alt="" />
+          </div>
         </div>
       </div>
-      <div class="flex justify-end items-end">
-        <button
-          class="px-6 py-2 mb-3 bg-red-700 mr-12 text-white rounded"
-          style="max-height: 40px"
-          @click="goto(detail?.propectus)"
-        >
-          Prospektus
+      <div class="grow border-r border-l border-gray-200 p-8 text-center border-b border-gray-200 md:border-b-0">
+        <div class="border rounded-full inline-block p-4">
+          <img
+            src="@/assets/file-text-15.svg"
+            class="inline-block w-20"
+            alt=""
+          />
+        </div>
+        <div class="my-6 font-bold text-xl">Prospektus</div>
+        <button class="border px-6 py-3 flex items-center justify-center mx-auto" @click="goto(detail?.propectus)">
+          <div class="font-semibold mr-2">Download</div>
+          <img src="@/assets/download.svg" class="inline-block" alt="" />
         </button>
-        <button
-          class="px-6 py-2 mb-3 bg-orange-600 mr-12 text-white rounded"
-          style="max-height: 40px"
-          @click="goto(detail?.ffs_url)"
-        >
-          Factsheet
-        </button>
-        <button
-          class="px-6 py-2 mb-3 bg-green-600 text-white rounded"
-          style="max-height: 40px"
-          @click="goto('https://rol.sinarmas-am.co.id/index.php')"
-        >
-          Beli Sekarang
+      </div>
+      <div class="grow p-8 text-center">
+          <div class="border rounded-full inline-block p-4">
+          <img
+            src="@/assets/file-text-15.svg"
+            class="inline-block w-20"
+            alt=""
+          />
+        </div>
+        <div class="my-6 font-bold text-xl">Factsheet</div>
+        <button class="border px-6 py-3 flex items-center justify-center mx-auto" @click="goto(detail?.ffs_url)">
+          <div class="font-semibold mr-2">Download</div>
+          <img src="@/assets/download.svg" class="inline-block" alt="" />
         </button>
       </div>
     </div>
-
-    <ChartV2 :chartValue="data" :productCode="'005'" />
-  </div> -->
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-import ChartV2 from "@/components/ChartV2.vue";
+// import ChartV2 from "@/components/ChartV2.vue";
+import ChartV3 from "@/components/ChartV3.vue";
 
 const example = [
   {
@@ -718,7 +697,7 @@ const example = [
 
 export default {
   components: {
-    ChartV2,
+    ChartV3,
   },
   data() {
     return {
