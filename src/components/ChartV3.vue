@@ -11,14 +11,14 @@
             <button
               v-for="(time, index) in timespans"
               :key="index"
-              class="rounded-md px-3 py-1 drop-shadow-md font-semibold bg-white"
+              class="rounded-full px-5 py-1 drop-shadow-md font-semibold bg-white"
               @click="selectTimespan(time)"
               :class="[
                 { active: activeBtn === index },
                 { 'mr-4': index < timespans.length - 1 },
               ]"
             >
-              {{ time.name }}
+              {{ time.title }}
             </button>
           </section>
         </div>
@@ -61,9 +61,9 @@
         :chart-data="chartData"
         :chart-id="chartId"
         :dataset-id-key="datasetIdKey"
-        :plugins="plugins"
         :css-classes="cssClasses"
         :styles="styles"
+        :plugins="plugins"
       />
 
       <div
@@ -102,6 +102,48 @@ import { Line } from "vue-chartjs";
 import axios from "axios";
 var https = require("https-browserify");
 import moment from "moment";
+
+// const crosshair = {
+//     id: 'crosshair',
+//     defaults: {
+//         width: 1,
+//         color: '#FF4949',
+//         dash: [3, 3],
+//     },
+//     afterInit: (chart, args, opts) => {
+//       chart.crosshair = {
+//         x: 0,
+//         y: 0,
+//       }
+//     },
+//     afterEvent: (chart, args) => {
+//       const {inChartArea} = args
+//       const {type,x,y} = args.event
+
+//       chart.crosshair = {x, y, draw: inChartArea}
+//       chart.draw()
+//     },
+//     beforeDatasetsDraw: (chart, args, opts) => {
+//       const {ctx} = chart
+//       const {top, bottom, left, right} = chart.chartArea
+//       const {x, y, draw} = chart.crosshair
+//       if (!draw) return
+
+//       ctx.save()
+
+//       ctx.beginPath()
+//       ctx.lineWidth = opts.width
+//       ctx.strokeStyle = opts.color
+//       ctx.setLineDash(opts.dash)
+//       ctx.moveTo(x, bottom)
+//       ctx.lineTo(x, top)
+//       ctx.moveTo(left, y)
+//       ctx.lineTo(right, y)
+//       ctx.stroke()
+
+//       ctx.restore()
+//     }
+//   }
 
 import {
   Chart as ChartJS,
@@ -152,10 +194,10 @@ export default {
       type: Object,
       default: () => {},
     },
-    plugins: {
-      type: Object,
-      default: () => {},
-    },
+    // plugins: {
+    //   type: Object,
+    //   default: () => {},
+    // },
     withStatus: {
       type: Boolean,
       default: true,
@@ -183,18 +225,8 @@ export default {
             label: "",
             data: [65, 70, 80, 85, 90, 95, 100],
             fill: false,
-            // borderColor: "rgb(75, 192, 192)",
-            borderColor: (context) => {
-              const chart = context.chart;
-              const { ctx, chartArea } = chart;
-
-              if (!chartArea) {
-                // This case happens on initial chart load
-                return null;
-              }
-              return self.getGradient(ctx, chartArea);
-            },
-            borderWidth: 4,
+            borderColor: "rgb(51, 161, 70)",
+            borderWidth: 3,
             tension: 0.1,
           },
         ],
@@ -205,7 +237,7 @@ export default {
         elements: {
           point: {
             radius: 0,
-            pointHoverRadius: 10,
+            pointHoverRadius: 6,
             pointHoverBorderWidth: 0,
             pointHoverBackgroundColor: "rgb(54, 54, 54)",
           },
@@ -233,12 +265,68 @@ export default {
           legend: {
             display: false,
           },
+          corsair: {
+            dash: [1, 1],
+            color: "rgb(158, 158, 158)",
+            width: 2,
+          },
         },
         interaction: {
           intersect: false,
           mode: "index",
         },
       },
+      plugins: [
+        {
+          id: "corsair",
+          afterInit: (chart) => {
+            chart.corsair = {
+              x: 0,
+              y: 0,
+            };
+          },
+          afterEvent: (chart, evt) => {
+            const {
+              chartArea: { top, bottom, left, right },
+            } = chart;
+            const {
+              event: { x, y },
+            } = evt;
+            if (x < left || x > right || y < top || y > bottom) {
+              chart.corsair = { x, draw: false,};
+              chart.draw();
+              return;
+            }
+
+            chart.corsair = { x, draw: true};
+            chart.draw();
+          },
+          afterDatasetsDraw: (chart, _, opts) => {
+            const {
+              ctx,
+              chartArea: { top, bottom, left, right },
+            } = chart;
+            const { x, y, draw } = chart.corsair;
+
+            if (!draw) {
+              return;
+            }
+
+            ctx.lineWidth = opts.width || 0;
+            ctx.setLineDash(opts.dash || []);
+            ctx.strokeStyle = opts.color || "black";
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(x, bottom);
+            ctx.lineTo(x, top);
+            ctx.moveTo(left, y);
+            ctx.lineTo(right, y);
+            ctx.stroke();
+            ctx.restore();
+          },
+        },
+      ],
       apikey: "dXUpzvWgv2nzCgkZUs3OY1aDVIZ7Vwq4",
       token: "YnNpbS1zdGc6YnNpbXN0Zw==",
       isLoading: true,
@@ -246,11 +334,11 @@ export default {
       data: {},
       product: {},
       timespans: [
-        { name: "All", value: 3 },
-        { name: "1m", value: 1 },
-        { name: "3m", value: 3 },
-        { name: "6m", value: 6 },
-        { name: "1y", value: 1 },
+        { name: "All", title: "Sejak Diluncurkan", value: 3 },
+        { name: "1m", title: "1 Bulan", value: 1 },
+        { name: "3m", title: "3 Bulan", value: 3 },
+        { name: "6m", title: "6 Bulan", value: 6 },
+        { name: "1y", title: "1 Tahun", value: 1 },
       ],
       selectedTime: {
         duration: 1,
@@ -263,9 +351,6 @@ export default {
     };
   },
   mounted() {
-    // this.getData();
-    // this.getAPIData();
-    // this.getChartData(this.productCode);
     this.currentNabDate.push(this.moment().format("YYYY"));
     this.currentNabDate.push(this.moment().format("MMMM"));
     this.currentNabDate.push(this.moment().format("DD"));
@@ -320,13 +405,7 @@ export default {
           this.chartData.datasets[0].data = navValue;
           this.chartData.labels = dataDates;
         })
-        .catch((error) => {
-          // this.data = this.chartValue;
-          // const navValue = this.data.map((el) => el.nav);
-          // const dataDates = this.calculateStockDates(this.data);
-          // this.chartData.datasets[0].data = navValue;
-          // this.chartData.labels = dataDates;
-        });
+        .catch((error) => {});
     },
     getMutualFunds() {
       const name = this.$route.params.name;
@@ -396,32 +475,6 @@ export default {
         .finally(() => {
           this.isLoading = false;
         });
-
-      // if (process.env.NODE_ENV === "production") {
-      //   url =
-      //     window.location.origin +
-      //     `/api/range?id=${id}&start_date=${end}&end_date=${start}`;
-      // }
-      // console.log('chart data by proxy')
-      // axios
-      //   .get(url)
-      //   .then((res) => {
-      //     console.log(res);
-      //     const data = res.data.results;
-      //     console.log(data);
-
-      //     this.data = data;
-      //     const navValue = this.data.map((el) => el.nab);
-      //     const dataDates = this.calculateStockDates(this.data);
-      //     this.chartData.datasets[0].data = navValue;
-      //     this.chartData.labels = dataDates;
-      //   })
-      //   .catch((error) => {
-      //     console.error(error);
-      //   })
-      //   .finally(() => {
-      //     this.isLoading = false;
-      //   });
     },
     getChartData(id) {
       this.isLoading = true;
@@ -471,32 +524,6 @@ export default {
         .finally(() => {
           this.isLoading = false;
         });
-
-      // if (process.env.NODE_ENV === "production") {
-      //   url =
-      //     window.location.origin +
-      //     `/api/range?id=${id}&start_date=${end}&end_date=${start}`;
-      // }
-      // console.log('chart data by proxy')
-      // axios
-      //   .get(url)
-      //   .then((res) => {
-      //     console.log(res);
-      //     const data = res.data.results;
-      //     console.log(data);
-
-      //     this.data = data;
-      //     const navValue = this.data.map((el) => el.nab);
-      //     const dataDates = this.calculateStockDates(this.data);
-      //     this.chartData.datasets[0].data = navValue;
-      //     this.chartData.labels = dataDates;
-      //   })
-      //   .catch((error) => {
-      //     console.error(error);
-      //   })
-      //   .finally(() => {
-      //     this.isLoading = false;
-      //   });
     },
     selectTimespan(time) {
       const idx = this.timespans.findIndex((el) => el.name === time.name);
@@ -515,7 +542,7 @@ export default {
       const dates = [];
       timeResults.forEach((el) => {
         const date = new Date(el.nabdatetime);
-        const momentDate = moment(new Date(el.nabdatetime)).format("MMM DD YY");
+        const momentDate = moment(new Date(el.nabdatetime)).format("MM/DD/YY");
         dates.push(`${momentDate}`);
       });
       return dates;
@@ -594,7 +621,7 @@ export default {
 }
 
 .active {
-  background-color: rgb(239 68 68);
+  background-color: rgb(11, 190, 32);
   color: white;
 }
 

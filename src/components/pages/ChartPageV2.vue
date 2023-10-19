@@ -185,7 +185,6 @@
 
 <script>
 import axios from "axios";
-// import ChartV2 from "@/components/ChartV2.vue";
 import ChartV3 from "@/components/ChartV3.vue";
 
 const example = [
@@ -718,13 +717,6 @@ export default {
       });
       return formatter.format(value);
     },
-    // displayReturn : (value) => {
-    //   let returnValue = '-'
-    //   if(value){
-    //     returnValue = value;
-    //   }
-    //   return returnValue;
-    // }
   },
   mounted() {
     this.getMutualFunds();
@@ -762,13 +754,8 @@ export default {
               rawName[i].charAt(0).toUpperCase() + rawName[i].slice(1)
             );
           }
-          // console.log(data);
-
           const finalName = procName.join(" ");
-          // console.log(finalName);
           this.product = data.filter((el) => el.product_name === finalName)[0];
-          // console.log(this.product);
-          // this.getChartData(this.product?.product_id);
           this.getProductDetail(this.product?.product_id);
         })
         .catch((error) => {
@@ -776,20 +763,6 @@ export default {
         })
         .finally(() => {});
     },
-    // getChartData(id) {
-    //   const url = `http://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=01/01/2023&end_date=03/31/2023`;
-    //   axios
-    //     .get(url)
-    //     .then((res) => {
-    // console.log(res);
-    //       const data = res.data.results;
-    // console.log(data);
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     })
-    //     .finally(() => {});
-    // },
     getProductDetail(id) {
       let url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
 
@@ -806,9 +779,7 @@ export default {
       axios
         .get(url, config)
         .then((res) => {
-          // console.log(res);
           this.detail = res.data.data;
-          // console.log(this.detail);
         })
         .catch((error) => {
           console.error(error);
