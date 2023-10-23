@@ -358,7 +358,7 @@ export default {
     },
     goto(name) {
       let urlname = name.toLowerCase().replace(/ /g, "-");
-      const url = "https://sam.admire.id/" + urlname;
+      const url = "https://sam.admire.id/final/" + urlname;
       window.open(url, "_blank");
     },
     formatDate(dateString) {

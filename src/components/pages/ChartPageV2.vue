@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mb-16 py-10 text-3xl border-b-2 border-amber-300">
+    <div class="hidden mb-16 py-10 text-3xl border-b-2 border-amber-300">
       {{ product.product_name ? product.product_name : "-" }}
     </div>
     <div class="flex justify-between mb-8">
