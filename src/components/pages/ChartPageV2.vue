@@ -3,19 +3,36 @@
     <div class="hidden mb-16 py-10 text-3xl border-b-2 border-amber-300">
       {{ product.product_name ? product.product_name : "-" }}
     </div>
-    <div class="flex justify-between mb-8">
-      <div>
-        <div class="font-bold mb-3 text-5xl text-green-600">
-          Rp.
-          {{
-            product?.nab
-              ? product.nab.toLocaleString(undefined, {
-                  minimumFractionDigits: 4,
-                })
-              : "-"
-          }}
+    <div class="border-b pb-8">
+      <div class="flex items-center mb-6">
+        <div class="text-black tracking-wide font-semibold mr-3">
+          LATEST PERFORMANCE (%)
         </div>
-        <div class="text-gray-600 text-2xl font-thin">NAB/Unit</div>
+        <div style="width: 250px; height: 1px; background-color: black"></div>
+      </div>
+      <div class="flex items-center">
+        <div class="font-bold text-5xl text-black mr-2">
+          {{ this.detail?.five_year }} 26.4%
+        </div>
+        <div class="text-sm font-semibold text-gray-400">
+          {{ product?.product_name }} <br />Performance 5Y
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center mb-8 pt-8">
+      <div class="font-bold text-4xl mr-3" style="color: #4d995c">
+        Rp.
+        {{
+          product?.nab
+            ? product.nab.toLocaleString(undefined, {
+                minimumFractionDigits: 4,
+              })
+            : "-"
+        }}
+      </div>
+      <div class="text-gray-600 text-base">
+        <div class="font-bold text-black">NAB/Unit</div>
+        <div class="font-semibold text-black">{{ formatDate(product?.nab_date) }}</div>
       </div>
     </div>
     <div
@@ -23,15 +40,14 @@
     >
       <div class="basis-1/2 md:basis-auto grow shrink">
         <div
-          class="py-2 px-6 text-center border-r border-neutral-400 font-semibold"
+          class="py-2 px-6 text-center border-r border-neutral-400 font-bold"
+          style="background-color: #e6e6e6"
         >
           1 Month
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
-          :class="[
-            product.return_one_month > 0 ? 'text-green-500' : 'text-rose-500',
-          ]"
+          
         >
           {{ product.return_one_month > 0 ? "+" : "" }}
           {{ displayReturn(product.return_one_month) }}%
@@ -39,15 +55,14 @@
       </div>
       <div class="basis-1/2 md:basis-auto grow shrink">
         <div
-          class="py-2 px-6 text-center border-r border-neutral-400 font-semibold"
+          class="py-2 px-6 text-center border-r border-neutral-400 font-bold"
+          style="background-color: #e6e6e6"
         >
           3 Months
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
-          :class="[
-            product.return_three_month > 0 ? 'text-green-500' : 'text-rose-500',
-          ]"
+          
         >
           {{ product.return_three_month > 0 ? "+" : "" }}
           {{ displayReturn(product.return_three_month) }}%
@@ -55,15 +70,14 @@
       </div>
       <div class="basis-1/2 md:basis-auto grow shrink">
         <div
-          class="py-2 px-6 text-center border-r border-neutral-400 font-semibold"
+          class="py-2 px-6 text-center border-r border-neutral-400 font-bold"
+          style="background-color: #e6e6e6"
         >
           6 Months
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
-          :class="[
-            product.return_six_month > 0 ? 'text-green-500' : 'text-rose-500',
-          ]"
+          
         >
           {{ product.return_six_month > 0 ? "+" : "" }}
           {{ displayReturn(product.return_six_month) }}%
@@ -71,17 +85,13 @@
       </div>
       <div class="basis-1/2 md:basis-auto grow shrink">
         <div
-          class="py-2 px-6 text-center border-r border-neutral-400 font-semibold"
+          class="py-2 px-6 text-center border-r border-neutral-400 font-bold"
+          style="background-color: #e6e6e6"
         >
           Year To Date
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
-          :class="[
-            product.return_year_to_date > 0
-              ? 'text-green-500'
-              : 'text-rose-500',
-          ]"
         >
           {{ product.return_year_to_date > 0 ? "+" : "" }}
           {{ displayReturn(product.return_year_to_date) }}%
@@ -89,15 +99,14 @@
       </div>
       <div class="basis-1/2 md:basis-auto grow shrink">
         <div
-          class="py-2 px-6 text-center border-r border-neutral-400 font-semibold"
+          class="py-2 px-6 text-center border-r border-neutral-400 font-bold"
+          style="background-color: #e6e6e6"
         >
           1 Year
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
-          :class="[
-            product.return_one_year > 0 ? 'text-green-500' : 'text-rose-500',
-          ]"
+          
         >
           {{ product.return_one_year > 0 ? "+" : "" }}
           {{ displayReturn(product.return_one_year) }}%
@@ -105,27 +114,29 @@
       </div>
       <div class="basis-1/2 md:basis-auto grow shrink">
         <div
-          class="py-2 px-6 text-center border-r border-neutral-400 font-semibold"
+          class="py-2 px-6 text-center border-r border-neutral-400 font-bold"
+          style="background-color: #e6e6e6"
         >
           3 Year
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
-          :class="[
-            product.return_three_year > 0 ? 'text-green-500' : 'text-rose-500',
-          ]"
+          
         >
           {{ product.return_three_year > 0 ? "+" : "" }}
           {{ displayReturn(product.return_three_year) }}%
         </div>
       </div>
       <div class="basis-1/2 md:basis-auto grow shrink">
-        <div class="py-2 px-6 text-center font-semibold">5 Year</div>
+        <div
+          class="py-2 px-6 text-center font-bold"
+          style="background-color: #e6e6e6"
+        >
+          5 Year
+        </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-t border-neutral-400"
-          :class="[
-            product.return_five_year > 0 ? 'text-green-500' : 'text-rose-500',
-          ]"
+          
         >
           {{ product.return_five_year > 0 ? "+" : "" }}
           {{ displayReturn(product.return_five_year) }}%
@@ -134,12 +145,14 @@
     </div>
     <!-- <ChartV2 :chartValue="data" :productCode="'005'" /> -->
     <ChartV3 :chartValue="data" :productCode="'005'" :showRisk="false" />
-    <div class="flex flex-wrap md:flex-no-wrap justify-between mt-8">
+    <div
+      class="border-y py-6 flex flex-wrap md:flex-no-wrap justify-between mt-8"
+    >
       <div
         class="basis-full md:basis-auto grow flex flex-wrap items-center border-b border-gray-200 md:border-b-0"
         style="height: 220px"
       >
-        <div class="p-10 grow basis-full text-center md:text-left">
+        <div class="p-10 grow basis-full text-center md:text-left text-black">
           <div class="font-bold text-3xl mb-4">
             Product Info <br />
             Documents
@@ -151,30 +164,40 @@
           </div>
         </div>
       </div>
-      <div class="grow border-r border-l border-gray-200 p-8 text-center border-b border-gray-200 md:border-b-0">
-        <div class="border rounded-full inline-block p-4">
+      <div
+        class="grow border-r border-l border-gray-200 px-8 py-6 text-center border-b md:border-b-0"
+      >
+        <div class="border border-black rounded-full inline-block p-4">
           <img
             src="@/assets/file-text-15.svg"
             class="inline-block w-20"
             alt=""
+            style="width: 56px; height: 100%"
           />
         </div>
-        <div class="my-6 font-bold text-xl">Prospektus</div>
-        <button class="border px-6 py-3 flex items-center justify-center mx-auto" @click="goto(detail?.propectus)">
+        <div class="my-3 font-bold text-xl text-black">Prospektus</div>
+        <button
+          class="border border-black px-6 py-2 flex items-center justify-center mx-auto"
+          @click="goto(detail?.propectus)"
+        >
           <div class="font-semibold mr-2">Download</div>
           <img src="@/assets/download.svg" class="inline-block" alt="" />
         </button>
       </div>
-      <div class="grow p-8 text-center">
-          <div class="border rounded-full inline-block p-4">
+      <div class="grow px-8 py-6 text-center">
+        <div class="border border-black rounded-full inline-block p-4">
           <img
             src="@/assets/file-text-15.svg"
             class="inline-block w-20"
             alt=""
+            style="width: 56px; height: 100%"
           />
         </div>
-        <div class="my-6 font-bold text-xl">Factsheet</div>
-        <button class="border px-6 py-3 flex items-center justify-center mx-auto" @click="goto(detail?.ffs_url)">
+        <div class="my-3 font-bold text-xl text-black">Factsheet</div>
+        <button
+          class="border border-black px-6 py-2 flex items-center justify-center mx-auto"
+          @click="goto(detail?.ffs_url)"
+        >
           <div class="font-semibold mr-2">Download</div>
           <img src="@/assets/download.svg" class="inline-block" alt="" />
         </button>
@@ -186,6 +209,7 @@
 <script>
 import axios from "axios";
 import ChartV3 from "@/components/ChartV3.vue";
+import moment from "moment";
 
 const example = [
   {
@@ -761,7 +785,9 @@ export default {
         .catch((error) => {
           console.error(error);
         })
-        .finally(() => {});
+        .finally(() => {
+          //  this.formatDate(this.product?.nab_date);
+        });
     },
     getProductDetail(id) {
       let url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
@@ -788,6 +814,13 @@ export default {
     },
     goto(url) {
       window.open(url, "_blank").focus();
+    },
+    formatDate(rawDate) {
+      if (rawDate) {
+        return moment(rawDate, "DD-MM-YYYY")
+          .locale("id")
+          .format("dddd, DD MMMM YYYY");
+      }
     },
   },
 };

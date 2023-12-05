@@ -621,7 +621,7 @@ export default {
 }
 
 .active {
-  background-color: rgb(11, 190, 32);
+  background-color: rgb(24, 24, 24);
   color: white;
 }
 
