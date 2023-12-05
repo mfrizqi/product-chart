@@ -8,7 +8,7 @@
         <div class="text-black tracking-wide font-semibold mr-3">
           LATEST PERFORMANCE (%)
         </div>
-        <div style="width: 250px; height: 1px; background-color: black"></div>
+        <div style="width: 160px; height: 1px; background-color: black"></div>
       </div>
       <div class="flex items-center">
         <div class="font-bold text-5xl text-black mr-2">
