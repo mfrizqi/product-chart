@@ -19,9 +19,10 @@
         </div>
       </div>
     </div>
-    <div class="flex items-center mb-8 pt-8">
-      <div class="font-bold text-4xl mr-3" style="color: #4d995c">
-        Rp.
+    <div class="flex flex-wrap items-center mb-8 pt-8">
+      <div class="font-bold text-4xl mr-3 md:mb-0 mb-4" style="color: #4d995c">
+        <span v-if="!isDolar(product)">Rp.</span>
+        <span v-if="isDolar(product)">USD</span>
         {{
           product?.nab
             ? product.nab.toLocaleString(undefined, {
@@ -29,10 +30,14 @@
               })
             : "-"
         }}
+        <!-- 1,675.0234 - Placeholder hardcoded -->
       </div>
       <div class="text-gray-600 text-base">
         <div class="font-bold text-black">NAB/Unit</div>
-        <div class="font-semibold text-black">{{ formatDate(product?.nab_date) }}</div>
+        <div class="font-semibold text-black">
+          {{ formatDate(product?.nab_date) }}
+          <!-- Jumat, 17 November 2023 - Placeholder hardcoded -->
+        </div>
       </div>
     </div>
     <div
@@ -47,7 +52,6 @@
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
-          
         >
           {{ product.return_one_month > 0 ? "+" : "" }}
           {{ displayReturn(product.return_one_month) }}%
@@ -62,7 +66,6 @@
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
-          
         >
           {{ product.return_three_month > 0 ? "+" : "" }}
           {{ displayReturn(product.return_three_month) }}%
@@ -77,7 +80,6 @@
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
-          
         >
           {{ product.return_six_month > 0 ? "+" : "" }}
           {{ displayReturn(product.return_six_month) }}%
@@ -106,7 +108,6 @@
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
-          
         >
           {{ product.return_one_year > 0 ? "+" : "" }}
           {{ displayReturn(product.return_one_year) }}%
@@ -121,7 +122,6 @@
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
-          
         >
           {{ product.return_three_year > 0 ? "+" : "" }}
           {{ displayReturn(product.return_three_year) }}%
@@ -136,7 +136,6 @@
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-t border-neutral-400"
-          
         >
           {{ product.return_five_year > 0 ? "+" : "" }}
           {{ displayReturn(product.return_five_year) }}%
@@ -728,6 +727,8 @@ export default {
       product: {},
       detail: { propectus: "", ffs_url: "" },
       navs: [],
+      productName: '',
+      routeName: ''
     };
   },
   computed: {
@@ -759,6 +760,7 @@ export default {
     },
     getMutualFunds() {
       const name = this.$route.params.name;
+      this.routeName = name;
       // console.log(name);
       let url = "";
 
@@ -779,6 +781,7 @@ export default {
             );
           }
           const finalName = procName.join(" ");
+          this.productName = finalName;
           this.product = data.filter((el) => el.product_name === finalName)[0];
           this.getProductDetail(this.product?.product_id);
         })
@@ -821,6 +824,13 @@ export default {
           .locale("id")
           .format("dddd, DD MMMM YYYY");
       }
+    },
+    isDolar(product) {
+      console.log("isDolar");
+      console.log(product);
+      if (this.routeName?.toLowerCase()?.includes("dollar"))
+        return true;
+      return false;
     },
   },
 };
