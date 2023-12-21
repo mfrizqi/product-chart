@@ -11,7 +11,7 @@
             <button
               v-for="(time, index) in timespans"
               :key="index"
-              class="rounded-full px-5 py-1 drop-shadow-md font-semibold bg-white"
+              class="rounded-full px-5 py-1 drop-shadow-md font-semibold bg-white mb-4 md:mb-0"
               @click="selectTimespan(time)"
               :class="[
                 { active: activeBtn === index },
