@@ -36,7 +36,7 @@
         :class="[{ 'border-t': index === 0 }]"
       >
         <div class="mb-4 font-semibold flex justify-between">
-          <div>{{ product?.product_name }}</div>
+          <div>{{ displayName(product?.product_name) }}</div>
           <div class="cursor-pointer md:hidden block">
             <div @click="goto(product?.product_name)">
               <img
@@ -82,28 +82,28 @@
                 class="inline-block"
                 alt=""
               />
-              <span class="font-semibold">  Lihat Detail</span>
+              <span class="font-semibold"> Lihat Detail</span>
             </div>
           </div>
         </div>
-         <div class="flex justify-between py-2">
-            <div class="md:hidden block">
-              <div class="text-sm text-right font-medium">YTD</div>
-              <div class="font-semibold">{{ product?.return_year_to_date }}%</div>
-            </div>
-            <div class="md:hidden block">
-              <div class="text-sm text-right font-medium">1Y</div>
-              <div class="font-semibold">{{ product?.return_one_year }}%</div>
-            </div>
-            <div class="md:hidden block">
-              <div class="text-sm text-right font-medium">3Y</div>
-              <div class="font-semibold">{{ product?.return_three_year }}%</div>
-            </div>
-            <div class="md:hidden block">
-              <div class="text-sm text-right font-medium">5Y</div>
-              <div class="font-semibold">{{ product?.return_five_year }}%</div>
-            </div>
+        <div class="flex justify-between py-2">
+          <div class="md:hidden block">
+            <div class="text-sm text-right font-medium">YTD</div>
+            <div class="font-semibold">{{ product?.return_year_to_date }}%</div>
           </div>
+          <div class="md:hidden block">
+            <div class="text-sm text-right font-medium">1Y</div>
+            <div class="font-semibold">{{ product?.return_one_year }}%</div>
+          </div>
+          <div class="md:hidden block">
+            <div class="text-sm text-right font-medium">3Y</div>
+            <div class="font-semibold">{{ product?.return_three_year }}%</div>
+          </div>
+          <div class="md:hidden block">
+            <div class="text-sm text-right font-medium">5Y</div>
+            <div class="font-semibold">{{ product?.return_five_year }}%</div>
+          </div>
+        </div>
         <div class="mt-2">
           <span class="font-normal">Tingkat Risiko: </span>
           <span class="font-bold" v-if="product?.rating">{{
@@ -264,15 +264,19 @@ export default {
       console.log(type);
       let url = "";
 
-      if (process.env.NODE_ENV === "production") {
-        url = window.location.origin + "/api/nab";
-      } else {
-        url = "http://trading.simasnet.com/ROL/web/nab.php";
-      }
+      url = "http://trading.simasnet.com/ROL/web/nab.php";
+
+      // if (process.env.NODE_ENV === "production") {
+      //   url = window.location.origin + "/api/nab";
+      // } else {
+      //   url = "http://trading.simasnet.com/ROL/web/nab.php";
+      // }
       axios
         .get(url)
         .then((res) => {
+          // console.log(res);
           const data = res.data.results;
+          // console.log(data, type)
           let filtered = null;
           if (type !== "RDSYR") {
             filtered = data.filter((el) => el.type_id === type);
@@ -357,8 +361,17 @@ export default {
       }
     },
     goto(name) {
+      let rawName = name.toLowerCase().split(" ");
+      console.log(rawName);
+      if (rawName[0] === "syariah") {
+        rawName.shift();
+      }
+      let modName = rawName.join("-");
+      console.log(modName);
       let urlname = name.toLowerCase().replace(/ /g, "-");
-      const url = "https://sam.admire.id/final/" + urlname;
+      // let modName = urlname.split()
+      localStorage.setItem("urlname", urlname);
+      const url = "https://sam.admire.id/final/" + modName;
       window.open(url, "_blank");
     },
     formatDate(dateString) {
@@ -372,6 +385,20 @@ export default {
       const isFormat = false;
       if (isFormat) return (Math.round(num * 100) / 100).toFixed(2);
       return num;
+    },
+    displayName(name) {
+      let rawName = name.toLowerCase().split(" ");
+      if (rawName[0] === "syariah") {
+        rawName.shift();
+      }
+      let procName = [];
+      for (let i = 0; i < rawName.length; i++) {
+        procName.push(rawName[i].charAt(0).toUpperCase() + rawName[i].slice(1));
+      }
+      const finalName = procName.join(" ");
+
+      // finalName = finalName.join(" ");
+      return finalName;
     },
   },
 };

@@ -759,8 +759,10 @@ export default {
       return val.toString();
     },
     getMutualFunds() {
-      const name = this.$route.params.name;
-      this.routeName = name;
+      const stgName = localStorage.getItem('urlname');
+      console.log('stgName',stgName);
+      const name = stgName;
+      this.routeName = stgName;
       // console.log(name);
       let url = "";
 
