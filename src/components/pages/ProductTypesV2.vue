@@ -55,9 +55,24 @@
             <div class="mt-2 mb-4">
               <span class="font-normal mr-2">IDR</span>
               <span class="font-medium text-3xl">
-                {{ formatNAB(product?.nab) }}
+                {{
+                  formatNAB(product?.nab).toLocaleString(undefined, {
+                    minimumFractionDigits: 4,
+                  })
+                }}
               </span>
             </div>
+          </div>
+          <div>
+            <div
+              class="text-sm text-right font-medium"
+            >
+              Kinerja per hari
+            </div>
+            <div class="font-bold" :class="{ 'text-green-600': product?.return_one_month > 0, 'text-rose-600': product?.return_one_month < 0 }">
+            <span v-if="product?.return_one_month > 0">+</span>
+            <span v-if="product?.return_one_month < 0">-</span>
+            {{ product?.return_one_month }}%</div>
           </div>
           <div class="md:block hidden">
             <div class="text-sm text-right font-medium">YTD</div>

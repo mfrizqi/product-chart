@@ -334,11 +334,13 @@ export default {
       data: {},
       product: {},
       timespans: [
-        { name: "All", title: "Sejak Diluncurkan", value: 3 },
+        { name: "All", title: "Sejak Diluncurkan", value: 10 },
         { name: "1m", title: "1 Bulan", value: 1 },
         { name: "3m", title: "3 Bulan", value: 3 },
         { name: "6m", title: "6 Bulan", value: 6 },
         { name: "1y", title: "1 Tahun", value: 1 },
+         { name: "3y", title: "3 Tahun", value: 3 },
+        { name: "5y", title: "5 Tahun", value: 5 },
       ],
       selectedTime: {
         duration: 1,
@@ -528,7 +530,7 @@ export default {
     selectTimespan(time) {
       const idx = this.timespans.findIndex((el) => el.name === time.name);
       this.activeBtn = idx;
-      if (time.name === "All" || time.name === "1y") {
+      if (time.name === "All" || time.name === "1y" || time.name === "3y" || time.name === "5y") {
         this.selectedTime.type = "years";
       } else {
         this.selectedTime.type = "months";
