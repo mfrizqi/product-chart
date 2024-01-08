@@ -19,18 +19,42 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-wrap items-center mb-8 pt-8">
-      <div class="font-bold text-4xl mr-3 md:mb-0 mb-4" style="color: #4d995c">
-        <span v-if="!isDolar(product)">Rp.</span>
-        <span v-if="isDolar(product)">USD</span>
-        {{
-          product?.nab
-            ? product.nab.toLocaleString(undefined, {
-                minimumFractionDigits: 4,
-              })
-            : "-"
-        }}
-        <!-- 1,675.0234 - Placeholder hardcoded -->
+    <div class="flex flex-wrap items-center justify-between mb-8 pt-8">
+      <div class="flex flex-wrap">
+        <div
+          class="font-bold text-4xl mr-3 md:mb-0 mb-4"
+          style="color: #4d995c"
+        >
+          <span v-if="!isDolar(product)">Rp.</span>
+          <span v-if="isDolar(product)">USD</span>
+          {{
+            product?.nab
+              ? product.nab.toLocaleString(undefined, {
+                  minimumFractionDigits: 4,
+                })
+              : "-"
+          }}
+          <!-- 1,675.0234 - Placeholder hardcoded -->
+        </div>
+        <div class="text-gray-600 text-base mr-3">
+          <div class="font-bold text-black">Kinerja Harian</div>
+          <div class="font-medium text-black flex">
+            <!-- {{ dayValue?.dayValue ? dayValue.dayValue : '-' }} -->
+            <div>({{ productDaily?.dayValue.toFixed(2) }})</div>
+            <div
+              class="ml-2"
+              :class="{
+                'text-green-500': productDaily?.dayPercentage > 0,
+                'text-rose-500': productDaily?.dayPercentage < 0,
+              }"
+            >
+              {{ productDaily?.dayPercentage.toFixed(2) }}%
+              <span v-if="productDaily?.dayPercentage > 0">▲</span>
+              <span v-if="productDaily?.dayPercentage < 0">▼</span>
+            </div>
+            <!-- Jumat, 17 November 2023 - Placeholder hardcoded -->
+          </div>
+        </div>
       </div>
       <div class="text-gray-600 text-base">
         <div class="font-bold text-black">NAB/Unit</div>
@@ -143,7 +167,12 @@
       </div>
     </div>
     <!-- <ChartV2 :chartValue="data" :productCode="'005'" /> -->
-    <ChartV3 :chartValue="data" :productCode="'005'" :showRisk="false" />
+    <ChartV3
+      :chartValue="data"
+      :productCode="'005'"
+      :showRisk="false"
+      @day-percentage="getDayPercentage($event)"
+    />
     <div
       class="border-y py-6 flex flex-wrap md:flex-no-wrap justify-between mt-8"
     >
@@ -727,8 +756,12 @@ export default {
       product: {},
       detail: { propectus: "", ffs_url: "" },
       navs: [],
-      productName: '',
-      routeName: ''
+      productName: "",
+      routeName: "",
+      productDaily: {
+        dayValue: 0.0,
+        dayPercentage: 0.0,
+      },
     };
   },
   computed: {
@@ -759,8 +792,8 @@ export default {
       return val.toString();
     },
     getMutualFunds() {
-      const stgName = localStorage.getItem('urlname');
-      console.log('stgName',stgName);
+      const stgName = localStorage.getItem("urlname");
+      console.log("stgName", stgName);
       const name = stgName;
       this.routeName = stgName;
       // console.log(name);
@@ -830,9 +863,13 @@ export default {
     isDolar(product) {
       console.log("isDolar");
       console.log(product);
-      if (this.routeName?.toLowerCase()?.includes("dollar"))
-        return true;
+      if (this.routeName?.toLowerCase()?.includes("dollar")) return true;
       return false;
+    },
+    getDayPercentage(ev) {
+      console.log("getDayPercentage", ev);
+      this.productDaily = ev;
+      console.log(this.productDaily);
     },
   },
 };

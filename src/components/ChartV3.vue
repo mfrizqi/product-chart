@@ -369,6 +369,8 @@ export default {
       heightCanvas: 0,
       gradientCanvas: null,
       currentNabDate: [],
+      lockPercentage: false,
+      dayPercentage: 0,
     };
   },
   mounted() {
@@ -461,42 +463,6 @@ export default {
         })
         .finally(() => {});
     },
-    oldGetChartData(id) {
-      process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-      this.isLoading = true;
-      const start = moment(this.todayDate).format("MM/DD/YYYY");
-      const end = moment(this.selectedDate).format("MM/DD/YYYY");
-      console.log("start-end", start, end);
-      const url = `https://trading.simasnet.com/ROL/web/nab_range.php?product_id=${id}&start_date=${end}&end_date=${start}`;
-
-      const instance = axios.create({
-        httpsAgent: new https.Agent({
-          rejectUnauthorized: false,
-        }),
-      });
-      let proxy = `https://api.siminvest.co.id/api/v1/products/${id}/growth?period=${this.selectedTime.duration}${this.selectedTime.type[0]}`;
-
-      axios
-        .get(proxy)
-        .then((res) => {
-          console.log(res);
-          const data = res.data.data;
-          console.log("data");
-          console.log(data);
-
-          this.data = data;
-          const navValue = this.data.map((el) => el.aum);
-          const dataDates = this.calculateStockDates(this.data);
-          this.chartData.datasets[0].data = navValue;
-          this.chartData.labels = dataDates;
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-        .finally(() => {
-          this.isLoading = false;
-        });
-    },
     getChartData(id) {
       this.isLoading = true;
       const start = moment(this.todayDate).format("YYYY-MM-DD");
@@ -527,6 +493,24 @@ export default {
           const data = res.data.results;
           console.log("data");
           console.log(data);
+
+          if (!this.lockPercentage) {
+            const sliced = data.slice(-2);
+            console.log('lockPercentage');
+            // console.log(sliced, sliced[1].nab - sliced[0].nab, (sliced[1].nab - sliced[0].nab)/sliced[1].nab);
+            const calcDay = (sliced[1].nab - sliced[0].nab) / sliced[1].nab;
+            const dayValue = sliced[1].nab - sliced[0].nab;
+            this.dayPercentage = calcDay * 100;
+            // console.log(
+            //   sliced,
+            //   sliced[1].nab - sliced[0].nab,
+            //   calcDay,
+            //   this.dayPercentage.toFixed(2)
+            // );
+            this.$emit("day-percentage", {dayPercentage: this.dayPercentage, dayValue: dayValue});
+            this.lockPercentage = true;
+            console.log(this.dayPercentage);
+          }
 
           this.data = data;
           console.log(this.data.at(-1));
@@ -565,7 +549,7 @@ export default {
       } else {
         this.chartOptions.scales.x.time.unit = "month";
       }
-      
+
       this.selectedTime.duration = time.value;
       console.log("this.selectedTime");
       console.log(this.selectedTime);
