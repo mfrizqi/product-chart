@@ -104,47 +104,14 @@ var https = require("https-browserify");
 import moment from "moment";
 import "chartjs-adapter-moment";
 
-// const crosshair = {
-//     id: 'crosshair',
-//     defaults: {
-//         width: 1,
-//         color: '#FF4949',
-//         dash: [3, 3],
-//     },
-//     afterInit: (chart, args, opts) => {
-//       chart.crosshair = {
-//         x: 0,
-//         y: 0,
-//       }
-//     },
-//     afterEvent: (chart, args) => {
-//       const {inChartArea} = args
-//       const {type,x,y} = args.event
+const footer = (tooltipItems) => {
+  let sum = 0;
 
-//       chart.crosshair = {x, y, draw: inChartArea}
-//       chart.draw()
-//     },
-//     beforeDatasetsDraw: (chart, args, opts) => {
-//       const {ctx} = chart
-//       const {top, bottom, left, right} = chart.chartArea
-//       const {x, y, draw} = chart.crosshair
-//       if (!draw) return
-
-//       ctx.save()
-
-//       ctx.beginPath()
-//       ctx.lineWidth = opts.width
-//       ctx.strokeStyle = opts.color
-//       ctx.setLineDash(opts.dash)
-//       ctx.moveTo(x, bottom)
-//       ctx.lineTo(x, top)
-//       ctx.moveTo(left, y)
-//       ctx.lineTo(right, y)
-//       ctx.stroke()
-
-//       ctx.restore()
-//     }
-//   }
+  tooltipItems.forEach(function (tooltipItem) {
+    sum += tooltipItem.parsed.y;
+  });
+  return "Sum: " + sum;
+};
 
 import {
   Chart as ChartJS,
@@ -268,14 +235,6 @@ export default {
               display: true, //this will remove only the label
             },
           },
-          // xAxes: [
-          //   {
-          //     type: "time",
-          //     time: {
-          //       unit: "month",
-          //     },
-          //   },
-          // ],
         },
         plugins: {
           chartAreaBorder: {
@@ -288,6 +247,30 @@ export default {
             dash: [1, 1],
             color: "rgb(158, 158, 158)",
             width: 2,
+          },
+          tooltip: {
+            enabled: true,
+            displayColors: false,
+            backgroundColor: 'rgba(0, 0, 0, 1)',
+            callbacks: {
+              title: () => {
+                return "";
+              },
+              label: (tooltipItems, data) => {
+                // console.log(this);
+                console.log("tooltipItems", tooltipItems);
+                console.log(data);
+                if (tooltipItems.dataIndex > 0) {
+                  const calcDay = (tooltipItems.parsed.y - tooltipItems.dataset.data[tooltipItems.dataIndex-1]) / tooltipItems.parsed.y;
+                  // const dayValue = tooltipItems.parsed.y - tooltipItems.dataset.data[tooltipItems.dataIndex-1];
+                  const percentRaw = calcDay * 100;
+                  console.log('percentRaw', percentRaw)
+                  let percentValue = percentRaw.toFixed(2).replace('.',',') + '%'
+                  return percentValue
+                }
+                return '0,00%';
+              },
+            },
           },
         },
         interaction: {
@@ -398,38 +381,6 @@ export default {
       this.chartData.datasets[0].data = navValue;
       this.chartData.labels = dataDates;
     },
-    getData() {
-      const url = `https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/${this.selectedDate}/${this.todayDate}?adjusted=true&sort=asc&limit=5000&apiKey=${this.apikey}`;
-      axios
-        .get(url)
-        .then((res) => {
-          this.data = res.data;
-          const cValue = this.data.results.map((el) => el.c);
-          const dataDates = this.calculateStockDates(this.data.results);
-          this.chartData.datasets[0].data = cValue;
-          this.chartData.labels = dataDates;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    getAPIData() {
-      const url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${this.productCode}/growth`;
-      axios
-        .get(url, {
-          headers: {
-            Authorization: `Basic ${this.token}`,
-          },
-        })
-        .then((res) => {
-          this.data = this.chartValue;
-          const navValue = this.data.map((el) => el.nav);
-          const dataDates = this.calculateStockDates(this.data);
-          this.chartData.datasets[0].data = navValue;
-          this.chartData.labels = dataDates;
-        })
-        .catch((error) => {});
-    },
     getMutualFunds() {
       const name = this.$route.params.name;
       console.log(name);
@@ -494,26 +445,22 @@ export default {
           console.log("data");
           console.log(data);
 
+          // To get daily percentage value
+          // and emit to parent component ChartPagev2
           if (!this.lockPercentage) {
             const sliced = data.slice(-2);
-            console.log('lockPercentage');
-            // console.log(sliced, sliced[1].nab - sliced[0].nab, (sliced[1].nab - sliced[0].nab)/sliced[1].nab);
             const calcDay = (sliced[1].nab - sliced[0].nab) / sliced[1].nab;
             const dayValue = sliced[1].nab - sliced[0].nab;
             this.dayPercentage = calcDay * 100;
-            // console.log(
-            //   sliced,
-            //   sliced[1].nab - sliced[0].nab,
-            //   calcDay,
-            //   this.dayPercentage.toFixed(2)
-            // );
-            this.$emit("day-percentage", {dayPercentage: this.dayPercentage, dayValue: dayValue});
+            this.$emit("day-percentage", {
+              dayPercentage: this.dayPercentage,
+              dayValue: dayValue,
+            });
             this.lockPercentage = true;
-            console.log(this.dayPercentage);
           }
 
           this.data = data;
-          console.log(this.data.at(-1));
+          console.log("data.at(-1):", this.data.at(-1));
           const dateNab = moment(this.data.at(-1)["nabdatetime"])
             .format("YYYY-MMM-DD")
             .split("-");
@@ -562,27 +509,7 @@ export default {
         const momentDate = moment(new Date(el.nabdatetime)).format("MM/DD/YY");
         dates.push(`${momentDate}`);
       });
-      return dates;
-    },
-    calculateStockDatesOld(timeResults) {
-      const dates = [];
-      timeResults.forEach((el) => {
-        const date = new Date(el.nav_datetime);
-        const momentDate = moment(el.nav_datetime).format("MMM DD");
-        // const monthName = date.toLocaleString("en-US", { month: "short" });
-        // const dateNumber = date.getDate();
-        dates.push(`${momentDate}`);
-      });
-      return dates;
-    },
-    calculateRealDates(timeResults) {
-      const dates = [];
-      timeResults.forEach((el) => {
-        const date = new Date(el.t);
-        const monthName = date.toLocaleString("en-US", { month: "short" });
-        const dateNumber = date.getDate();
-        dates.push(`${monthName} ${dateNumber}`);
-      });
+      console.log("dates", dates);
       return dates;
     },
     moment() {

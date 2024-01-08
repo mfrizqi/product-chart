@@ -44,8 +44,8 @@
             <div
               class="ml-2"
               :class="{
-                'text-green-500': productDaily?.dayPercentage > 0,
-                'text-rose-500': productDaily?.dayPercentage < 0,
+                'text-green-600': productDaily?.dayPercentage > 0,
+                'text-rose-600': productDaily?.dayPercentage < 0,
               }"
             >
               {{ productDaily?.dayPercentage.toFixed(2) }}%
@@ -861,15 +861,11 @@ export default {
       }
     },
     isDolar(product) {
-      console.log("isDolar");
-      console.log(product);
       if (this.routeName?.toLowerCase()?.includes("dollar")) return true;
       return false;
     },
     getDayPercentage(ev) {
-      console.log("getDayPercentage", ev);
       this.productDaily = ev;
-      console.log(this.productDaily);
     },
   },
 };
