@@ -102,6 +102,7 @@ import { Line } from "vue-chartjs";
 import axios from "axios";
 var https = require("https-browserify");
 import moment from "moment";
+import "chartjs-adapter-moment";
 
 // const crosshair = {
 //     id: 'crosshair',
@@ -154,6 +155,7 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
+  TimeScale,
 } from "chart.js";
 
 ChartJS.register(
@@ -163,7 +165,8 @@ ChartJS.register(
   LineElement,
   CategoryScale,
   LinearScale,
-  PointElement
+  PointElement,
+  TimeScale
 );
 
 export default {
@@ -248,6 +251,14 @@ export default {
             ticks: {
               display: true, //this will remove only the label
             },
+            type: "time",
+            time: {
+              unit: "day",
+              displayFormats: {
+                day: "DD/MM/YY",
+                month: "MM/YY",
+              },
+            },
           },
           y: {
             type: "linear",
@@ -257,6 +268,14 @@ export default {
               display: true, //this will remove only the label
             },
           },
+          // xAxes: [
+          //   {
+          //     type: "time",
+          //     time: {
+          //       unit: "month",
+          //     },
+          //   },
+          // ],
         },
         plugins: {
           chartAreaBorder: {
@@ -293,12 +312,12 @@ export default {
               event: { x, y },
             } = evt;
             if (x < left || x > right || y < top || y > bottom) {
-              chart.corsair = { x, draw: false,};
+              chart.corsair = { x, draw: false };
               chart.draw();
               return;
             }
 
-            chart.corsair = { x, draw: true};
+            chart.corsair = { x, draw: true };
             chart.draw();
           },
           afterDatasetsDraw: (chart, _, opts) => {
@@ -339,7 +358,7 @@ export default {
         { name: "3m", title: "3 Bulan", value: 3 },
         { name: "6m", title: "6 Bulan", value: 6 },
         { name: "1y", title: "1 Tahun", value: 1 },
-         { name: "3y", title: "3 Tahun", value: 3 },
+        { name: "3y", title: "3 Tahun", value: 3 },
         { name: "5y", title: "5 Tahun", value: 5 },
       ],
       selectedTime: {
@@ -530,11 +549,23 @@ export default {
     selectTimespan(time) {
       const idx = this.timespans.findIndex((el) => el.name === time.name);
       this.activeBtn = idx;
-      if (time.name === "All" || time.name === "1y" || time.name === "3y" || time.name === "5y") {
+      if (
+        time.name === "All" ||
+        time.name === "1y" ||
+        time.name === "3y" ||
+        time.name === "5y"
+      ) {
         this.selectedTime.type = "years";
       } else {
         this.selectedTime.type = "months";
       }
+
+      if (time.name === "1m" || time.name === "3m") {
+        this.chartOptions.scales.x.time.unit = "day";
+      } else {
+        this.chartOptions.scales.x.time.unit = "month";
+      }
+      
       this.selectedTime.duration = time.value;
       console.log("this.selectedTime");
       console.log(this.selectedTime);
