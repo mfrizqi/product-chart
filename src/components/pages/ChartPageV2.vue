@@ -36,7 +36,7 @@
           }}
           <!-- 1,675.0234 - Placeholder hardcoded -->
         </div>
-        <div class="text-gray-600 text-base mr-3">
+        <div class="text-gray-600 text-base mr-3 mb-4 md:mb-0">
           <div class="font-bold text-black">Kinerja Harian</div>
           <div class="font-medium text-black flex">
             <!-- {{ dayValue?.dayValue ? dayValue.dayValue : '-' }} -->
