@@ -223,7 +223,10 @@ export default {
               unit: "day",
               displayFormats: {
                 day: "DD/MM/YY",
+                week: "DD/MM/YY",
                 month: "MM/YY",
+                quarter: "MM/YY",
+                year: "MM/YY",
               },
             },
           },
@@ -251,7 +254,7 @@ export default {
           tooltip: {
             enabled: true,
             displayColors: false,
-            backgroundColor: 'rgba(0, 0, 0, 1)',
+            backgroundColor: "rgba(0, 0, 0, 1)",
             callbacks: {
               title: () => {
                 return "";
@@ -261,14 +264,18 @@ export default {
                 console.log("tooltipItems", tooltipItems);
                 console.log(data);
                 if (tooltipItems.dataIndex > 0) {
-                  const calcDay = (tooltipItems.parsed.y - tooltipItems.dataset.data[tooltipItems.dataIndex-1]) / tooltipItems.parsed.y;
+                  const calcDay =
+                    (tooltipItems.parsed.y -
+                      tooltipItems.dataset.data[tooltipItems.dataIndex - 1]) /
+                    tooltipItems.parsed.y;
                   // const dayValue = tooltipItems.parsed.y - tooltipItems.dataset.data[tooltipItems.dataIndex-1];
                   const percentRaw = calcDay * 100;
-                  console.log('percentRaw', percentRaw)
-                  let percentValue = percentRaw.toFixed(2).replace('.',',') + '%'
-                  return percentValue
+                  console.log("percentRaw", percentRaw);
+                  let percentValue =
+                    percentRaw.toFixed(2).replace(".", ",") + "%";
+                  return percentValue;
                 }
-                return '0,00%';
+                return "0,00%";
               },
             },
           },
@@ -491,10 +498,16 @@ export default {
         this.selectedTime.type = "months";
       }
 
-      if (time.name === "1m" || time.name === "3m") {
+      if (time.name === "1m") {
         this.chartOptions.scales.x.time.unit = "day";
-      } else {
+      } else if (time.name === "3m") {
+        this.chartOptions.scales.x.time.unit = "week";
+      } else if (time.name === "6m" || time.name === "1y") {
         this.chartOptions.scales.x.time.unit = "month";
+      } else if (time.name === "All") {
+        this.chartOptions.scales.x.time.unit = "year";
+      } else {
+        this.chartOptions.scales.x.time.unit = "quarter";
       }
 
       this.selectedTime.duration = time.value;
