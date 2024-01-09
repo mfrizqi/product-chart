@@ -260,17 +260,12 @@ export default {
                 return "";
               },
               label: (tooltipItems, data) => {
-                // console.log(this);
-                console.log("tooltipItems", tooltipItems);
-                console.log(data);
                 if (tooltipItems.dataIndex > 0) {
                   const calcDay =
                     (tooltipItems.parsed.y -
                       tooltipItems.dataset.data[tooltipItems.dataIndex - 1]) /
                     tooltipItems.parsed.y;
-                  // const dayValue = tooltipItems.parsed.y - tooltipItems.dataset.data[tooltipItems.dataIndex-1];
                   const percentRaw = calcDay * 100;
-                  console.log("percentRaw", percentRaw);
                   let percentValue =
                     percentRaw.toFixed(2).replace(".", ",") + "%";
                   return percentValue;
@@ -381,7 +376,6 @@ export default {
   },
   methods: {
     setupChart() {
-      console.log(this.chartValue);
       this.data = this.chartValue;
       const navValue = this.data.map((el) => el.nav);
       const dataDates = this.calculateStockDates(this.data);
@@ -390,7 +384,6 @@ export default {
     },
     getMutualFunds() {
       const name = this.$route.params.name;
-      console.log(name);
       let url = "";
 
       if (process.env.NODE_ENV === "production") {
@@ -410,10 +403,7 @@ export default {
             );
           }
           const finalName = procName.join(" ");
-          console.log("finalName: ", finalName);
           this.product = data.filter((el) => el.product_name === finalName)[0];
-          console.log("this.product");
-          console.log(this.product);
           this.getChartData(this.product?.product_id);
         })
         .catch((error) => {
@@ -425,7 +415,6 @@ export default {
       this.isLoading = true;
       const start = moment(this.todayDate).format("YYYY-MM-DD");
       const end = moment(this.selectedDate).format("YYYY-MM-DD");
-      console.log(start, end);
       let url = "https://rol.sinarmas-am.co.id/API/web/nab_range.php";
 
       if (process.env.NODE_ENV === "production") {
@@ -447,10 +436,7 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res);
           const data = res.data.results;
-          console.log("data");
-          console.log(data);
 
           // To get daily percentage value
           // and emit to parent component ChartPagev2
@@ -467,7 +453,6 @@ export default {
           }
 
           this.data = data;
-          console.log("data.at(-1):", this.data.at(-1));
           const dateNab = moment(this.data.at(-1)["nabdatetime"])
             .format("YYYY-MMM-DD")
             .split("-");
@@ -511,8 +496,6 @@ export default {
       }
 
       this.selectedTime.duration = time.value;
-      console.log("this.selectedTime");
-      console.log(this.selectedTime);
       this.getChartData(this.product?.product_id);
     },
     calculateStockDates(timeResults) {
@@ -522,7 +505,6 @@ export default {
         const momentDate = moment(new Date(el.nabdatetime)).format("MM/DD/YY");
         dates.push(`${momentDate}`);
       });
-      console.log("dates", dates);
       return dates;
     },
     moment() {

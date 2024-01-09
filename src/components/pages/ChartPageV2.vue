@@ -793,10 +793,8 @@ export default {
     },
     getMutualFunds() {
       const stgName = localStorage.getItem("urlname");
-      console.log("stgName", stgName);
       const name = stgName;
       this.routeName = stgName;
-      // console.log(name);
       let url = "";
 
       if (process.env.NODE_ENV === "production") {

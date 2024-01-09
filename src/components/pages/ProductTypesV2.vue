@@ -64,15 +64,22 @@
             </div>
           </div>
           <div>
+            <div class="text-sm text-right font-medium">Kinerja per hari</div>
             <div
-              class="text-sm text-right font-medium"
+              class="font-semibold flex items-center"
+              :class="{
+                'text-green-600': product?.performance.dayValue > 0,
+                'text-rose-600': product?.performance.dayValue < 0,
+              }"
             >
-              Kinerja per hari
+              <div class="mr-1" style="font-size: 10px;" v-if="product?.performance?.dayPercentage > 0">▲</div>
+              <div class="mr-1" style="font-size: 10px;" v-if="product?.performance?.dayPercentage < 0">▼</div>
+              {{ product?.performance.dayPercentage.toFixed(2) }} %
             </div>
-            <div class="font-bold" :class="{ 'text-green-600': product?.return_one_month > 0, 'text-rose-600': product?.return_one_month < 0 }">
-            <span v-if="product?.return_one_month > 0">+</span>
-            <span v-if="product?.return_one_month < 0">-</span>
-            {{ product?.return_one_month }}%</div>
+            <div class="font-semibold">
+              (<span v-if="product?.performance.dayValue > 0">+</span
+              >{{ product?.performance.dayValue.toFixed(2) }})
+            </div>
           </div>
           <div class="md:block hidden">
             <div class="text-sm text-right font-medium">YTD</div>
@@ -262,21 +269,31 @@
 </template>
 <script>
 import axios from "axios";
+import moment from "moment";
+
 export default {
   data() {
     return {
       products: [],
       isLoading: false,
+      productPerform: {},
     };
   },
   mounted() {
     this.getMutualFunds();
   },
+  computed: {
+    todayDate() {
+      return `${moment().format("YYYY-MM-DD")}`;
+    },
+    selectedDate() {
+      return `${moment().subtract(1, "months").format("YYYY-MM-DD")}`;
+    },
+  },
   methods: {
     getMutualFunds() {
       this.isLoading = true;
       const type = this.$route.params.type;
-      console.log(type);
       let url = "";
 
       url = "http://trading.simasnet.com/ROL/web/nab.php";
@@ -288,10 +305,8 @@ export default {
       // }
       axios
         .get(url)
-        .then((res) => {
-          // console.log(res);
+        .then(async (res) => {
           const data = res.data.results;
-          // console.log(data, type)
           let filtered = null;
           if (type !== "RDSYR") {
             filtered = data.filter((el) => el.type_id === type);
@@ -310,31 +325,19 @@ export default {
           }
           this.products = filtered;
           if (type === "RDPU") {
-            // this.products.pop();
             this.products = this.products.filter(
               (el) => el.product_id === "014"
             );
-            // this.products = product
           }
-          // filtered = data.filter((el) => el.type_id === type);
-          // filtered.forEach((el) => {
-          //   el.ratingText = this.evaluateRating(el.rating);
-          //   el.ratingColor = this.evaluateRatingColor(el.rating);
-          //   return el;
-          // }, filtered);
-          // this.products = filtered;
 
-          // if (type === "RDPU") {
-          //   this.products.pop();
-          // }
-
-          // if (type === "RDSYR") {
-          //   const syariah = filtered.filter((el) =>
-          //     el.product_name.includes("Syariah")
-          //   );
-          //   console.log(syariah);
-          //   this.products = syariah;
-          // }
+          this.isLoading = true;
+          for (let i = 0; i < this.products.length; i++) {
+            this.products[i] = {
+              ...this.products[i],
+              performance: await this.getChartData(this.products[i].product_id),
+            };
+          }
+          this.isLoading = false;
         })
         .catch((error) => {
           console.error(error);
@@ -377,12 +380,10 @@ export default {
     },
     goto(name) {
       let rawName = name.toLowerCase().split(" ");
-      console.log(rawName);
       if (rawName[0] === "syariah") {
         rawName.shift();
       }
       let modName = rawName.join("-");
-      console.log(modName);
       let urlname = name.toLowerCase().replace(/ /g, "-");
       // let modName = urlname.split()
       localStorage.setItem("urlname", urlname);
@@ -390,8 +391,6 @@ export default {
       window.open(url, "_blank");
     },
     formatDate(dateString) {
-      console.log(dateString);
-      console.log(typeof dateString);
       if (dateString) {
         return dateString.replaceAll("-", "/");
       }
@@ -412,8 +411,55 @@ export default {
       }
       const finalName = procName.join(" ");
 
-      // finalName = finalName.join(" ");
       return finalName;
+    },
+    async getChartData(id) {
+      const start = moment(this.todayDate).format("YYYY-MM-DD");
+      const end = moment(this.selectedDate).format("YYYY-MM-DD");
+      let url = "https://rol.sinarmas-am.co.id/API/web/nab_range.php";
+
+      if (process.env.NODE_ENV === "production") {
+        url = window.location.origin + "/api/nab_range";
+      } else {
+        url = "https://rol.sinarmas-am.co.id/API/web/nab_range.php";
+      }
+
+      let req = {
+        product_id: id,
+        start_date: end,
+        end_date: start,
+      };
+
+      let product = {
+        dayPercentage: 0,
+        dayValue: 0,
+      };
+
+      await axios
+        .post(url, req, {
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        })
+        .then((res) => {
+          const results = res.data.results;
+
+          const sliced = results.slice(-2);
+          const calcDay = (sliced[1].nab - sliced[0].nab) / sliced[1].nab;
+          const dayValue = sliced[1].nab - sliced[0].nab;
+          this.dayPercentage = calcDay * 100;
+
+          product = {
+            dayPercentage: this.dayPercentage,
+            dayValue: dayValue,
+          };
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+        });
+      return product;
     },
   },
 };
