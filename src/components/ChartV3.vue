@@ -395,7 +395,9 @@ export default {
         .get(url)
         .then((res) => {
           const data = res.data.results;
-          const rawName = name.split("-");
+          const rawName = name?.split("-");
+          console.log('name',name)
+          console.log('rawName',rawName)
           let procName = [];
           for (let i = 0; i < rawName.length; i++) {
             procName.push(
