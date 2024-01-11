@@ -255,6 +255,8 @@ export default {
             enabled: true,
             displayColors: false,
             backgroundColor: "rgba(0, 0, 0, 1)",
+            bodyAlign: 'right',
+            footerAlign: 'right',
             callbacks: {
               title: () => {
                 return "";
@@ -271,6 +273,20 @@ export default {
                   return percentValue;
                 }
                 return "0,00%";
+              },
+              footer: (tooltipItems, data) => {
+                // if (tooltipItems.dataIndex > 0) {
+                //   const calcDay =
+                //     (tooltipItems.parsed.y -
+                //       tooltipItems.dataset.data[tooltipItems.dataIndex - 1]) /
+                //     tooltipItems.parsed.y;
+                //   const percentRaw = calcDay * 100;
+                //   let percentValue =
+                //     percentRaw.toFixed(2).replace(".", ",") + "%";
+                //   return percentValue;
+                // }
+                // console.log(tooltipItems);
+                return tooltipItems[0].parsed.y;
               },
             },
           },
@@ -396,8 +412,8 @@ export default {
         .then((res) => {
           const data = res.data.results;
           const rawName = name?.split("-");
-          console.log('name',name)
-          console.log('rawName',rawName)
+          console.log("name", name);
+          console.log("rawName", rawName);
           let procName = [];
           for (let i = 0; i < rawName.length; i++) {
             procName.push(
