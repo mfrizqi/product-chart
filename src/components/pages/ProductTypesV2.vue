@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="flex shrink justify-between">
-          <div>
+          <div class="basis-1/6">
             <div class="font-normal text-sm">
               NAB {{ formatDate(product?.nab_date) }}
             </div>
