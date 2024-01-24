@@ -36,7 +36,9 @@
         :class="[{ 'border-t': index === 0 }]"
       >
         <div class="mb-4 font-semibold flex justify-between">
-          <div>{{ displayName(product?.product_name) }}</div>
+          <div class="cursor-pointer" @click="goto(product?.product_name)">
+            {{ displayName(product?.product_name) }}
+          </div>
           <div class="cursor-pointer md:hidden block">
             <div @click="goto(product?.product_name)">
               <img
@@ -366,9 +368,11 @@ export default {
 
           if (type === "RDS") {
             const etf_codes = ["183", "187", "200"];
-            etf_codes.forEach(code => {
-              const idx = this.products.findIndex( (el) => el.product_id === code);
-              this.products.splice(idx,1)
+            etf_codes.forEach((code) => {
+              const idx = this.products.findIndex(
+                (el) => el.product_id === code
+              );
+              this.products.splice(idx, 1);
             });
           }
 
