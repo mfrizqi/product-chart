@@ -72,8 +72,20 @@
                 'text-rose-600': product?.performance.dayValue < 0,
               }"
             >
-              <div class="mr-1" style="font-size: 10px;" v-if="product?.performance?.dayPercentage > 0">▲</div>
-              <div class="mr-1" style="font-size: 10px;" v-if="product?.performance?.dayPercentage < 0">▼</div>
+              <div
+                class="mr-1"
+                style="font-size: 10px"
+                v-if="product?.performance?.dayPercentage > 0"
+              >
+                ▲
+              </div>
+              <div
+                class="mr-1"
+                style="font-size: 10px"
+                v-if="product?.performance?.dayPercentage < 0"
+              >
+                ▼
+              </div>
               {{ product?.performance.dayPercentage.toFixed(2) }} %
             </div>
             <div class="font-semibold">
@@ -309,7 +321,11 @@ export default {
           const data = res.data.results;
           let filtered = null;
           if (type !== "RDSYR") {
-            filtered = data.filter((el) => el.type_id === type);
+            if (type === "etf" || type === "ETF") {
+              filtered = data.filter((el) => el.type_id === "RDS");
+            } else {
+              filtered = data.filter((el) => el.type_id === type);
+            }
             filtered.forEach((el) => {
               el.ratingText = this.evaluateRating(el.rating);
               el.ratingColor = this.evaluateRatingColor(el.rating);
@@ -323,11 +339,37 @@ export default {
               return el;
             }, filtered);
           }
+
           this.products = filtered;
+
           if (type === "RDPU") {
             this.products = this.products.filter(
               (el) => el.product_id === "014"
             );
+          }
+
+          // Filter ETF from FE
+          if (type === "ETF" || type === "etf") {
+            const etf_codes = ["183", "187", "200"];
+            let etf_products = [];
+            etf_codes.forEach((code) => {
+              const product = this.products.filter(
+                (el) => el.product_id === code
+              );
+              console.log(product);
+              etf_products.push(product[0]);
+            });
+
+            console.log(etf_products);
+            this.products = etf_products;
+          }
+
+          if (type === "RDS") {
+            const etf_codes = ["183", "187", "200"];
+            etf_codes.forEach(code => {
+              const idx = this.products.findIndex( (el) => el.product_id === code);
+              this.products.splice(idx,1)
+            });
           }
 
           this.isLoading = true;
@@ -344,6 +386,7 @@ export default {
         })
         .finally(() => {
           this.isLoading = false;
+          console.log("this.product", this.products);
         });
     },
     evaluateRating(rating) {
@@ -457,8 +500,7 @@ export default {
         .catch((error) => {
           console.error(error);
         })
-        .finally(() => {
-        });
+        .finally(() => {});
       return product;
     },
   },
