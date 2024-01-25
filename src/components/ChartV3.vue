@@ -255,11 +255,18 @@ export default {
             enabled: true,
             displayColors: false,
             backgroundColor: "rgba(0, 0, 0, 1)",
+            titleAlign: 'right',
             bodyAlign: 'right',
             footerAlign: 'right',
             callbacks: {
-              title: () => {
-                return "";
+              title: (tooltipItems) => {
+                // console.log(tooltipItems)
+                const timeSplit = tooltipItems[0].label.split(',')
+                const timeRaw = timeSplit[0].concat(timeSplit[1])
+                // console.log(tooltipItems[0].label.split(','))
+                // console.log(timeRaw)
+                // console.log(moment(timeRaw).format('DD/MM/YY'))
+                return moment(timeRaw).format('DD/MM/YY');
               },
               label: (tooltipItems, data) => {
                 if (tooltipItems.dataIndex > 0) {

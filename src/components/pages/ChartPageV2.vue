@@ -23,7 +23,7 @@
       <div class="flex flex-wrap">
         <div
           class="font-bold text-4xl mr-3 md:mb-0 mb-4"
-          style="color: #4d995c"
+         
         >
           <span v-if="!isDolar(product)">Rp.</span>
           <span v-if="isDolar(product)">USD</span>
