@@ -352,7 +352,8 @@ export default {
 
           // Filter ETF from FE
           if (type === "ETF" || type === "etf") {
-            const etf_codes = ["183", "187", "200"];
+            // const etf_codes = ["183", "187", "200"];
+            const etf_codes = ["183", "200"];
             let etf_products = [];
             etf_codes.forEach((code) => {
               const product = this.products.filter(
@@ -367,7 +368,8 @@ export default {
           }
 
           if (type === "RDS") {
-            const etf_codes = ["183", "187", "200"];
+            // const etf_codes = ["183", "187", "200"];
+            const etf_codes = ["183", "200"];
             etf_codes.forEach((code) => {
               const idx = this.products.findIndex(
                 (el) => el.product_id === code
