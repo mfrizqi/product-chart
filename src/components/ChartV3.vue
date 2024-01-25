@@ -428,7 +428,7 @@ export default {
             );
           }
           const finalName = procName.join(" ");
-          this.product = data.filter((el) => el.product_name === finalName)[0];
+          this.product = data.filter((el) => el.product_name.toLowerCase() === finalName.toLowerCase())[0];
           this.getChartData(this.product?.product_id);
         })
         .catch((error) => {

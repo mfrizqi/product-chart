@@ -21,10 +21,7 @@
     </div>
     <div class="flex flex-wrap items-center justify-between mb-8 pt-8">
       <div class="flex flex-wrap">
-        <div
-          class="font-bold text-4xl mr-3 md:mb-0 mb-4"
-         
-        >
+        <div class="font-bold text-4xl mr-3 md:mb-0 mb-4">
           <span v-if="!isDolar(product)">Rp.</span>
           <span v-if="isDolar(product)">USD</span>
           {{
@@ -815,7 +812,12 @@ export default {
           }
           const finalName = procName.join(" ");
           this.productName = finalName;
-          this.product = data.filter((el) => el.product_name === finalName)[0];
+          this.product = data.filter((el) => {
+            // console.log(el.product_name.toLowerCase(), finalName.toLowerCase(), el.product_name.toLowerCase() === finalName.toLowerCase());
+            // console.log(finalName.toLowerCase());
+            return el.product_name.toLowerCase() === finalName.toLowerCase();
+          })[0];
+          console.log(this.product)
           this.getProductDetail(this.product?.product_id);
         })
         .catch((error) => {
