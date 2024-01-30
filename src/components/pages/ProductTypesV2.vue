@@ -430,8 +430,12 @@ export default {
     goto(name) {
       let rawName = name.toLowerCase().split(" ");
       const type = this.$route.params.type;
-      if (type.toLowerCase() !== "etf") {
-        rawName.shift();
+      if (rawName[0] === "syariah") {
+        const type = this.$route.params.type;
+        if (type.toLowerCase() !== "etf") {
+          console.log('etf')
+          rawName.shift();
+        }
       }
       let modName = rawName.join("-");
       let urlname = name.toLowerCase().replace(/ /g, "-");
