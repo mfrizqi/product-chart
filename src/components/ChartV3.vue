@@ -255,18 +255,18 @@ export default {
             enabled: true,
             displayColors: false,
             backgroundColor: "rgba(0, 0, 0, 1)",
-            titleAlign: 'right',
-            bodyAlign: 'right',
-            footerAlign: 'right',
+            titleAlign: "right",
+            bodyAlign: "right",
+            footerAlign: "right",
             callbacks: {
               title: (tooltipItems) => {
                 // console.log(tooltipItems)
-                const timeSplit = tooltipItems[0].label.split(',')
-                const timeRaw = timeSplit[0].concat(timeSplit[1])
+                const timeSplit = tooltipItems[0].label.split(",");
+                const timeRaw = timeSplit[0].concat(timeSplit[1]);
                 // console.log(tooltipItems[0].label.split(','))
                 // console.log(timeRaw)
                 // console.log(moment(timeRaw).format('DD/MM/YY'))
-                return moment(timeRaw).format('DD/MM/YY');
+                return moment(timeRaw).format("DD/MM/YY");
               },
               label: (tooltipItems, data) => {
                 if (tooltipItems.dataIndex > 0) {
@@ -277,6 +277,9 @@ export default {
                   const percentRaw = calcDay * 100;
                   let percentValue =
                     percentRaw.toFixed(2).replace(".", ",") + "%";
+                  if(isNaN(percentRaw)){
+                    return '0,00%'
+                  }
                   return percentValue;
                 }
                 return "0,00%";
@@ -293,6 +296,9 @@ export default {
                 //   return percentValue;
                 // }
                 // console.log(tooltipItems);
+                if (!tooltipItems[0].parsed.y) {
+                  return '-';
+                }
                 return tooltipItems[0].parsed.y;
               },
             },
@@ -428,7 +434,16 @@ export default {
             );
           }
           const finalName = procName.join(" ");
-          this.product = data.filter((el) => el.product_name.toLowerCase() === finalName.toLowerCase())[0];
+          this.product = data.filter((el) => {
+            console.log(
+              el.product_name.toLowerCase(),
+              " - ",
+              finalName.toLowerCase(),
+              el.product_name.toLowerCase() === finalName.toLowerCase()
+            );
+            return el.product_name.toLowerCase() === finalName.toLowerCase();
+          })[0];
+          console.log("getMutualFunds: ", this.product);
           this.getChartData(this.product?.product_id);
         })
         .catch((error) => {
@@ -437,6 +452,7 @@ export default {
         .finally(() => {});
     },
     getChartData(id) {
+      console.log("getChartData: ", id);
       this.isLoading = true;
       const start = moment(this.todayDate).format("YYYY-MM-DD");
       const end = moment(this.selectedDate).format("YYYY-MM-DD");

@@ -429,7 +429,8 @@ export default {
     },
     goto(name) {
       let rawName = name.toLowerCase().split(" ");
-      if (rawName[0] === "syariah") {
+      const type = this.$route.params.type;
+      if (type.toLowerCase() !== "etf") {
         rawName.shift();
       }
       let modName = rawName.join("-");
@@ -452,7 +453,11 @@ export default {
     displayName(name) {
       let rawName = name.toLowerCase().split(" ");
       if (rawName[0] === "syariah") {
-        rawName.shift();
+        const type = this.$route.params.type;
+        if (type.toLowerCase() !== "etf") {
+          console.log('etf')
+          rawName.shift();
+        }
       }
       let procName = [];
       for (let i = 0; i < rawName.length; i++) {
