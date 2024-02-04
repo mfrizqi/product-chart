@@ -12,7 +12,7 @@
       </div>
       <div class="flex items-center">
         <div class="font-bold text-5xl text-black mr-2">
-          {{ this.detail?.five_year }}%
+          {{ this.detail?.five_year ? this.detail?.five_year : product?.return_five_year }}%
         </div>
         <div class="text-sm font-semibold text-gray-400">
           {{ product?.product_name }} <br />Performance 5Y

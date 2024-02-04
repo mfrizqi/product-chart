@@ -66,7 +66,7 @@
             </div>
           </div>
           <div>
-            <div class="text-sm text-right font-medium">Kinerja per hari</div>
+            <div class="text-sm text-right font-medium">Daily Performance</div>
             <div
               class="font-semibold flex items-center"
               :class="{
