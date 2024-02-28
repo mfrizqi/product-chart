@@ -118,7 +118,7 @@
                 class="inline-block"
                 alt=""
               />
-              <span class="font-semibold"> Lihat Detail</span>
+              <span class="font-semibold"> See Detail</span>
             </div>
           </div>
         </div>
@@ -141,7 +141,7 @@
           </div>
         </div>
         <div class="mt-2">
-          <span class="font-normal">Tingkat Risiko: </span>
+          <span class="font-normal">Risk Profile: </span>
           <span class="font-bold" v-if="product?.rating">{{
             product?.ratingText
           }}</span>
@@ -150,30 +150,30 @@
       </div>
     </div>
 
-    <div
-      class="px-4 py-4 flex items-center justify-between border rounded-lg bg-red-500 mt-4"
-      style="display: none"
-    >
-      <div class="ml-2 mr-10 font-bold text-white">No</div>
-      <div class="flex-1 text-center font-bold text-white">Nama Produk</div>
-      <div class="flex-1 text-center font-bold text-white">Profil Risiko</div>
-      <div class="flex-1 text-center font-bold text-white">NAB/Unit</div>
-      <div class="flex-1 text-center font-bold text-white">YTD</div>
-      <div class="px-6"></div>
-    </div>
+    <!-- 
+      Old Version
+    -->
 
-    <div
-      v-for="(product, index) in products"
-      :key="index"
-      class="px-4 py-4 flex items-center justify-between border rounded-lg bg-neutral-100 hover:bg-white product"
-      style="display: none"
-    >
-      <!-- <div class="flex items-center">
-        <div class="ml-2 mr-12 font-bold text-red-500">{{ index + 1 }}</div>
-        <div class="mr-12 font-bold">{{ product.product_name }}</div>
-        <div class="text-sm">
-          <span class="text-gray-500 mr-4">Profil Resiko</span
-          ><span
+    <!-- <section>
+      <div
+        class="px-4 py-4 flex items-center justify-between border rounded-lg bg-red-500 mt-4"
+      >
+        <div class="ml-2 mr-10 font-bold text-white">No</div>
+        <div class="flex-1 text-center font-bold text-white">Nama Produk</div>
+        <div class="flex-1 text-center font-bold text-white">Profil Risiko</div>
+        <div class="flex-1 text-center font-bold text-white">NAB/Unit</div>
+        <div class="flex-1 text-center font-bold text-white">YTD</div>
+        <div class="px-6"></div>
+      </div>
+      <div
+        v-for="(product, index) in products"
+        :key="index"
+        class="px-4 py-4 flex items-center justify-between border rounded-lg bg-neutral-100 hover:bg-white product"
+      >
+        <div class="ml-2 mr-10 font-bold text-red-500">{{ index + 1 }}</div>
+        <div class="flex-1 text-center font-bold">{{ product.product_name }}</div>
+        <div class="flex-1 text-center text-sm">
+          <span
             class="font-bold"
             v-if="product.rating"
             :class="product.ratingColor"
@@ -181,14 +181,10 @@
           >
           <span class="font-bold" v-if="!product.rating">{{ "-" }}</span>
         </div>
-      </div>
-      <div class="flex">
-        <div class="text-sm mr-12">
-          NAB / Unit
+        <div class="flex-1 text-center text-sm">
           <span class="text-green-600 font-bold">Rp. {{ product.nab }}</span>
         </div>
-        <div class="text-sm mr-6">
-          YTD
+        <div class="flex-1 text-center text-sm mr-6">
           <span class="text-green-600 font-bold"
             >{{ product.return_year_to_date }}%</span
           >
@@ -196,89 +192,8 @@
         <div @click="goto(product.product_name)" class="cursor-pointer">
           <img src="@/assets/arrow-up-right.svg" alt="" />
         </div>
-      </div> -->
-
-      <div class="ml-2 mr-10 font-bold text-red-500">{{ index + 1 }}</div>
-      <div class="flex-1 text-center font-bold">{{ product.product_name }}</div>
-      <div class="flex-1 text-center text-sm">
-        <span
-          class="font-bold"
-          v-if="product.rating"
-          :class="product.ratingColor"
-          >{{ product?.ratingText }}</span
-        >
-        <span class="font-bold" v-if="!product.rating">{{ "-" }}</span>
       </div>
-      <div class="flex-1 text-center text-sm">
-        <span class="text-green-600 font-bold">Rp. {{ product.nab }}</span>
-      </div>
-      <div class="flex-1 text-center text-sm mr-6">
-        <span class="text-green-600 font-bold"
-          >{{ product.return_year_to_date }}%</span
-        >
-      </div>
-      <div @click="goto(product.product_name)" class="cursor-pointer">
-        <img src="@/assets/arrow-up-right.svg" alt="" />
-      </div>
-    </div>
-
-    <!-- <div class="ml-2  font-bold text-red-500">{{ index + 1 }}</div>
-      <div class=" font-bold">{{ product.product_name }}</div>
-      <div class="text-sm">
-        <span class="text-gray-500 mr-4">Profil Resiko</span
-        ><span
-          class="font-bold"
-          v-if="product.rating"
-          :class="product.ratingColor"
-          >{{ product?.ratingText }}</span
-        >
-        <span class="font-bold" v-if="!product.rating">{{ "-" }}</span>
-      </div>
-      <div class="text-sm ">
-        NAB / Unit
-        <span class="text-green-600 font-bold">Rp. {{ product.nab }}</span>
-      </div>
-      <div class="text-sm mr-6">
-        YTD
-        <span class="text-green-600 font-bold"
-          >{{ product.return_year_to_date }}%</span
-        >
-      </div>
-      <div @click="goto(product.product_name)" class="cursor-pointer">
-        <img src="@/assets/chevron-right.svg" alt="" />
-      </div> -->
-    <!-- </div> -->
-    <!-- <div
-      class="grid grid-cols-6 gap-4"
-      v-for="(product, index) in products"
-      :key="index"
-    >
-      <div class="ml-2 font-bold text-red-500 ">{{ index + 1 }}</div>
-      <div class="font-bold">{{ product.product_name }}</div>
-      <div class="text-sm">
-        <span class="text-gray-500 mr-4">Profil Resiko</span
-        ><span
-          class="font-bold"
-          v-if="product.rating"
-          :class="product.ratingColor"
-          >{{ product?.ratingText }}</span
-        >
-        <span class="font-bold" v-if="!product.rating">{{ "-" }}</span>
-      </div>
-      <div class="text-sm">
-        NAB / Unit
-        <span class="text-green-600 font-bold">Rp. {{ product.nab }}</span>
-      </div>
-      <div class="text-sm mr-6">
-        YTD
-        <span class="text-green-600 font-bold"
-          >{{ product.return_year_to_date }}%</span
-        >
-      </div>
-      <div @click="goto(product.product_name)" class="cursor-pointer text-right">
-        <img src="@/assets/chevron-right.svg" alt="" />
-      </div>
-    </div> -->
+    </section> -->
   </div>
 </template>
 <script>
@@ -398,15 +313,15 @@ export default {
     evaluateRating(rating) {
       switch (rating) {
         case "0":
-          return "Rendah";
+          return "Low";
         case "2":
-          return "Rendah";
+          return "Low";
         case "3":
-          return "Menengah";
+          return "Medium";
         case "4":
-          return "Menengah Ke Tinggi";
+          return "Medium";
         case "5":
-          return "Tinggi";
+          return "High";
         default:
           break;
       }
