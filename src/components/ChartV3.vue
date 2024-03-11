@@ -277,8 +277,8 @@ export default {
                   const percentRaw = calcDay * 100;
                   let percentValue =
                     percentRaw.toFixed(2).replace(".", ",") + "%";
-                  if(isNaN(percentRaw)){
-                    return '0,00%'
+                  if (isNaN(percentRaw)) {
+                    return "0,00%";
                   }
                   return percentValue;
                 }
@@ -297,7 +297,7 @@ export default {
                 // }
                 // console.log(tooltipItems);
                 if (!tooltipItems[0].parsed.y) {
-                  return '-';
+                  return "-";
                 }
                 return tooltipItems[0].parsed.y;
               },
@@ -367,17 +367,48 @@ export default {
       data: {},
       product: {},
       timespans: [
-        { name: "All", title: "Sejak Diluncurkan", value: 10 },
-        { name: "1m", title: "1 Bulan", value: 1 },
-        { name: "3m", title: "3 Bulan", value: 3 },
-        { name: "6m", title: "6 Bulan", value: 6 },
-        { name: "1y", title: "1 Tahun", value: 1 },
-        { name: "3y", title: "3 Tahun", value: 3 },
-        { name: "5y", title: "5 Tahun", value: 5 },
+        // { name: "All", title: "Sejak Diluncurkan", value: 10 },
+        // { name: "1m", title: "1 Bulan", value: 1 },
+        // { name: "3m", title: "3 Bulan", value: 3 },
+        // { name: "6m", title: "6 Bulan", value: 6 },
+        // { name: "1y", title: "1 Tahun", value: 1 },
+        // { name: "3y", title: "3 Tahun", value: 3 },
+        // { name: "5y", title: "5 Tahun", value: 5 },
+        { name: "All", title: "Since Launched", value: 10 },
+        { name: "1m", title: "1 Month", value: 1 },
+        { name: "3m", title: "3 Months", value: 3 },
+        { name: "6m", title: "6 Months", value: 6 },
+        { name: "1y", title: "1 Year", value: 1 },
+        { name: "3y", title: "3 Years", value: 3 },
+        { name: "5y", title: "5 Years", value: 5 },
       ],
       selectedTime: {
         duration: 1,
         type: "months",
+      },
+      lang: {
+        id: {
+          timespans: [
+            { name: "All", title: "Sejak Diluncurkan", value: 10 },
+            { name: "1m", title: "1 Bulan", value: 1 },
+            { name: "3m", title: "3 Bulan", value: 3 },
+            { name: "6m", title: "6 Bulan", value: 6 },
+            { name: "1y", title: "1 Tahun", value: 1 },
+            { name: "3y", title: "3 Tahun", value: 3 },
+            { name: "5y", title: "5 Tahun", value: 5 },
+          ],
+        },
+        en: {
+          timespans: [
+            { name: "All", title: "Since Inception", value: 10 },
+            { name: "1m", title: "1 Month", value: 1 },
+            { name: "3m", title: "3 Months", value: 3 },
+            { name: "6m", title: "6 Months", value: 6 },
+            { name: "1y", title: "1 Year", value: 1 },
+            { name: "3y", title: "3 Years", value: 3 },
+            { name: "5y", title: "5 Years", value: 5 },
+          ],
+        },
       },
       widthCanvas: 0,
       heightCanvas: 0,
@@ -388,6 +419,7 @@ export default {
     };
   },
   mounted() {
+    this.setLang();
     this.currentNabDate.push(this.moment().format("YYYY"));
     this.currentNabDate.push(this.moment().format("MMMM"));
     this.currentNabDate.push(this.moment().format("DD"));
@@ -404,6 +436,14 @@ export default {
     },
   },
   methods: {
+    setLang() {
+      const lang = this.$route.params.lang;
+      if (lang === "id") {
+        // console.log(lang);
+        // this.display.timelineTable.
+        this.timespans = this.lang[lang].timespans;
+      }
+    },
     setupChart() {
       this.data = this.chartValue;
       const navValue = this.data.map((el) => el.nav);

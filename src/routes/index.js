@@ -106,6 +106,11 @@ const routes = [
     component: ChartPageV2,
   },
   {
+    path: "/chart/v2/:name/:lang",
+    name: "ChartPageV2Lang",
+    component: ChartPageV2,
+  },
+  {
     path: "/stock-ticker",
     name: "Stock Ticker",
     component: StockTicker,
@@ -115,14 +120,19 @@ const routes = [
     name: "NAB & YTD",
     component: NabYtd,
   },
-  {
-    path: "/product-type/:type",
-    name: "ProductTypes",
-    component: ProductTypes,
-  },
+  // {
+  //   path: "/product-type/:type",
+  //   name: "ProductTypes",
+  //   component: ProductTypes,
+  // },
   {
     path: "/products/:type",
     name: "ProductTypes",
+    component: ProductTypesV2,
+  },
+  {
+    path: "/products/:type/:lang",
+    name: "ProductTypesLang",
     component: ProductTypesV2,
   },
   

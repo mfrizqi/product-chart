@@ -6,16 +6,22 @@
     <div class="border-b pb-8">
       <div class="flex items-center mb-6">
         <div class="text-black tracking-wide font-semibold mr-3">
-          LATEST PERFORMANCE (%)
+          {{ display.latestPerformance }} (%)
         </div>
         <div style="width: 160px; height: 1px; background-color: black"></div>
       </div>
       <div class="flex items-center">
         <div class="font-bold text-5xl text-black mr-2">
-          {{ this.detail?.five_year ? this.detail?.five_year : product?.return_one_year }}%
+          {{
+            this.detail?.five_year
+              ? this.detail?.five_year
+              : product?.return_one_year
+          }}%
         </div>
         <div class="text-sm font-semibold text-gray-400">
-          {{ product?.product_name }} <br />Performance {{this.detail?.five_year ? '5' : '1'}}Y
+          {{ product?.product_name }} <br />
+          {{ display.annualPerformance }}
+          {{ this.detail?.five_year ? "5" : "1" }} {{ display.annualSymbol }}
         </div>
       </div>
     </div>
@@ -34,7 +40,7 @@
           <!-- 1,675.0234 - Placeholder hardcoded -->
         </div>
         <div class="text-gray-600 text-base mr-3 mb-4 md:mb-0">
-          <div class="font-bold text-black">Daily Performance</div>
+          <div class="font-bold text-black">{{ this.dailyPerformance }}</div>
           <div class="font-medium text-black flex">
             <!-- {{ dayValue?.dayValue ? dayValue.dayValue : '-' }} -->
             <div>({{ productDaily?.dayValue.toFixed(2) }})</div>
@@ -69,7 +75,8 @@
           class="py-2 px-6 text-center border-r border-neutral-400 font-bold"
           style="background-color: #e6e6e6"
         >
-          1 Month
+          <!-- 1 Month -->
+          {{ display.timelineTable.oneMonth }}
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
@@ -83,7 +90,8 @@
           class="py-2 px-6 text-center border-r border-neutral-400 font-bold"
           style="background-color: #e6e6e6"
         >
-          3 Months
+          <!-- 3 Months -->
+          {{ display.timelineTable.threeMonth }}
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
@@ -97,7 +105,8 @@
           class="py-2 px-6 text-center border-r border-neutral-400 font-bold"
           style="background-color: #e6e6e6"
         >
-          6 Months
+          <!-- 6 Months -->
+          {{ display.timelineTable.sixMonth }}
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
@@ -111,7 +120,8 @@
           class="py-2 px-6 text-center border-r border-neutral-400 font-bold"
           style="background-color: #e6e6e6"
         >
-          Year To Date
+          <!-- Year To Date -->
+          {{ display.timelineTable.yearToDate }}
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
@@ -125,7 +135,8 @@
           class="py-2 px-6 text-center border-r border-neutral-400 font-bold"
           style="background-color: #e6e6e6"
         >
-          1 Year
+          <!-- 1 Year -->
+          {{ display.timelineTable.oneYear }}
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
@@ -139,7 +150,8 @@
           class="py-2 px-6 text-center border-r border-neutral-400 font-bold"
           style="background-color: #e6e6e6"
         >
-          3 Year
+          <!-- 3 Year -->
+          {{ display.timelineTable.threeYear }}
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-r border-t border-neutral-400"
@@ -153,7 +165,8 @@
           class="py-2 px-6 text-center font-bold"
           style="background-color: #e6e6e6"
         >
-          5 Year
+          <!-- 5 Year -->
+          {{ display.timelineTable.fiveYear }}
         </div>
         <div
           class="py-2 px-6 text-center bg-zinc-100 border-t border-neutral-400"
@@ -178,13 +191,12 @@
         style="height: 220px"
       >
         <div class="p-10 grow basis-full text-center md:text-left text-black">
-          <div class="font-bold text-3xl mb-4">
-            Product Info <br />
-            Documents
-          </div>
-          <div class="font-medium">
-            Your Investment <br />
-            Documents Here
+          <div
+            class="font-bold text-3xl mb-4"
+            v-html="display.productInfo"
+          ></div>
+          <div class="flex items-end">
+            <div class="font-medium" v-html="display.productDesc"></div>
             <img src="@/assets/arrow-right.svg" class="inline-block" alt="" />
           </div>
         </div>
@@ -205,7 +217,7 @@
           class="border border-black px-6 py-2 flex items-center justify-center mx-auto"
           @click="goto(detail?.propectus)"
         >
-          <div class="font-semibold mr-2">Download</div>
+          <div class="font-semibold mr-2">{{ display.download }}</div>
           <img src="@/assets/download.svg" class="inline-block" alt="" />
         </button>
       </div>
@@ -223,7 +235,7 @@
           class="border border-black px-6 py-2 flex items-center justify-center mx-auto"
           @click="goto(detail?.ffs_url)"
         >
-          <div class="font-semibold mr-2">Download</div>
+          <div class="font-semibold mr-2">{{ display.download }}</div>
           <img src="@/assets/download.svg" class="inline-block" alt="" />
         </button>
       </div>
@@ -759,6 +771,74 @@ export default {
         dayValue: 0.0,
         dayPercentage: 0.0,
       },
+      lang: {
+        timelineTable: {
+          id: {
+            oneMonth: "1 Bulan",
+            threeMonth: "3 Bulan",
+            sixMonth: "6 Bulan",
+            yearToDate: "Sejak Awal Tahun",
+            oneYear: "1 Tahun",
+            threeYear: "3 Tahun",
+            fiveYear: "5 Tahun",
+          },
+          en: {
+            oneMonth: "1 Month",
+            threeMonth: "3 Months",
+            sixMonth: "6 Months",
+            yearToDate: "Year To Date",
+            oneYear: "1 Year",
+            threeYear: "3 Years",
+            fiveYear: "5 Years",
+          },
+        },
+        dailyPerformance: {
+          id: "Kinerja Harian",
+          en: "Daily Performance",
+        },
+        latestPerformance: {
+          id: "KINERJA TERBARU",
+          en: "LATEST PERFORMANCE",
+        },
+        annualPerformance: {
+          id: "Kinerja",
+          en: "Performance",
+        },
+        annualSymbol: {
+          id: "T",
+          en: "Y",
+        },
+        productInfo: {
+          id: "Dokumen <br /> Info Produk",
+          en: "Product Info <br /> Documents",
+        },
+        productDesc: {
+          id: "Dokumen <br/> Investasi Anda",
+          en: " Your Investment <br /> Documents Here",
+        },
+        download: {
+          id: "Unduh",
+          en: "Download",
+        },
+      },
+      display: {
+        timelineTable: {
+          oneMonth: "1 Month",
+          threeMonth: "3 Months",
+          sixMonth: "6 Months",
+          yearToDate: "Year To Date",
+          oneYear: "1 Year",
+          threeYear: "3 Years",
+          fiveYear: "5 Years",
+        },
+        dailyPerformance: "Daily Performance",
+        latestPerformance: "LATEST PERFORMANCE",
+        annualPerformance: "Performance",
+        annualSymbol: "Y",
+        productInfo: "Product Info <br /> Documents",
+        productDesc: "Your Investment <br /> Documents Here",
+        download: "Download",
+      },
     };
   },
   computed: {
@@ -774,6 +854,7 @@ export default {
     },
   },
   mounted() {
+    this.setLang();
     this.getMutualFunds();
   },
   methods: {
@@ -787,6 +868,25 @@ export default {
     formatPrice(value) {
       let val = (value / 1).toFixed(4).replace(",", ".");
       return val.toString();
+    },
+    setLang() {
+      const lang = this.$route.params.lang;
+      if (lang === "id") {
+        Object.keys(this.display.timelineTable).forEach((key) => {
+          console.log(key, this.display.timelineTable[key]);
+          this.display.timelineTable[key] = this.lang.timelineTable[lang][key];
+
+          this.display.dailyPerformance = this.lang.dailyPerformance[lang];
+          this.display.latestPerformance = this.lang.latestPerformance[lang];
+          this.display.annualPerformance = this.lang.annualPerformance[lang];
+          this.display.annualSymbol = this.lang.annualSymbol[lang];
+
+          this.display.productInfo = this.lang.productInfo[lang];
+          this.display.productDesc = this.lang.productDesc[lang];
+
+          this.display.download = this.lang.download[lang];
+        });
+      }
     },
     getMutualFunds() {
       const stgName = localStorage.getItem("urlname");
@@ -817,7 +917,7 @@ export default {
             // console.log(finalName.toLowerCase());
             return el.product_name.toLowerCase() === finalName.toLowerCase();
           })[0];
-          console.log(this.product)
+          console.log(this.product);
           this.getProductDetail(this.product?.product_id);
         })
         .catch((error) => {

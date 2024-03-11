@@ -29,6 +29,11 @@
     </div>
 
     <div v-if="!isLoading">
+      <div v-if="errorFetch" class="text-center">
+        <img src="@/assets/alert-circle.svg" class="block mx-auto my-4" style="opacity: 0.4" />
+        <div style="color: #7e848b">Failed to get products</div>
+      </div>
+      <div></div>
       <div
         v-for="(product, index) in products"
         :key="index"
@@ -206,9 +211,17 @@ export default {
       products: [],
       isLoading: false,
       productPerform: {},
+      errorFetch: false,
+      lang:{
+        id:{
+          
+        }
+      }
     };
   },
   mounted() {
+    console.log(this.$route.params.lang);
+    console.log(this.$route.params.type);
     this.getMutualFunds();
   },
   computed: {
@@ -235,6 +248,10 @@ export default {
       axios
         .get(url)
         .then(async (res) => {
+          if (!res.data.results) {
+            this.errorFetch = true;
+            return true;
+          }
           const data = res.data.results;
           let filtered = null;
           if (type !== "RDSYR") {
@@ -348,7 +365,7 @@ export default {
       if (rawName[0] === "syariah") {
         const type = this.$route.params.type;
         if (type.toLowerCase() !== "etf") {
-          console.log('etf')
+          console.log("etf");
           rawName.shift();
         }
       }
@@ -374,7 +391,7 @@ export default {
       if (rawName[0] === "syariah") {
         const type = this.$route.params.type;
         if (type.toLowerCase() !== "etf") {
-          console.log('etf')
+          console.log("etf");
           rawName.shift();
         }
       }
