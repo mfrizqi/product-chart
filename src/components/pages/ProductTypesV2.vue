@@ -71,7 +71,7 @@
             </div>
           </div>
           <div>
-            <div class="text-sm text-right font-medium">Daily Performance</div>
+            <div class="text-sm text-right font-medium">{{display.dailyPerformance}}</div>
             <div
               class="font-semibold flex items-center"
               :class="{
@@ -105,15 +105,15 @@
             <div class="font-semibold">{{ product?.return_year_to_date }}%</div>
           </div>
           <div class="md:block hidden">
-            <div class="text-sm text-right font-medium">1Y</div>
+            <div class="text-sm text-right font-medium">1{{display.performYearSymbol}}</div>
             <div class="font-semibold">{{ product?.return_one_year }}%</div>
           </div>
           <div class="md:block hidden">
-            <div class="text-sm text-right font-medium">3Y</div>
+            <div class="text-sm text-right font-medium">3{{display.performYearSymbol}}</div>
             <div class="font-semibold">{{ product?.return_three_year }}%</div>
           </div>
           <div class="md:block hidden">
-            <div class="text-sm text-right font-medium">5Y</div>
+            <div class="text-sm text-right font-medium">5{{display.performYearSymbol}}</div>
             <div class="font-semibold">{{ product?.return_five_year }}%</div>
           </div>
           <div class="cursor-pointer md:block hidden">
@@ -123,7 +123,7 @@
                 class="inline-block"
                 alt=""
               />
-              <span class="font-semibold"> See Detail</span>
+              <span class="font-semibold">{{display.seeDetail}}</span>
             </div>
           </div>
         </div>
@@ -146,7 +146,7 @@
           </div>
         </div>
         <div class="mt-2">
-          <span class="font-normal">Risk Profile: </span>
+          <span class="font-normal">{{display.riskProfile}}: </span>
           <span class="font-bold" v-if="product?.rating">{{
             product?.ratingText
           }}</span>
@@ -212,16 +212,45 @@ export default {
       isLoading: false,
       productPerform: {},
       errorFetch: false,
+      language: '',
+      display: {
+        dailyPerformance: 'Daily Performance',
+        riskProfile: 'Risk Profile',
+        riskProfileValue:['Low', 'Medium', 'High'],
+        seeDetail: 'See Detail',
+        performYearSymbol: 'Y'
+      },
       lang:{
-        id:{
-          
+        dailyPerformance:{
+          id:'Kinerja Harian',
+          en: 'Daily Performance'
+        },
+        riskProfile:{
+          id: 'Profil Risiko',
+          en: 'Risk Profile'
+        },
+        riskProfileValue:{
+          id: ['Rendah', 'Menengah', 'Tinggi'],
+          en: ['Low', 'Medium', 'High']
+        },
+        performYearSymbol: {
+          id:'T',
+          en:'Y'
+        },
+        seeDetail: {
+          id: 'Lihat Detail',
+          en: 'See Detail'
         }
       }
     };
   },
   mounted() {
     console.log(this.$route.params.lang);
-    console.log(this.$route.params.type);
+    if(this.$route?.params?.lang){
+      this.language = this.$route.params.lang
+    }
+    // console.log(this.$route.params.type);
+    this.setLang();
     this.getMutualFunds();
   },
   computed: {
@@ -233,6 +262,18 @@ export default {
     },
   },
   methods: {
+    setLang(){
+      const lang = this.$route.params.lang
+
+      if(lang === 'id'){
+        this.display.dailyPerformance = this.lang.dailyPerformance[lang]
+        this.display.riskProfile = this.lang.riskProfile[lang]
+        this.display.riskProfileValue = this.lang.riskProfileValue[lang]
+        this.display.performYearSymbol = this.lang.performYearSymbol[lang]
+
+        this.display.seeDetail = this.lang.seeDetail[lang]
+      }
+    },
     getMutualFunds() {
       this.isLoading = true;
       const type = this.$route.params.type;
@@ -330,15 +371,15 @@ export default {
     evaluateRating(rating) {
       switch (rating) {
         case "0":
-          return "Low";
+          return this.display.riskProfileValue[0];
         case "2":
-          return "Low";
+          return this.display.riskProfileValue[0];
         case "3":
-          return "Medium";
+          return this.display.riskProfileValue[1];
         case "4":
-          return "Medium";
+          return this.display.riskProfileValue[1];
         case "5":
-          return "High";
+          return this.display.riskProfileValue[2];
         default:
           break;
       }
