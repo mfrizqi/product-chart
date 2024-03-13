@@ -30,7 +30,11 @@
 
     <div v-if="!isLoading">
       <div v-if="errorFetch" class="text-center">
-        <img src="@/assets/alert-circle.svg" class="block mx-auto my-4" style="opacity: 0.4" />
+        <img
+          src="@/assets/alert-circle.svg"
+          class="block mx-auto my-4"
+          style="opacity: 0.4"
+        />
         <div style="color: #7e848b">Failed to get products</div>
       </div>
       <div></div>
@@ -45,12 +49,13 @@
             {{ displayName(product?.product_name) }}
           </div>
           <div class="cursor-pointer md:hidden block">
-            <div @click="goto(product?.product_name)">
+            <div @click="goto(product?.product_name)" class="text-right">
               <img
                 src="@/assets/arrow-up-right.svg"
                 class="inline-block"
                 alt=""
               />
+              <div class="font-semibold">{{ display.seeDetail }}</div>
             </div>
           </div>
         </div>
@@ -70,8 +75,10 @@
               </span>
             </div>
           </div>
-          <div>
-            <div class="text-sm text-right font-medium">{{display.dailyPerformance}}</div>
+          <div class="md:block hidden">
+            <div class="text-sm text-right font-medium">
+              {{ display.dailyPerformance }}
+            </div>
             <div
               class="font-semibold flex items-center"
               :class="{
@@ -105,15 +112,21 @@
             <div class="font-semibold">{{ product?.return_year_to_date }}%</div>
           </div>
           <div class="md:block hidden">
-            <div class="text-sm text-right font-medium">1{{display.performYearSymbol}}</div>
+            <div class="text-sm text-right font-medium">
+              1{{ display.performYearSymbol }}
+            </div>
             <div class="font-semibold">{{ product?.return_one_year }}%</div>
           </div>
           <div class="md:block hidden">
-            <div class="text-sm text-right font-medium">3{{display.performYearSymbol}}</div>
+            <div class="text-sm text-right font-medium">
+              3{{ display.performYearSymbol }}
+            </div>
             <div class="font-semibold">{{ product?.return_three_year }}%</div>
           </div>
           <div class="md:block hidden">
-            <div class="text-sm text-right font-medium">5{{display.performYearSymbol}}</div>
+            <div class="text-sm text-right font-medium">
+              5{{ display.performYearSymbol }}
+            </div>
             <div class="font-semibold">{{ product?.return_five_year }}%</div>
           </div>
           <div class="cursor-pointer md:block hidden">
@@ -123,7 +136,47 @@
                 class="inline-block"
                 alt=""
               />
-              <span class="font-semibold">{{display.seeDetail}}</span>
+              <span class="font-semibold">{{ display.seeDetail }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="md:hidden block my-2">
+          <div class="text-sm font-medium">
+            {{ display.dailyPerformance }}
+          </div>
+          <div class="font-semibold flex items-center">
+            <div
+              class="mr-1"
+              style="font-size: 10px"
+              v-if="product?.performance?.dayPercentage > 0"
+              :class="{
+                'text-green-600': isDayValueUp(product),
+              }"
+            >
+              ▲
+            </div>
+            <div
+              class="mr-1"
+              style="font-size: 10px"
+              v-if="product?.performance?.dayPercentage < 0"
+              :class="{
+                'text-rose-600': !isDayValueUp(product),
+              }"
+            >
+              ▼
+            </div>
+            <div
+              :class="{
+                'text-green-600': isDayValueUp(product),
+                'text-rose-600': !isDayValueUp(product),
+              }"
+            >
+              {{ product?.performance.dayPercentage.toFixed(2) }} %
+            </div>
+
+            <div class="ml-1 font-semibold">
+              (<span v-if="product?.performance.dayValue > 0">+</span
+              >{{ product?.performance.dayValue.toFixed(2) }})
             </div>
           </div>
         </div>
@@ -146,7 +199,7 @@
           </div>
         </div>
         <div class="mt-2">
-          <span class="font-normal">{{display.riskProfile}}: </span>
+          <span class="font-normal">{{ display.riskProfile }}: </span>
           <span class="font-bold" v-if="product?.rating">{{
             product?.ratingText
           }}</span>
@@ -212,42 +265,42 @@ export default {
       isLoading: false,
       productPerform: {},
       errorFetch: false,
-      language: '',
+      language: "",
       display: {
-        dailyPerformance: 'Daily Performance',
-        riskProfile: 'Risk Profile',
-        riskProfileValue:['Low', 'Medium', 'High'],
-        seeDetail: 'See Detail',
-        performYearSymbol: 'Y'
+        dailyPerformance: "Daily Performance",
+        riskProfile: "Risk Profile",
+        riskProfileValue: ["Low", "Medium", "High"],
+        seeDetail: "See Detail",
+        performYearSymbol: "Y",
       },
-      lang:{
-        dailyPerformance:{
-          id:'Kinerja Harian',
-          en: 'Daily Performance'
+      lang: {
+        dailyPerformance: {
+          id: "Kinerja Harian",
+          en: "Daily Performance",
         },
-        riskProfile:{
-          id: 'Profil Risiko',
-          en: 'Risk Profile'
+        riskProfile: {
+          id: "Profil Risiko",
+          en: "Risk Profile",
         },
-        riskProfileValue:{
-          id: ['Rendah', 'Menengah', 'Tinggi'],
-          en: ['Low', 'Medium', 'High']
+        riskProfileValue: {
+          id: ["Rendah", "Menengah", "Tinggi"],
+          en: ["Low", "Medium", "High"],
         },
         performYearSymbol: {
-          id:'T',
-          en:'Y'
+          id: "T",
+          en: "Y",
         },
         seeDetail: {
-          id: 'Lihat Detail',
-          en: 'See Detail'
-        }
-      }
+          id: "Lihat Detail",
+          en: "See Detail",
+        },
+      },
     };
   },
   mounted() {
     console.log(this.$route.params.lang);
-    if(this.$route?.params?.lang){
-      this.language = this.$route.params.lang
+    if (this.$route?.params?.lang) {
+      this.language = this.$route.params.lang;
     }
     // console.log(this.$route.params.type);
     this.setLang();
@@ -262,17 +315,22 @@ export default {
     },
   },
   methods: {
-    setLang(){
-      const lang = this.$route.params.lang
+    setLang() {
+      const lang = this.$route.params.lang;
 
-      if(lang === 'id'){
-        this.display.dailyPerformance = this.lang.dailyPerformance[lang]
-        this.display.riskProfile = this.lang.riskProfile[lang]
-        this.display.riskProfileValue = this.lang.riskProfileValue[lang]
-        this.display.performYearSymbol = this.lang.performYearSymbol[lang]
+      if (lang === "id") {
+        this.display.dailyPerformance = this.lang.dailyPerformance[lang];
+        this.display.riskProfile = this.lang.riskProfile[lang];
+        this.display.riskProfileValue = this.lang.riskProfileValue[lang];
+        this.display.performYearSymbol = this.lang.performYearSymbol[lang];
 
-        this.display.seeDetail = this.lang.seeDetail[lang]
+        this.display.seeDetail = this.lang.seeDetail[lang];
       }
+    },
+    isDayValueUp(product) {
+      console.log(product.performance.dayValue);
+      console.log(product.performance.dayValue > 0);
+      return product?.performance?.dayValue > 0;
     },
     getMutualFunds() {
       this.isLoading = true;
