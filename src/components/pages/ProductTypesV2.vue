@@ -129,13 +129,13 @@
             <div class="font-semibold">{{ product?.return_five_year }}%</div>
           </div>
           <div class="cursor-pointer md:block hidden">
-            <div @click="goto(product?.product_name)">
+            <div @click="goto(product?.product_name)" class="flex">
               <!-- <img
                 src="@/assets/arrow-up-right.svg"
                 class="inline-block"
                 alt=""
               /> -->
-              <span class="font-semibold">{{ display.seeDetail }}</span>
+              <span class="font-semibold mr-2">{{ display.seeDetail }}</span>
               <img
                 src="@/assets/arrow-up-right.svg"
                 class="inline-block"
