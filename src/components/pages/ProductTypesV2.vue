@@ -45,17 +45,16 @@
         :class="[{ 'border-t': index === 0 }]"
       >
         <div class="mb-4 font-semibold flex justify-between">
-          <div class="cursor-pointer" @click="goto(product?.product_name)">
+          <div class="cursor-pointer shrink grow-0" @click="goto(product?.product_name)">
             {{ displayName(product?.product_name) }}
           </div>
-          <div class="cursor-pointer md:hidden block">
-            <div @click="goto(product?.product_name)" class="text-right">
-              <img
+          <div class="cursor-pointer grow shrink-0 md:hidden block">
+            <div @click="goto(product?.product_name)" class="flex justify-end">
+              <div class="font-semibold mr-1">{{ display.seeDetail }}</div>
+               <img
                 src="@/assets/arrow-up-right.svg"
-                class="inline-block"
-                alt=""
+                class="block"
               />
-              <div class="font-semibold">{{ display.seeDetail }}</div>
             </div>
           </div>
         </div>
@@ -131,12 +130,17 @@
           </div>
           <div class="cursor-pointer md:block hidden">
             <div @click="goto(product?.product_name)">
+              <!-- <img
+                src="@/assets/arrow-up-right.svg"
+                class="inline-block"
+                alt=""
+              /> -->
+              <span class="font-semibold">{{ display.seeDetail }}</span>
               <img
                 src="@/assets/arrow-up-right.svg"
                 class="inline-block"
                 alt=""
               />
-              <span class="font-semibold">{{ display.seeDetail }}</span>
             </div>
           </div>
         </div>
