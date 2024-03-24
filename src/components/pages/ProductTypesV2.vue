@@ -64,7 +64,7 @@
               NAB {{ formatDate(product?.nab_date) }}
             </div>
             <div class="mt-2 mb-4">
-              <span class="font-normal mr-2">IDR</span>
+              <span class="font-normal mr-2">{{product?.product_name?.toLowerCase().includes('dollar') ? 'USD' : 'IDR'}}</span>
               <span class="font-medium text-3xl">
                 {{
                   formatNAB(product?.nab).toLocaleString(undefined, {
@@ -477,7 +477,13 @@ export default {
       // let modName = urlname.split()
       localStorage.setItem("urlname", urlname);
       const url = "https://sam.admire.id/final/" + modName;
-      window.open(url, "_blank");
+      if(this.language === 'id'){
+        let idUrl = url + '-id'
+        window.open(idUrl, "_blank");
+      } else {
+        window.open(url, "_blank");
+      }
+      
     },
     formatDate(dateString) {
       if (dateString) {

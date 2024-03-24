@@ -212,7 +212,7 @@
             style="width: 56px; height: 100%"
           />
         </div>
-        <div class="my-3 font-bold text-xl text-black">Prospektus</div>
+        <div class="my-3 font-bold text-xl text-black">{{language === 'id' ? 'Prospektus' : 'Prospectus'}}</div>
         <button
           class="border border-black px-6 py-2 flex items-center justify-center mx-auto"
           @click="goto(detail?.propectus)"
@@ -771,6 +771,7 @@ export default {
         dayValue: 0.0,
         dayPercentage: 0.0,
       },
+      language:'EN',
       lang: {
         timelineTable: {
           id: {
@@ -871,6 +872,8 @@ export default {
     },
     setLang() {
       const lang = this.$route.params.lang;
+      if(this.$route.params.lang)
+            this.language = this.$route.params.lang;
       if (lang === "id") {
         Object.keys(this.display.timelineTable).forEach((key) => {
           console.log(key, this.display.timelineTable[key]);
@@ -954,9 +957,15 @@ export default {
       window.open(url, "_blank").focus();
     },
     formatDate(rawDate) {
+      let locale = 'EN'
+
+      if(this.language === 'id'){
+        locale = 'ID'
+      }
+
       if (rawDate) {
         return moment(rawDate, "DD-MM-YYYY")
-          .locale("en")
+          .locale(this.language?.toUpperCase())
           .format("dddd, DD MMMM YYYY");
       }
     },
