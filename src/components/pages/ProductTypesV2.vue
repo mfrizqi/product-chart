@@ -341,13 +341,13 @@ export default {
       const type = this.$route.params.type;
       let url = "";
 
-      url = "http://trading.simasnet.com/ROL/web/nab.php";
+      // url = "http://trading.simasnet.com/ROL/web/nab.php";
 
-      // if (process.env.NODE_ENV === "production") {
-      //   url = window.location.origin + "/api/nab";
-      // } else {
-      //   url = "http://trading.simasnet.com/ROL/web/nab.php";
-      // }
+      if (process.env.NODE_ENV === "production") {
+        url = window.location.origin + "/api/nab";
+      } else {
+        url = "http://trading.simasnet.com/ROL/web/nab.php";
+      }
       axios
         .get(url)
         .then(async (res) => {
