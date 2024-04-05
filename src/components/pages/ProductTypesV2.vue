@@ -51,10 +51,11 @@
           <div class="cursor-pointer grow shrink-0 md:hidden block">
             <div @click="goto(product?.product_name)" class="flex justify-end">
               <div class="font-semibold mr-1">{{ display.seeDetail }}</div>
-               <img
+               <!-- <img
                 src="@/assets/arrow-up-right.svg"
                 class="block"
-              />
+              /> -->
+              <div class="ic ic-redirect"></div>
             </div>
           </div>
         </div>
@@ -128,19 +129,16 @@
             </div>
             <div class="font-semibold">{{ product?.return_five_year }}%</div>
           </div>
-          <div class="cursor-pointer md:block hidden">
+          <div class="cursor-pointer md:block hidden detail-text">
             <div @click="goto(product?.product_name)" class="flex">
+
+              <span class="font-semibold mr-2">{{ display.seeDetail }}</span>
               <!-- <img
                 src="@/assets/arrow-up-right.svg"
                 class="inline-block"
                 alt=""
               /> -->
-              <span class="font-semibold mr-2">{{ display.seeDetail }}</span>
-              <img
-                src="@/assets/arrow-up-right.svg"
-                class="inline-block"
-                alt=""
-              />
+              <div class="ic ic-redirect"></div>
             </div>
           </div>
         </div>
@@ -563,8 +561,26 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .product:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16);
+}
+
+.detail-text:hover{
+  color: #1142f5;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.detail-text:hover .ic-redirect{
+    background-image: url('~@/assets/arrow-up-right-hover.svg');
+  }
+
+.ic{
+  height: 24px;
+  width: 24px;
+  &.ic-redirect{
+    background-image: url('~@/assets/arrow-up-right.svg');
+  }
 }
 </style>
