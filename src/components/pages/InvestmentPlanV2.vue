@@ -1,9 +1,9 @@
 <template>
   <div class="lg:m-6 m-4">
-    <div class="lg:relative">
+    <div class="lg:static lg:flex lg:items-end">
       <!-- Idle state -->
       <div
-        class="rounded-md lg:mr-6 md:mt-0 mt-4 p-5 mb-4 lg:w-80 md:w-full self-start lg:absolute z-10 bg-white"
+        class="rounded-md lg:mr-6 md:mt-0 mt-4 p-5 mb-4 lg:w-80 md:w-full self-start lg:static z-10 bg-white"
         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16); z-index: 10"
         v-if="isIdle"
       >
@@ -141,7 +141,7 @@
       <!--  -->
 
       <div
-        class="rounded-md lg:mr-6 md:mt-0 mt-4 p-5 mb-4 lg:w-80 md:w-full self-start lg:absolute z-10 bg-white"
+        class="rounded-md lg:mr-6 md:mt-0 mt-4 p-5 mb-4 lg:w-80 md:w-full self-start lg:static z-10 bg-white"
         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16); z-index: 10"
         v-if="!isIdle"
       >
@@ -156,13 +156,22 @@
           <div>
             <div>{{ form?.product?.name }}</div>
             <!-- <div>Rp.{{ formatDecimals(form.calculateData?.result) }}</div> -->
-            <div>Rp.{{ convertToInternationalCurrencySystem(form.calculateData?.result) }}</div>
-            
+            <div>
+              Rp.{{
+                convertToInternationalCurrencySystem(form.calculateData?.result)
+              }}
+            </div>
           </div>
           <div>
             <div>Deposito</div>
             <!-- <div>Rp.{{ formatDecimals(form.calculateData?.deposito_result)}}</div> -->
-            <div>Rp.{{ convertToInternationalCurrencySystem(form.calculateData?.deposito_result)}}</div>
+            <div>
+              Rp.{{
+                convertToInternationalCurrencySystem(
+                  form.calculateData?.deposito_result
+                )
+              }}
+            </div>
           </div>
         </div>
         <div class="grid grid-cols-2 mb-4 text-xs">
@@ -239,16 +248,26 @@
           </div>
         </div>
       </div>
+
+      <ProductCalcV2
+        class="lg:grow shrink lg:pt-24 md:pt-0 left-5 right-0 top-72"
+        :calc-invest="arrInvest"
+        :calc-deposito="arrDeposito"
+        :calc-saving="arrSaving"
+        :duration="duration"
+        :resetChart="isReset"
+        @reset="(state) => (isReset = state)"
+      />
     </div>
-    <ProductCalcV2
-      class="lg:grow shrink lg:pt-24 md:pt-0 absolute left-5 right-0 top-72"
+    <!-- <ProductCalcV2
+      class="lg:grow shrink lg:pt-24 md:pt-0 left-5 right-0 top-72"
       :calc-invest="arrInvest"
       :calc-deposito="arrDeposito"
       :calc-saving="arrSaving"
       :duration="duration"
       :resetChart="isReset"
       @reset="(state) => isReset = state"
-    />
+    /> -->
   </div>
 </template>
 
