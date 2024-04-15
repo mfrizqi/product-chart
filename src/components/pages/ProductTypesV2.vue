@@ -271,7 +271,7 @@ export default {
       display: {
         dailyPerformance: "Daily Performance",
         riskProfile: "Risk Profile",
-        riskProfileValue: ["Low", "Medium", "High"],
+        riskProfileValue: ["Conservative", "Moderate", "Aggresive"],
         seeDetail: "See Detail",
         performYearSymbol: "Y",
       },
@@ -285,8 +285,10 @@ export default {
           en: "Risk Profile",
         },
         riskProfileValue: {
-          id: ["Rendah", "Menengah", "Tinggi"],
-          en: ["Low", "Medium", "High"],
+          // id: ["Rendah", "Menengah", "Tinggi"],
+          // en: ["Low", "Medium", "High"],
+          id: ["Konservatif", "Moderat", "Agresif"],
+          en: ["Conservative", "Moderate", "Aggresive"],
         },
         performYearSymbol: {
           id: "T",
