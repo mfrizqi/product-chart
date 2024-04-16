@@ -475,12 +475,12 @@ export default {
           }
           const finalName = procName.join(" ");
           this.product = data.filter((el) => {
-            console.log(
-              el.product_name.toLowerCase(),
-              " - ",
-              finalName.toLowerCase(),
-              el.product_name.toLowerCase() === finalName.toLowerCase()
-            );
+            // console.log(
+            //   el.product_name.toLowerCase(),
+            //   " - ",
+            //   finalName.toLowerCase(),
+            //   el.product_name.toLowerCase() === finalName.toLowerCase()
+            // );
             return el.product_name.toLowerCase() === finalName.toLowerCase();
           })[0];
           console.log("getMutualFunds: ", this.product);

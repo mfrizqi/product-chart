@@ -201,6 +201,7 @@
           </div>
         </div>
       </div>
+      <!-- <div class="flex grow flex-wrap"></div> -->
       <div
         class="grow border-r border-l border-gray-200 px-8 py-6 text-center border-b md:border-b-0"
       >
@@ -212,7 +213,9 @@
             style="width: 56px; height: 100%"
           />
         </div>
-        <div class="my-3 font-bold text-xl text-black">{{language === 'id' ? 'Prospektus' : 'Prospectus'}}</div>
+        <div class="my-3 font-bold text-xl text-black">
+          {{ language === "id" ? "Prospektus" : "Prospectus" }}
+        </div>
         <button
           class="border border-black px-6 py-2 flex items-center justify-center mx-auto"
           @click="goto(detail?.propectus)"
@@ -221,7 +224,9 @@
           <img src="@/assets/download.svg" class="inline-block" alt="" />
         </button>
       </div>
-      <div class="grow px-8 py-6 text-center">
+      <div
+        class="grow px-8 py-6 text-center border-r border-gray-200 border-b md:border-b-0"
+      >
         <div class="border border-black rounded-full inline-block p-4">
           <img
             src="@/assets/file-text-15.svg"
@@ -238,6 +243,25 @@
           <div class="font-semibold mr-2">{{ display.download }}</div>
           <img src="@/assets/download.svg" class="inline-block" alt="" />
         </button>
+      </div>
+      <div class="grow px-8 py-6 text-center" v-if="isFundExist">
+        <div class="border border-black rounded-full inline-block p-4">
+          <img
+            src="@/assets/file-text-15.svg"
+            class="inline-block w-20"
+            alt=""
+            style="width: 56px; height: 100%"
+          />
+        </div>
+        <div class="my-3 font-bold text-xl text-black">Fund Card</div>
+        <a
+          class="border border-black px-6 py-2 flex items-center justify-center mx-auto"
+          :href="`${publicPath}fund/Fund Card - ${titleName}.pdf`"
+          target="_blank"
+        >
+          <div class="font-semibold mr-2">{{ display.download }}</div>
+          <img src="@/assets/download.svg" class="inline-block" alt="" />
+        </a>
       </div>
     </div>
   </div>
@@ -766,12 +790,14 @@ export default {
       detail: { propectus: "", ffs_url: "" },
       navs: [],
       productName: "",
+      titleName: "",
       routeName: "",
       productDaily: {
         dayValue: 0.0,
         dayPercentage: 0.0,
       },
-      language:'EN',
+      publicPath: process.env.BASE_URL,
+      language: "EN",
       lang: {
         timelineTable: {
           id: {
@@ -840,6 +866,17 @@ export default {
         productDesc: "Your Investment <br /> Documents Here",
         download: "Download",
       },
+      isFundExist: false,
+      fileTitles: [
+        "Danamas Pasti",
+        "Simas Danamas Saham",
+        "Simas Saham Maksima",
+        "Danamas Instrumen Negara",
+        "Danamas Stabil",
+        "Danamas Rupiah Plus",
+        "Indeks Simas Sri Kehati",
+        "Simas Pendapatan Optima",
+      ],
     };
   },
   computed: {
@@ -855,6 +892,7 @@ export default {
     },
   },
   mounted() {
+    console.log('publicPath:', this.publicPath)
     this.setLang();
     this.getMutualFunds();
   },
@@ -872,8 +910,7 @@ export default {
     },
     setLang() {
       const lang = this.$route.params.lang;
-      if(this.$route.params.lang)
-            this.language = this.$route.params.lang;
+      if (this.$route.params.lang) this.language = this.$route.params.lang;
       if (lang === "id") {
         Object.keys(this.display.timelineTable).forEach((key) => {
           console.log(key, this.display.timelineTable[key]);
@@ -892,7 +929,13 @@ export default {
       }
     },
     getMutualFunds() {
-      const stgName = localStorage.getItem("urlname");
+      let stgName = ''
+      if(localStorage.getItem("urlname")){
+        stgName = localStorage.getItem("urlname");
+      } else {
+        stgName = this.$route.params.name
+      }
+      
       const name = stgName;
       this.routeName = stgName;
       let url = "";
@@ -906,7 +949,7 @@ export default {
         .get(url)
         .then((res) => {
           const data = res.data.results;
-          const rawName = name.split("-");
+          const rawName = name?.split("-");
           let procName = [];
           for (let i = 0; i < rawName.length; i++) {
             procName.push(
@@ -921,6 +964,9 @@ export default {
             return el.product_name.toLowerCase() === finalName.toLowerCase();
           })[0];
           console.log(this.product);
+          // console.log(this.product.product_name)
+          this.titleName = this.product.product_name;
+          this.checkFundCard(this.product.product_name);
           this.getProductDetail(this.product?.product_id);
         })
         .catch((error) => {
@@ -929,6 +975,19 @@ export default {
         .finally(() => {
           //  this.formatDate(this.product?.nab_date);
         });
+
+      // this.checkFundCard(this.product.product_name);
+
+      // console.log('finalName', this.productName)
+    },
+    checkFundCard(productTitle) {
+      this.fileTitles.forEach((el) => {
+        if (el.toLowerCase() === productTitle.toLowerCase()) {
+          this.isFundExist = true;
+        }
+      });
+
+      console.log(this.isFundExist);
     },
     getProductDetail(id) {
       let url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
@@ -957,10 +1016,10 @@ export default {
       window.open(url, "_blank").focus();
     },
     formatDate(rawDate) {
-      let locale = 'EN'
+      let locale = "EN";
 
-      if(this.language === 'id'){
-        locale = 'ID'
+      if (this.language === "id") {
+        locale = "ID";
       }
 
       if (rawDate) {
@@ -975,6 +1034,9 @@ export default {
     },
     getDayPercentage(ev) {
       this.productDaily = ev;
+    },
+    openPDF() {
+      window.open('./fund/Fund Card - ' + this.titleName + '.pdf', '_blank');
     },
   },
 };
