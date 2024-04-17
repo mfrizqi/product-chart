@@ -476,6 +476,9 @@ export default {
       postInitFund: "500000",
       postDuration: "12",
       postId: "002",
+      config:{
+        authBearer: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJOcEFWMmZ6UVNFRGMyUDB0YjVFTnBnZEc4VDdIZlhsUyJ9.dNq_ZiJSqlhA2Wpl-GDN3Ap5LUtUmiqgXIRta4NsiSo'
+      }
     };
   },
   filters: {
@@ -652,7 +655,7 @@ export default {
 
       const config = {
         headers: {
-          Authorization: "simasBearer",
+          Authorization: this.config.authBearer,
           Accept: "*/*",
           "Content-Type": "application/json",
           withCredentials: true,

@@ -468,6 +468,9 @@ export default {
       isLoading: false,
       isReset: false,
       duration: 12,
+      config:{
+        authBearer: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJOcEFWMmZ6UVNFRGMyUDB0YjVFTnBnZEc4VDdIZlhsUyJ9.dNq_ZiJSqlhA2Wpl-GDN3Ap5LUtUmiqgXIRta4NsiSo'
+      } 
     };
   },
   methods: {
@@ -554,21 +557,6 @@ export default {
           this.form.product = this.productInvest[0];
         })
         .finally(() => {});
-
-      // OLD DATAS
-      // const url = "http://trading.simasnet.com/ROL/web/nab.php";
-      // axios
-      //   .get(url)
-      //   .then((res) => {
-      //     const data = res.data.results;
-      //     console.log(data);
-      //     this.productInvest = data;
-      //     this.form.product = this.productInvest[0];
-      //   })
-      //   .catch((error) => {
-      //     console.error(error);
-      //   })
-      //   .finally(() => {});
     },
     async calculateInvest() {
       if (this.form.initialDisplay <= 0) {
@@ -579,7 +567,7 @@ export default {
 
       const config = {
         headers: {
-          Authorization: "simasBearer",
+          Authorization: this.config.authBearer,
           Accept: "*/*",
           "Content-Type": "application/json",
           withCredentials: true,
