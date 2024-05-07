@@ -45,8 +45,8 @@
         :class="[{ 'border-t': index === 0 }]"
       >
         <div class="mb-4 font-semibold flex justify-between">
-          <div class="cursor-pointer shrink grow-0" @click="goto(product?.product_name)">
-            {{ displayName(product?.product_name) }}
+          <div class="cursor-pointer shrink grow-0 flex items-center" @click="goto(product?.product_name)">
+            {{ displayName(product?.product_name) }} <img src="@/assets/logo/ai.png" v-if="product?.detail?.ai" style="height: 48px; width: 48px;" alt="">
           </div>
           <div class="cursor-pointer grow shrink-0 md:hidden block">
             <div @click="goto(product?.product_name)" class="flex justify-end">
@@ -62,7 +62,7 @@
         <div class="flex shrink justify-between">
           <div style="min-width: 200px">
             <div class="font-normal text-sm">
-              NAB {{ formatDate(product?.nab_date) }}
+              {{display.nav}} {{ formatDate(product?.nab_date) }}
             </div>
             <div class="mt-2 mb-4">
               <span class="font-normal mr-2">{{product?.product_name?.toLowerCase().includes('dollar') ? 'USD' : 'IDR'}}</span>
@@ -274,6 +274,7 @@ export default {
         riskProfileValue: ["Conservative", "Moderate", "Aggresive"],
         seeDetail: "See Detail",
         performYearSymbol: "Y",
+        nav: "NAV"
       },
       lang: {
         dailyPerformance: {
@@ -298,6 +299,10 @@ export default {
           id: "Lihat Detail",
           en: "See Detail",
         },
+        nav: {
+          id: "NAB",
+          en: "NAV"
+        }
       },
     };
   },
@@ -327,8 +332,8 @@ export default {
         this.display.riskProfile = this.lang.riskProfile[lang];
         this.display.riskProfileValue = this.lang.riskProfileValue[lang];
         this.display.performYearSymbol = this.lang.performYearSymbol[lang];
-
         this.display.seeDetail = this.lang.seeDetail[lang];
+        this.display.nav = this.lang.nav[lang];
       }
     },
     isDayValueUp(product) {
@@ -418,6 +423,7 @@ export default {
             this.products[i] = {
               ...this.products[i],
               performance: await this.getChartData(this.products[i].product_id),
+              detail: await this.getProductDetail(this.products[i].product_id)
             };
           }
           this.isLoading = false;
@@ -558,6 +564,29 @@ export default {
         })
         .finally(() => {});
       return product;
+    },
+    getProductDetail(id) {
+      let url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
+
+      if (process.env.NODE_ENV === "production") {
+        url = window.location.origin + `/api/detail/${id}`;
+      } else {
+        url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
+      }
+      const config = {
+        headers: {
+          Authorization: "Basic YnNpbS1zdGc6YnNpbXN0Zw==",
+        },
+      };
+      axios
+        .get(url, config)
+        .then((res) => {
+          this.detail = res.data.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {});
     },
   },
 };
