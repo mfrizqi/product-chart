@@ -423,6 +423,7 @@ export default {
             this.products[i] = {
               ...this.products[i],
               performance: await this.getChartData(this.products[i].product_id),
+              detail: this.getProductDetail(this.products[i].product_id)
             };
           }
           this.isLoading = false;
@@ -430,14 +431,14 @@ export default {
         .catch((error) => {
           console.error(error);
         })
-        .finally( async () => {
-          this.isLoading = false;
-          await this.products.map(el=>{
-            return {
-              ...el,
-               detail: this.getProductDetail(el.product_id)
-            }
-          })
+        .finally( () => {
+          // this.isLoading = false;
+          // await this.products.map(el=>{
+          //   return {
+          //     ...el,
+          //      detail: this.getProductDetail(el.product_id)
+          //   }
+          // })
           console.log("this.product", this.products);
         });
     },
@@ -587,6 +588,7 @@ export default {
         .get(url, config)
         .then((res) => {
           this.detail = res.data.data;
+          return res.data.data;
         })
         .catch((error) => {
           console.error(error);
