@@ -307,7 +307,7 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route.params.lang);
+    // console.log(this.$route.params.lang);
     if (this.$route?.params?.lang) {
       this.language = this.$route.params.lang;
     }
@@ -337,8 +337,8 @@ export default {
       }
     },
     isDayValueUp(product) {
-      console.log(product.performance.dayValue);
-      console.log(product.performance.dayValue > 0);
+      // console.log(product.performance.dayValue);
+      // console.log(product.performance.dayValue > 0);
       return product?.performance?.dayValue > 0;
     },
     getMutualFunds() {
@@ -423,7 +423,6 @@ export default {
             this.products[i] = {
               ...this.products[i],
               performance: await this.getChartData(this.products[i].product_id),
-              detail: await this.getProductDetail(this.products[i].product_id)
             };
           }
           this.isLoading = false;
@@ -431,8 +430,14 @@ export default {
         .catch((error) => {
           console.error(error);
         })
-        .finally(() => {
+        .finally( async () => {
           this.isLoading = false;
+          await this.product.map(el=>{
+            return {
+              ...el,
+               detail: this.getProductDetail(el.product_id)
+            }
+          })
           console.log("this.product", this.products);
         });
     },
