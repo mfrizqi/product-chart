@@ -432,7 +432,7 @@ export default {
         })
         .finally( async () => {
           this.isLoading = false;
-          await this.product.map(el=>{
+          await this.products.map(el=>{
             return {
               ...el,
                detail: this.getProductDetail(el.product_id)
