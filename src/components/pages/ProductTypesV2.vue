@@ -45,13 +45,23 @@
         :class="[{ 'border-t': index === 0 }]"
       >
         <div class="mb-4 font-semibold flex justify-between">
-          <div class="cursor-pointer shrink grow-0 flex items-center" @click="goto(product?.product_name)">
-            {{ displayName(product?.product_name) }} <img src="@/assets/logo/ai.png" v-if="product?.detail?.ai" style="height: 48px; width: 48px;" alt="">
+          <div
+            class="cursor-pointer shrink grow-0 flex items-center"
+            @click="goto(product?.product_name)"
+          >
+            {{ displayName(product?.product_name) }}
+            <img
+              src="@/assets/logo/ai.png"
+              v-if="product?.ai"
+              style="height: 48px; width: 48px"
+              alt=""
+            />
+            <div style="margin-left: 8px; height: 2px; width: 2px; background-color: black; opacity: 0.5"></div>
           </div>
           <div class="cursor-pointer grow shrink-0 md:hidden block">
             <div @click="goto(product?.product_name)" class="flex justify-end">
               <div class="font-semibold mr-1">{{ display.seeDetail }}</div>
-               <!-- <img
+              <!-- <img
                 src="@/assets/arrow-up-right.svg"
                 class="block"
               /> -->
@@ -62,10 +72,14 @@
         <div class="flex shrink justify-between">
           <div style="min-width: 200px">
             <div class="font-normal text-sm">
-              {{display.nav}} {{ formatDate(product?.nab_date) }}
+              {{ display.nav }} {{ formatDate(product?.nab_date) }}
             </div>
             <div class="mt-2 mb-4">
-              <span class="font-normal mr-2">{{product?.product_name?.toLowerCase().includes('dollar') ? 'USD' : 'IDR'}}</span>
+              <span class="font-normal mr-2">{{
+                product?.product_name?.toLowerCase().includes("dollar")
+                  ? "USD"
+                  : "IDR"
+              }}</span>
               <span class="font-medium text-3xl">
                 {{
                   formatNAB(product?.nab).toLocaleString(undefined, {
@@ -131,7 +145,6 @@
           </div>
           <div class="cursor-pointer md:block hidden detail-text">
             <div @click="goto(product?.product_name)" class="flex">
-
               <span class="font-semibold mr-2">{{ display.seeDetail }}</span>
               <!-- <img
                 src="@/assets/arrow-up-right.svg"
@@ -274,7 +287,7 @@ export default {
         riskProfileValue: ["Conservative", "Moderate", "Aggresive"],
         seeDetail: "See Detail",
         performYearSymbol: "Y",
-        nav: "NAV"
+        nav: "NAV",
       },
       lang: {
         dailyPerformance: {
@@ -301,8 +314,8 @@ export default {
         },
         nav: {
           id: "NAB",
-          en: "NAV"
-        }
+          en: "NAV",
+        },
       },
     };
   },
@@ -423,7 +436,7 @@ export default {
             this.products[i] = {
               ...this.products[i],
               performance: await this.getChartData(this.products[i].product_id),
-              detail: this.getProductDetail(this.products[i].product_id)
+              ai: await this.getProductAI(this.products[i].product_id),
             };
           }
           this.isLoading = false;
@@ -431,14 +444,7 @@ export default {
         .catch((error) => {
           console.error(error);
         })
-        .finally( () => {
-          // this.isLoading = false;
-          // await this.products.map(el=>{
-          //   return {
-          //     ...el,
-          //      detail: this.getProductDetail(el.product_id)
-          //   }
-          // })
+        .finally(() => {
           console.log("this.product", this.products);
         });
     },
@@ -489,13 +495,12 @@ export default {
       // let modName = urlname.split()
       localStorage.setItem("urlname", urlname);
       const url = "https://sam.admire.id/final/" + modName;
-      if(this.language === 'id'){
-        let idUrl = url + '-id'
+      if (this.language === "id") {
+        let idUrl = url + "-id";
         window.open(idUrl, "_blank");
       } else {
         window.open(url, "_blank");
       }
-      
     },
     formatDate(dateString) {
       if (dateString) {
@@ -571,9 +576,39 @@ export default {
         .finally(() => {});
       return product;
     },
-    getProductDetail(id) {
-      let url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
+    // getDetail() {
+    //   let url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
 
+    //   if (process.env.NODE_ENV === "production") {
+    //     url = window.location.origin + `/api/detail/${id}`;
+    //   } else {
+    //     url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
+    //   }
+    //   const config = {
+    //     headers: {
+    //       Authorization: "Basic YnNpbS1zdGc6YnNpbXN0Zw==",
+    //     },
+    //   };
+
+    //   let data_ai = {};
+
+    //   axios
+    //     .get(url, config)
+    //     .then((res) => {
+    //       console.log(res);
+    //       this.detail = res.data.data;
+    //       data_ai = res.data.data;
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     })
+    //     .finally(() => {
+    //       console.log(data_ai);
+    //       return data_ai;
+    //     });
+    // },
+    async getProductAI(id) {
+      let url = `https://bsim.siminvest.co.id/api/v1/pcs/product/fund/${id}`;
       if (process.env.NODE_ENV === "production") {
         url = window.location.origin + `/api/detail/${id}`;
       } else {
@@ -584,16 +619,20 @@ export default {
           Authorization: "Basic YnNpbS1zdGc6YnNpbXN0Zw==",
         },
       };
-      axios
+      let data_ai = {};
+      await axios
         .get(url, config)
         .then((res) => {
           this.detail = res.data.data;
-          return res.data.data;
+          data_ai = res.data.data;
+          console.log(data_ai);
         })
         .catch((error) => {
           console.error(error);
         })
         .finally(() => {});
+      console.log(id, data_ai);
+      return data_ai.ai;
     },
   },
 };
@@ -604,21 +643,21 @@ export default {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16);
 }
 
-.detail-text:hover{
+.detail-text:hover {
   color: #1142f5;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
-.detail-text:hover .ic-redirect{
-    background-image: url('~@/assets/arrow-up-right-hover.svg');
-  }
+.detail-text:hover .ic-redirect {
+  background-image: url("~@/assets/arrow-up-right-hover.svg");
+}
 
-.ic{
+.ic {
   height: 24px;
   width: 24px;
-  &.ic-redirect{
-    background-image: url('~@/assets/arrow-up-right.svg');
+  &.ic-redirect {
+    background-image: url("~@/assets/arrow-up-right.svg");
   }
 }
 </style>
