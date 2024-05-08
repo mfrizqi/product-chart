@@ -56,7 +56,6 @@
               style="height: 48px; width: 48px"
               alt=""
             />
-            <div style="margin-left: 8px; height: 2px; width: 2px; background-color: black; opacity: 0.5"></div>
           </div>
           <div class="cursor-pointer grow shrink-0 md:hidden block">
             <div @click="goto(product?.product_name)" class="flex justify-end">
