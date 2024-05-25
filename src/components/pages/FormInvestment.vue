@@ -141,9 +141,8 @@
       <div class="mt-6 text-xs">
         <div class="font-semibold mb-3">Disclaimer</div>
         <div>
-          Perhitungan kalkulator investasi diatas merupakan alat bantu alat
-          bantu simulasi dan buka <br />
-          merupakan saran investasi.
+          Perhitungan kalkulator investasi di atas merupakan alat bantu simulasi
+          <br /> dan bukan saran investasi.
         </div>
       </div>
     </div>
@@ -476,9 +475,10 @@ export default {
       postInitFund: "500000",
       postDuration: "12",
       postId: "002",
-      config:{
-        authBearer: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJOcEFWMmZ6UVNFRGMyUDB0YjVFTnBnZEc4VDdIZlhsUyJ9.dNq_ZiJSqlhA2Wpl-GDN3Ap5LUtUmiqgXIRta4NsiSo'
-      }
+      config: {
+        authBearer:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJOcEFWMmZ6UVNFRGMyUDB0YjVFTnBnZEc4VDdIZlhsUyJ9.dNq_ZiJSqlhA2Wpl-GDN3Ap5LUtUmiqgXIRta4NsiSo",
+      },
     };
   },
   filters: {

@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="text-gray-600 text-base">
-        <div class="font-bold text-black">NAB/Unit</div>
+        <div class="font-bold text-black">{{display.nav}}/Unit</div>
         <div class="font-semibold text-black">
           {{ formatDate(product?.nab_date) }}
           <!-- Jumat, 17 November 2023 - Placeholder hardcoded -->
@@ -847,6 +847,10 @@ export default {
           id: "Unduh",
           en: "Download",
         },
+        nav: {
+          id: "NAB",
+          en: "NAV"
+        }
       },
       display: {
         timelineTable: {
@@ -865,6 +869,7 @@ export default {
         productInfo: "Product Info <br /> Documents",
         productDesc: "Your Investment <br /> Documents Here",
         download: "Download",
+        nav: "NAV"
       },
       isFundExist: false,
       fileTitles: [
@@ -925,6 +930,8 @@ export default {
           this.display.productDesc = this.lang.productDesc[lang];
 
           this.display.download = this.lang.download[lang];
+
+          this.display.nav = this.lang.nav[lang];
         });
       }
     },
