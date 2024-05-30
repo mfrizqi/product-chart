@@ -454,7 +454,7 @@ export default {
         case "2":
           return this.display.riskProfileValue[0];
         case "3":
-          return this.display.riskProfileValue[1];
+          return this.display.riskProfileValue[0];
         case "4":
           return this.display.riskProfileValue[1];
         case "5":
