@@ -214,10 +214,10 @@
         </div>
         <div class="mt-2">
           <span class="font-normal">{{ display.riskProfile }}: </span>
-          <span class="font-bold" v-if="product?.rating">{{
+          <span class="font-bold" v-if="product?.ratingText !== ''">{{
             product?.ratingText
           }}</span>
-          <span class="font-bold" v-if="!product?.rating">{{ "-" }}</span>
+          <span class="font-bold" v-if="!product?.rating && product?.ratingText === ''">{{ "-" }}</span>
         </div>
       </div>
     </div>
@@ -287,6 +287,77 @@ export default {
         seeDetail: "See Detail",
         performYearSymbol: "Y",
         nav: "NAV",
+      },
+      hardCodedRating: {
+        RDPU: [
+          {
+            name: "Danamas Rupiah Plus",
+            rating: "0",
+          },
+        ],
+        RDPT: [
+          {
+            name: "Danamas Stabil",
+            rating: "4",
+          },
+          {
+            name: "Danamas Dollar",
+            rating: "4",
+          },
+          {
+            name: "Simas Danamas Instrumen Negara",
+            rating: "4",
+          },
+          {
+            name: "Danamas Pasti",
+            rating: "4",
+          },
+          {
+            name: "Syariah Simas Syariah Pendapatan Tetap",
+            rating: "4",
+          },
+          {
+            name: "Simas Pendapatan Optima",
+            rating: "4",
+          },
+        ],
+        RDC: [
+          {
+            name: "Simas Syariah Berkembang",
+            rating: "4",
+          },
+          {
+            name: "Simas Satu",
+            rating: "4",
+          },
+          {
+            name: "Danamas Fleksi",
+            rating: "4",
+          },
+          {
+            name: "Simas Satu Prima",
+            rating: "4",
+          },
+          {
+            name: "Syariah Simas Balance Syariah",
+            rating: "4",
+          },
+        ],
+        RDS: [
+          { name: "Simas Syariah Unggulan", rating: "5" },
+          { name: "Simas Danamas Saham", rating: "5" },
+          { name: "Simas Saham Unggulan", rating: "5" },
+          { name: "Simas Saham Bertumbuh", rating: "5" },
+          { name: "Simas Saham Maksima", rating: "5" },
+          { name: "Syariah Simas Equity Syariah", rating: "5" },
+        ],
+        ETF: [
+          { name: "Simas ETF IDX30", rating: "5" },
+          { name: "Simas ETF JII", rating: "5" },
+        ],
+        RDI: [
+          { name: "Indeks Simas Sri Kehati", rating: "5" },
+        ]
       },
       lang: {
         dailyPerformance: {
@@ -445,6 +516,7 @@ export default {
         })
         .finally(() => {
           console.log("this.product", this.products);
+          this.setupHardcodedRating();
         });
     },
     evaluateRating(rating) {
@@ -478,6 +550,23 @@ export default {
         default:
           break;
       }
+    },
+    setupHardcodedRating() {
+      const type = this.$route.params.type;
+      console.log("checkType");
+      console.log(this.hardCodedRating.RDPU);
+      console.log(this.hardCodedRating[type]);
+
+      this.products.forEach((el) => {
+        this.hardCodedRating[type].forEach((hc) => {
+          if (el.product_name.toLowerCase().includes(hc.name.toLowerCase())) {
+            console.log("hc.rating: ", hc.rating);
+            el.ratingText = this.evaluateRating(hc.rating);
+          }
+        });
+      }, this.products);
+      console.log("setupHardcodedRating");
+      console.log(this.products);
     },
     goto(name) {
       let rawName = name.toLowerCase().split(" ");
