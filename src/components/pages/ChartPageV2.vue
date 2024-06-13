@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="flex flex-wrap items-center justify-between mb-8 pt-8">
-      <div class="flex flex-wrap">
+      <div class="flex flex-wrap items-end">
         <div class="font-bold text-4xl mr-3 md:mb-0 mb-4">
           <span v-if="!isDolar(product)">Rp.</span>
           <span v-if="isDolar(product)">USD</span>

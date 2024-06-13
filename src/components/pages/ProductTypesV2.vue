@@ -320,6 +320,10 @@ export default {
             name: "Simas Pendapatan Optima",
             rating: "4",
           },
+          {
+            name: "Simas Danamas Mantap Plus",
+            rating: "5",
+          },
         ],
         RDC: [
           {
@@ -613,6 +617,18 @@ export default {
       for (let i = 0; i < rawName.length; i++) {
         procName.push(rawName[i].charAt(0).toUpperCase() + rawName[i].slice(1));
       }
+    
+      console.log('capitalizeWords');
+      const capitalizeWords = ['ETF','JII', 'IDX30'];
+      for (let i = 0; i < procName.length; i++) {
+        for (let j = 0; j < capitalizeWords.length; j++) {
+           if(procName[i].toLowerCase() === capitalizeWords[j].toLowerCase()){
+            console.log(procName[i], capitalizeWords[j])
+            procName[i] = capitalizeWords[j];
+           }
+        }
+      }
+      console.log(procName)
       const finalName = procName.join(" ");
 
       return finalName;
@@ -732,13 +748,13 @@ export default {
 }
 
 .detail-text:hover {
-  color: #1142f5;
+  color: #E20505;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
 .detail-text:hover .ic-redirect {
-  background-image: url("~@/assets/arrow-up-right-hover.svg");
+  background-image: url("~@/assets/arrow-up-right-hover-red.svg");
 }
 
 .ic {
