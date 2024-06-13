@@ -322,7 +322,7 @@ export default {
           },
           {
             name: "Simas Danamas Mantap Plus",
-            rating: "5",
+            rating: "0",
           },
         ],
         RDC: [
