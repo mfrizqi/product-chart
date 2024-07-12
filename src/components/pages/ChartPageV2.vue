@@ -256,14 +256,13 @@
           />
         </div>
         <div class="my-3 font-bold text-xl text-black">Fund Card</div>
-        <a
-          class="border border-black px-6 py-2 flex items-center justify-center mx-auto"
-          :href="`${publicPath}fund/Fund Card - ${titleName}.pdf`"
-          target="_blank"
+        <div
+          class="border border-black px-6 py-2 flex items-center justify-center mx-auto cursor-pointer"
+          @click="gotoFundCard()"
         >
           <div class="font-semibold mr-2">{{ display.download }}</div>
           <img src="@/assets/download.svg" class="inline-block" alt="" />
-        </a>
+        </div>
       </div>
     </div>
   </div>
@@ -991,6 +990,7 @@ export default {
     },
     checkFundCard(productTitle) {
       this.fileTitles.forEach((el) => {
+        console.log(el.toLowerCase(), productTitle.toLowerCase(), el.toLowerCase() === productTitle.toLowerCase());
         if (el.toLowerCase() === productTitle.toLowerCase()) {
           this.isFundExist = true;
         }
@@ -1047,6 +1047,9 @@ export default {
     openPDF() {
       window.open('./fund/Fund Card - ' + this.titleName + '.pdf', '_blank');
     },
+    gotoFundCard(){
+      window.open(`${this.publicPath}fund/Fund Card - ${this.titleName}.pdf`)
+    }
   },
 };
 </script>
