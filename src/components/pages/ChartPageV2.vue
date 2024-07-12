@@ -216,13 +216,14 @@
         <div class="my-3 font-bold text-xl text-black">
           {{ language === "id" ? "Prospektus" : "Prospectus" }}
         </div>
-        <button
-          class="border border-black px-6 py-2 flex items-center justify-center mx-auto"
-          @click="goto(detail?.propectus)"
+        <a
+          class="border border-black px-6 py-2 items-center justify-center mx-auto inline-block"
+          :href="detail?.propectus"
+          target="_blank"
         >
-          <div class="font-semibold mr-2">{{ display.download }}</div>
+          <span class="font-semibold mr-2 inline-block">{{ display.download }}</span>
           <img src="@/assets/download.svg" class="inline-block" alt="" />
-        </button>
+        </a>
       </div>
       <div
         class="grow px-8 py-6 text-center border-r border-gray-200 border-b md:border-b-0"
@@ -236,13 +237,14 @@
           />
         </div>
         <div class="my-3 font-bold text-xl text-black">Factsheet</div>
-        <button
-          class="border border-black px-6 py-2 flex items-center justify-center mx-auto"
-          @click="goto(detail?.ffs_url)"
+        <a
+          class="border border-black px-6 py-2 inline-block items-center justify-center mx-auto"
+          :href="detail?.ffs_url"
+          target="_blank"
         >
-          <div class="font-semibold mr-2">{{ display.download }}</div>
+          <a class="font-semibold mr-2">{{ display.download }}</a>
           <img src="@/assets/download.svg" class="inline-block" alt="" />
-        </button>
+        </a>
       </div>
       <div class="grow px-8 py-6 text-center" v-if="isFundExist">
         <div class="border border-black rounded-full inline-block p-4">

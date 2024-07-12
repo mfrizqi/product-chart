@@ -586,7 +586,10 @@ export default {
       let urlname = name.toLowerCase().replace(/ /g, "-");
       // let modName = urlname.split()
       localStorage.setItem("urlname", urlname);
-      const url = "https://sam.admire.id/final/" + modName;
+      let baseUrl = 'https://sam.admire.id/final/';
+      let baseProdUrl = 'https://testing-sam.sinarmas-am.co.id/'
+      
+      const url = baseProdUrl + modName;
       if (this.language === "id") {
         let idUrl = url + "-id";
         window.open(idUrl, "_blank");
