@@ -586,8 +586,14 @@ export default {
       let urlname = name.toLowerCase().replace(/ /g, "-");
       // let modName = urlname.split()
       localStorage.setItem("urlname", urlname);
+      // Staging URL
       let baseUrl = 'https://sam.admire.id/final/';
-      let baseProdUrl = 'https://testing-sam.sinarmas-am.co.id/'
+
+      // Testing URL
+      // let baseProdUrl = 'https://testing-sam.sinarmas-am.co.id/'
+
+      // Live URl
+      let baseProdUrl = 'http://www.sinarmas-am.co.id/'
       
       const url = baseProdUrl + modName;
       if (this.language === "id") {
