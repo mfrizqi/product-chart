@@ -505,6 +505,16 @@ export default {
             });
           }
 
+          if(type === "RDPT"){
+            const rdpt_codes = ["019"];
+             rdpt_codes.forEach((code) => {
+              const idx = this.products.findIndex(
+                (el) => el.product_id === code
+              );
+              this.products.splice(idx, 1);
+            });
+          }
+
           this.isLoading = true;
           for (let i = 0; i < this.products.length; i++) {
             this.products[i] = {
