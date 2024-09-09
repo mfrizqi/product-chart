@@ -183,7 +183,8 @@
       :showRisk="false"
       @day-percentage="getDayPercentage($event)"
     />
-    <div
+    <!-- Product Info Section -->
+    <!-- <div
       class="border-y py-6 flex flex-wrap md:flex-no-wrap justify-between mt-8"
     >
       <div
@@ -201,7 +202,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="flex grow flex-wrap"></div> -->
       <div
         class="grow border-r border-l border-gray-200 px-8 py-6 text-center border-b md:border-b-0"
       >
@@ -264,7 +264,7 @@
           <img src="@/assets/download.svg" class="inline-block" alt="" />
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
