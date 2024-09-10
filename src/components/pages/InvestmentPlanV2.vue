@@ -731,7 +731,9 @@ export default {
     },
     goto(name) {
       let urlname = name.toLowerCase().replace(/ /g, "-");
-      const url = "https://sam.admire.id/" + urlname;
+      const baseProdUrl = 'http://www.sinarmas-am.co.id/'
+      const baseUrl = 'https://sam.admire.id/'
+      const url = baseProdUrl + urlname;
       window.open(url, "_blank");
     },
     resetForm() {

@@ -774,7 +774,10 @@ export default {
     toProduct() {
       const name = this.form.product?.name.toLowerCase().replace(/ /g, "-");
       console.log(name);
-      const url = "https://sam.admire.id/" + name;
+      // Live URl
+      let baseProdUrl = 'http://www.sinarmas-am.co.id/'
+      let baseUrl = 'https://sam.admire.id/'
+      const url = baseProdUrl + name;
       window.open(url, "_blank");
     },
   },
