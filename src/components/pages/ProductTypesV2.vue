@@ -217,7 +217,11 @@
           <span class="font-bold" v-if="product?.ratingText !== ''">{{
             product?.ratingText
           }}</span>
-          <span class="font-bold" v-if="!product?.rating && product?.ratingText === ''">{{ "-" }}</span>
+          <span
+            class="font-bold"
+            v-if="!product?.rating && product?.ratingText === ''"
+            >{{ "-" }}</span
+          >
         </div>
       </div>
     </div>
@@ -359,9 +363,21 @@ export default {
           { name: "Simas ETF IDX30", rating: "5" },
           { name: "Simas ETF JII", rating: "5" },
         ],
-        RDI: [
-          { name: "Indeks Simas Sri Kehati", rating: "5" },
-        ]
+        RDI: [{ name: "Indeks Simas Sri Kehati", rating: "5" }],
+        RDSYR: [
+          { name: "Simas Syariah Berkembang", rating: "4" },
+          {
+            name: "Syariah Simas Balance Syariah",
+            rating: "4",
+          },
+          {
+            name: "Syariah Simas Syariah Pendapatan Tetap",
+            rating: "4",
+          },
+          { name: "Simas Syariah Unggulan", rating: "5" },
+          { name: "Syariah Simas Equity Syariah", rating: "5" },
+          { name: "Simas ETF JII", rating: "5" },
+        ],
       },
       lang: {
         dailyPerformance: {
@@ -505,9 +521,9 @@ export default {
             });
           }
 
-          if(type === "RDPT"){
+          if (type === "RDPT") {
             const rdpt_codes = ["019"];
-             rdpt_codes.forEach((code) => {
+            rdpt_codes.forEach((code) => {
               const idx = this.products.findIndex(
                 (el) => el.product_id === code
               );
@@ -597,14 +613,14 @@ export default {
       // let modName = urlname.split()
       localStorage.setItem("urlname", urlname);
       // Staging URL
-      let baseUrl = 'https://sam.admire.id/final/';
+      let baseUrl = "https://sam.admire.id/final/";
 
       // Testing URL
       // let baseProdUrl = 'https://testing-sam.sinarmas-am.co.id/'
 
       // Live URl
-      let baseProdUrl = 'http://www.sinarmas-am.co.id/'
-      
+      let baseProdUrl = "http://www.sinarmas-am.co.id/";
+
       const url = baseProdUrl + modName;
       if (this.language === "id") {
         let idUrl = url + "-id";
@@ -636,18 +652,18 @@ export default {
       for (let i = 0; i < rawName.length; i++) {
         procName.push(rawName[i].charAt(0).toUpperCase() + rawName[i].slice(1));
       }
-    
-      console.log('capitalizeWords');
-      const capitalizeWords = ['ETF','JII', 'IDX30'];
+
+      console.log("capitalizeWords");
+      const capitalizeWords = ["ETF", "JII", "IDX30"];
       for (let i = 0; i < procName.length; i++) {
         for (let j = 0; j < capitalizeWords.length; j++) {
-           if(procName[i].toLowerCase() === capitalizeWords[j].toLowerCase()){
-            console.log(procName[i], capitalizeWords[j])
+          if (procName[i].toLowerCase() === capitalizeWords[j].toLowerCase()) {
+            console.log(procName[i], capitalizeWords[j]);
             procName[i] = capitalizeWords[j];
-           }
+          }
         }
       }
-      console.log(procName)
+      console.log(procName);
       const finalName = procName.join(" ");
 
       return finalName;
@@ -748,7 +764,6 @@ export default {
         .then((res) => {
           this.detail = res.data.data;
           data_ai = res.data.data;
-          console.log(data_ai);
         })
         .catch((error) => {
           console.error(error);
@@ -767,7 +782,7 @@ export default {
 }
 
 .detail-text:hover {
-  color: #E20505;
+  color: #e20505;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
